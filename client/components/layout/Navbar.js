@@ -72,7 +72,7 @@ export default function Navbar({ setBooks }) {
                 </div>
                 <div className="w-[0.25px] h-1/2 bg-gray-400 my-auto" />
                 <div className="flex items-center justify-between gap-2">
-                  <p className="hidden xl:inline text-xs text-gray-600">
+                  <p className="hidden xl:inline text-xs text-gray-600 tracking-wide">
                     {user?.name}
                   </p>
                   <NavMenu userNavigation={userNavigation} />
