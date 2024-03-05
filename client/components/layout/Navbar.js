@@ -12,7 +12,7 @@ import MobileNavMenu from "./MobileNavMenu";
 import NavMenu from "./NavMenu";
 import CTAButton from "../shared/CTAButton";
 
-export default function Navbar() {
+export default function Navbar({ setBooks }) {
   const router = useRouter();
   const userNavigation = [
     { name: "My Books", href: "/books" },
@@ -48,7 +48,7 @@ export default function Navbar() {
                   />
                 </div>
                 <div className="hidden md:inline w-[0.25px] h-1/2 bg-gray-400 my-auto" />
-                <SearchBar />
+                <SearchBar setBooks={setBooks} />
               </div>
               <div className="flex items-center md:absolute md:inset-y-0 md:right-0 lg:hidden">
                 {/* Mobile menu button */}
