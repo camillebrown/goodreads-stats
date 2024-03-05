@@ -1,7 +1,9 @@
+"use client";
 import "@/styles/globals.css";
+import axios from "axios";
 import { createContext, useState } from "react";
 import { Merriweather, Raleway } from "next/font/google";
-import axios from "axios";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -17,6 +19,7 @@ const merriweather = Merriweather({
 
 export const UserContext = createContext();
 export const ApiContext = createContext();
+export const queryClient = new QueryClient();
 
 const headers = {
   Accept: "application/json",
@@ -27,17 +30,19 @@ export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null);
 
   return (
-    <ApiContext.Provider
-      value={axios.create({
-        baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-        headers: headers,
-      })}
-    >
-      <UserContext.Provider value={{ user, setUser }}>
-        <main className={`${merriweather.variable} ${raleway.variable}`}>
-          <Component {...pageProps} />
-        </main>
-      </UserContext.Provider>
-    </ApiContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <ApiContext.Provider
+        value={axios.create({
+          baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+          headers: headers,
+        })}
+      >
+        <UserContext.Provider value={{ user, setUser }}>
+          <main className={`${merriweather.variable} ${raleway.variable}`}>
+            <Component {...pageProps} />
+          </main>
+        </UserContext.Provider>
+      </ApiContext.Provider>
+    </QueryClientProvider>
   );
 }

@@ -8,7 +8,7 @@ const {
   updateBook,
   deleteBook,
 } = require("../controllers/bookControllers");
-const isLoggedIn = require("./middleware/isLoggedIn");
+const isLoggedIn = require("../middleware/isLoggedIn");
 
 
 router.route("/test").get(testRoute);
