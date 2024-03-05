@@ -5,6 +5,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const keys = require("./config/keys");
+const corsOptions = require("./config/corsOptions");
 const userRoutes = require("./routes/userRoutes");
 const bookRoutes = require("./routes/bookRoutes");
 const { errorHandler } = require("./middleware/errorMiddleware");
@@ -25,10 +26,10 @@ app.use(
   })
 );
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
-require('./routes/authRoutes')(app);
+require("./routes/authRoutes")(app);
 app.use("/api/users", userRoutes);
 app.use("/api/books", bookRoutes);
 app.use(errorHandler);
