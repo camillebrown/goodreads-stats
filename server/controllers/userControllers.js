@@ -74,8 +74,11 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logout = (req, res) => {
-  req.session = null;
+  if (!req.session.user) {
+    return res.status(400).send("No user logged in");
+  }
 
+  req.session = null;
   res.clearCookie(keys.cookieKey);
   res.status(200).send("Logged out successfully");
 };

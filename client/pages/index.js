@@ -4,7 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 export default function Home() {
   const [books, setBooks] = useState();
   return (
-    <div className="font-raleway">
+    <div className="h-screen font-raleway bg-light-gray">
       <Navbar setBooks={setBooks} />
       <div>
         {books?.map((b, idx) => {

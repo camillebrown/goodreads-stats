@@ -11,7 +11,7 @@ export default function NavMenu({ userNavigation }) {
           <span className="absolute -inset-1.5" />
           <span className="sr-only">Open user menu</span>
           <UserCircleIcon
-            className="h-6 w-6 text-gray-500"
+            className="h-6 w-6 text-sage"
             aria-hidden="true"
           />
         </Menu.Button>

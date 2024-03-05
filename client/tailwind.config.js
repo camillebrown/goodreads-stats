@@ -10,7 +10,10 @@ module.exports = {
       colors: {
         cream: "#fcf5e2",
         mint: "#b8d9a6",
+        sage: "#49916d",
         salmon: "#eb7f56",
+        orange: "#d67c18",
+        'light-gray': "#f6f6f6",
       },
       fontFamily: {
         serif: ["var(--font-merriweather)"],
