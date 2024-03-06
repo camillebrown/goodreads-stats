@@ -21,3 +21,7 @@ export const loginUser = (api, values) => {
 export const registerUser = (api, values) => {
   return api.post("/api/users/register", { ...values });
 };
+
+export const logoutUser = (api) => {
+  return api.get("/api/users/logout");
+};

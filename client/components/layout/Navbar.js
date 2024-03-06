@@ -1,5 +1,6 @@
-import { Popover } from "@headlessui/react";
+import { useContext } from "react";
 import classNames from "classnames";
+import { Popover } from "@headlessui/react";
 import { useRouter } from "next/navigation";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 
@@ -9,18 +10,25 @@ import MobileNavButton from "./MobileNavButton";
 import MobileNavMenu from "./MobileNavMenu";
 import NavMenu from "./NavMenu";
 import SearchBar from "./SearchBar";
+import useUser from "@/hooks/useUser";
+import { ApiContext } from "@/pages/_app";
+import { logoutUser } from "@/actions/users";
 
 export default function Navbar() {
   const router = useRouter();
+  const api = useContext(ApiContext);
+  const { user, setUser } = useUser(api);
   const userNavigation = [
     { name: "My Books", href: "/books" },
     { name: "Dashboard", href: "/dashboard" },
     { name: "Profile", href: "/profile" },
   ];
 
-  const user = {
-    name: "Chelsea Hagon",
-    email: "chelsea.hagon@example.com",
+  const cta = () => {
+    if (!user) return router.push("/login");
+
+    logoutUser(api);
+    setUser(null);
   };
 
   return (
@@ -52,9 +60,9 @@ export default function Navbar() {
               <div className="hidden lg:flex lg:items-center lg:justify-end lg:gap-4 w-4/5 xl:w-7/12">
                 <div className="flex flex-shrink-0 justify-end items-center gap-6 px-2">
                   <CTAButton
-                    onClick={() => router.push("/login")}
-                    buttonClass="bg-orange hover:bg-indigo-500"
-                    buttonText="Login"
+                    onClick={cta}
+                    buttonClass="bg-orange hover:bg-deep-orange"
+                    buttonText={user ? "Sign Out" : "Sign In"}
                   />
                 </div>
                 <Divider height="h-1/2" color="bg-gray-400" />

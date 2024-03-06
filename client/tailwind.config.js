@@ -13,6 +13,7 @@ module.exports = {
         green: "#15643d",
         salmon: "#eb7f56",
         orange: "#d67c18",
+        'deep-orange': "#a05907",
         'light-gray': "#f6f6f6",
       },
       fontFamily: {

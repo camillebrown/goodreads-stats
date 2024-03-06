@@ -1,12 +1,13 @@
-import { getCurrentUser } from '@/actions/users'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
+
+import useUser from '@/hooks/useUser';
 import { ApiContext } from './_app'
 
 export default function Home() {
     const api = useContext(ApiContext);
-    useEffect(()=>{
-        getCurrentUser(api)
-    },[])
+    const user = useUser(api);
+    console.log(user)
+
   return (
     <div>home</div>
   )

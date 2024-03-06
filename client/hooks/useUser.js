@@ -11,16 +11,16 @@ function useUser(api) {
     const fetchCurrentUser = async () => {
       const currentUser = await getCurrentUser(api);
 
-      if (!user && !currentUser) {
-        router.push("/login");
+      if (!user && !currentUser?.data) {
+        router.push("/");
       }
       setUser(currentUser);
     };
 
-    fetchCurrentUser();
+    if (!user) fetchCurrentUser();
   }, [user]);
 
-  return user;
+  return { user, setUser };
 }
 
 export default useUser;

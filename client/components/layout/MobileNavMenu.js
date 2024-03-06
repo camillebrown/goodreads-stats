@@ -8,10 +8,10 @@ export default function MobileNavMenu({ user, userNavigation }) {
         <div className="mx-auto flex max-w-3xl items-center px-4 sm:px-6">
           <div>
             <div className="text-base font-medium text-gray-800">
-              {user.name}
+              {user?.name}
             </div>
             <div className="text-sm font-medium text-gray-500">
-              {user.email}
+              {user?.email}
             </div>
           </div>
         </div>
