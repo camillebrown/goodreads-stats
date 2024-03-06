@@ -10,7 +10,7 @@ import MobileNavMenu from "./MobileNavMenu";
 import NavMenu from "./NavMenu";
 import SearchBar from "./SearchBar";
 
-export default function Navbar({ setBooks }) {
+export default function Navbar() {
   const router = useRouter();
   const userNavigation = [
     { name: "My Books", href: "/books" },
@@ -46,7 +46,7 @@ export default function Navbar({ setBooks }) {
                   />
                 </div>
                 <Divider height="h-1/2" color="bg-gray-400" />
-                <SearchBar setBooks={setBooks} />
+                <SearchBar />
               </div>
               <MobileNavButton open={open} />
               <div className="hidden lg:flex lg:items-center lg:justify-end lg:gap-4 w-4/5 xl:w-7/12">

@@ -5,7 +5,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const keys = require("./config/keys");
-const corsOptions = require("./config/corsOptions");
 const userRoutes = require("./routes/userRoutes");
 const bookRoutes = require("./routes/bookRoutes");
 const { errorHandler } = require("./middleware/errorMiddleware");
