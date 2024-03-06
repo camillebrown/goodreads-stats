@@ -15,17 +15,24 @@ require("./models/Book");
 mongoose.connect(keys.mongoURI);
 
 const app = express();
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+  optionsSuccessStatus: 200,
+}
+
+app.use(cors(corsOptions));
 
 ////////////// MIDDLEWARE //////////////
 // Every call goes thru this
 app.use(
   cookieSession({
+    name: 'goodreader-session',
+    keys: [keys.cookieKey],
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    secret: keys.cookieKey,
   })
 );
 
-app.use(cors(corsOptions));
 app.use(express.json());
 
 require("./routes/authRoutes")(app);

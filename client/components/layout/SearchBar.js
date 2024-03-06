@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 import { getGoogleBooks } from "@/actions/google";
+import { BooksContext } from "@/pages/_app";
 
-export default function SearchBar({ setBooks }) {
+export default function SearchBar() {
+  const { setSearchResults } = useContext(BooksContext);
   const [searchTerm, setSearchTerm] = useState("");
 
   const onInputChange = async (e) => {
     if (!e.target.value) setBooks();
-    
+
     setSearchTerm(e.target.value);
     const result = await getGoogleBooks(e.target.value);
-    
-    setBooks(result?.data?.items);
+
+    setSearchResults(result?.data?.items);
   };
 
   return (
