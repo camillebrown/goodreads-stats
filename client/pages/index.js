@@ -35,7 +35,7 @@ export default function Home() {
 
   if (loading)
     return (
-      <Loading containerClass="w-full mt-10 flex items-center justify-center" />
+      <Loading size={80} containerClass="w-full mt-10 flex items-center justify-center" />
     );
 
   return (

@@ -24,6 +24,7 @@ export default function App({ Component, pageProps }) {
   const { pathname } = useRouter();
   const [user, setUser] = useState(null);
   const [books, setBooks] = useState(null);
+  const [dataLoading, setDataLoading] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
 
   const baseRoutes = ["/", "/login"];
@@ -39,7 +40,14 @@ export default function App({ Component, pageProps }) {
       >
         <UserContext.Provider value={{ user, setUser }}>
           <BooksContext.Provider
-            value={{ books, setBooks, searchResults, setSearchResults }}
+            value={{
+              books,
+              setBooks,
+              searchResults,
+              setSearchResults,
+              dataLoading,
+              setDataLoading,
+            }}
           >
             <main className={classNames(serif.variable, raleway.variable)}>
               {!baseRoutes.includes(pathname) && <Navbar />}
