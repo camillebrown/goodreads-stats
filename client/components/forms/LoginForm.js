@@ -11,13 +11,12 @@ export default function LoginForm() {
   const router = useRouter();
   const api = useContext(ApiContext);
   const { setUser } = useContext(UserContext);
-  const [error, setError] = useState();
 
   const onSubmit = async (values) => {
     loginUser(api, values)
       .then((res) => {
         setUser(res.data);
-        router.push("/home");
+        router.push("/home?content=browse");
       })
       .catch((err) => {
         console.log(err.response.data.message);

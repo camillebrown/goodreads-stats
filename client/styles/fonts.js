@@ -1,24 +1,43 @@
 import { Raleway } from "next/font/google";
 import localFont from "next/font/local";
 
-export const black_serif = localFont({
-  src: "../styles/fonts/Merriweather/Merriweather-Black.ttf",
-});
-export const black_italic_serif = localFont({
-  src: "../styles/fonts/Merriweather/Merriweather-BlackItalic.ttf",
-});
-export const bold_serif = localFont({
-  src: "../styles/fonts/Merriweather/Merriweather-Bold.ttf",
-});
-export const bold_italic_serif = localFont({
-  src: "../styles/fonts/Merriweather/Merriweather-BoldItalic.ttf",
-});
-export const light_serif = localFont({
-  src: "../styles/fonts/Merriweather/Merriweather-Light.ttf",
-});
-export const regular_serif = localFont({
-  src: "../styles/fonts/Merriweather/Merriweather-Regular.ttf",
-});
+export const serif = localFont({
+  src: [
+    {
+      path: '../styles/fonts/Merriweather/Merriweather-Black.ttf',
+      weight: '900',
+      style: 'normal',
+    },
+    {
+      path: '../styles/fonts/Merriweather/Merriweather-BlackItalic.ttf',
+      weight: '900',
+      style: 'italic',
+    },
+    {
+      path: '../styles/fonts/Merriweather/Merriweather-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../styles/fonts/Merriweather/Merriweather-BoldItalic.ttf',
+      weight: '700',
+      style: 'italic',
+    },
+    {
+      path: '../styles/fonts/Merriweather/Merriweather-Light.ttf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../styles/fonts/Merriweather/Merriweather-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  style: ["normal", "italic"],
+  weight: ["300", "400", "700", "900"],
+  variable: "--font-serif",
+})
 
 export const raleway = Raleway({
   subsets: ["latin"],

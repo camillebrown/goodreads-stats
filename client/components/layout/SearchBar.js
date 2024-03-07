@@ -18,8 +18,8 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="min-w-0 flex-1 xl:px-6 xl:w-2/3">
-      <div className="flex items-center px-2 lg:px-6 py-4 lg:mx-auto max-w-xl lg:max-w-3xl xl:mx-0 lg:max-w-none xl:px-0">
+    <div className="min-w-0 flex-1 lg:w-full">
+      <div className="flex items-center pt-4 pb-2 sm:pb-4 lg:mx-auto lg:max-w-3xl xl:mx-0 lg:max-w-none">
         <div className="w-full">
           <label htmlFor="search" className="sr-only">
             Search Books...
@@ -35,7 +35,7 @@ export default function SearchBar() {
               type="search"
               name="search"
               id="search"
-              className="pl-9 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 text-xs sm:text-sm sm:leading-6 tracking-wide"
+              className="pl-9 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 text-xs sm:text-sm sm:leading-6 tracking-wid focus:ring-orange"
               placeholder="Search for books..."
               value={searchTerm}
               onChange={onInputChange}

@@ -1,15 +1,14 @@
 import { useContext } from "react";
-import classNames from "classnames";
 import { Popover } from "@headlessui/react";
 import { useRouter } from "next/navigation";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
+import classNames from "classnames";
 
 import CTAButton from "../shared/CTAButton";
 import Divider from "../shared/Divider";
 import MobileNavButton from "./MobileNavButton";
 import MobileNavMenu from "./MobileNavMenu";
 import NavMenu from "./NavMenu";
-import SearchBar from "./SearchBar";
 import useUser from "@/hooks/useUser";
 import { ApiContext } from "@/pages/_app";
 import { logoutUser } from "@/actions/users";
@@ -37,16 +36,16 @@ export default function Navbar() {
       className={({ open }) =>
         classNames(
           open ? "fixed inset-0 z-40 h-min" : "",
-          "bg-white shadow-md lg:static lg:overflow-y-visible"
+          "fixed w-full top-0 z-50 bg-white shadow-md lg:sticky lg:overflow-y-visible font-raleway py-1 lg:py-3"
         )
       }
     >
       {({ open }) => (
         <>
-          <div className="mx-auto w-full py-0 md:py-8 lg:py-0 px-4 sm:px-4 lg:px-6">
+          <div className="relative mx-auto w-full py-0 md:py-5 lg:py-0 px-4 sm:px-4 lg:px-6">
             <div className="relative flex justify-between">
               <div className="flex items-center md:absolute md:inset-y-0 md:left-0 lg:static w-full md:w-4/5 xl:w-5/12 md:gap-2">
-                <div className="flex flex-shrink-0 items-center sm:w-1/12">
+                <div className="flex items-center sm:w-1/12">
                   <img
                     className="h-8 w-3/4 sm:w-auto"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -54,7 +53,6 @@ export default function Navbar() {
                   />
                 </div>
                 <Divider height="h-1/2" color="bg-gray-400" />
-                <SearchBar />
               </div>
               <MobileNavButton open={open} />
               <div className="hidden lg:flex lg:items-center lg:justify-end lg:gap-4 w-4/5 xl:w-7/12">

@@ -8,15 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import classNames from "classnames";
 import Navbar from "@/components/layout/Navbar";
 import { useRouter } from "next/router";
-import {
-  raleway,
-  black_serif,
-  black_italic_serif,
-  bold_serif,
-  bold_italic_serif,
-  light_serif,
-  regular_serif,
-} from "@/styles/fonts.js";
+import { raleway, serif } from "@/styles/fonts.js";
 
 export const ApiContext = createContext();
 export const BooksContext = createContext();
@@ -49,17 +41,7 @@ export default function App({ Component, pageProps }) {
           <BooksContext.Provider
             value={{ books, setBooks, searchResults, setSearchResults }}
           >
-            <main
-              className={classNames(
-                black_italic_serif.variable,
-                black_serif.variable,
-                bold_serif.variable,
-                bold_italic_serif.variable,
-                light_serif.variable,
-                regular_serif.variable,
-                raleway.variable
-              )}
-            >
+            <main className={classNames(serif.variable, raleway.variable)}>
               {!baseRoutes.includes(pathname) && <Navbar />}
               <Component {...pageProps} />
             </main>

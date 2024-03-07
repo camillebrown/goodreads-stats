@@ -17,9 +17,13 @@ module.exports = {
         'light-gray': "#f6f6f6",
       },
       fontFamily: {
-        serif: ["var(--font-merriweather)"],
+        serif: ["var(--font-serif)"],
         raleway: ["var(--font-raleway)"],
       },
+      screens:{
+        'xs': '480px',
+        'mid': '896px',
+      }
     },
   },
   plugins: [require("@tailwindcss/forms")],

@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
-import { UserContext } from "@/pages/_app";
+import { ApiContext, UserContext } from "@/pages/_app";
 import { getCurrentUser } from "@/actions/users";
 import { useRouter } from "next/router";
 
-function useUser(api) {
+function useUser() {
+  const api = useContext(ApiContext);
   const router = useRouter();
   const { user, setUser } = useContext(UserContext);
 
@@ -13,8 +14,9 @@ function useUser(api) {
 
       if (!user && !currentUser?.data) {
         router.push("/");
+      } else {
+        setUser(currentUser);
       }
-      setUser(currentUser);
     };
 
     if (!user) fetchCurrentUser();
