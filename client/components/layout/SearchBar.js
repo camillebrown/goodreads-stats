@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-import { getOLBooks } from "@/actions/google";
+import { getGoogleBooks, getOLBooks } from "@/actions/google";
 import { BooksContext } from "@/pages/_app";
 import Loading from "../shared/Loading";
 
@@ -17,9 +17,10 @@ export default function SearchBar() {
 
   const onSubmit = async () => {
     setDataLoading(true);
-    getOLBooks(searchTerm)
+    getGoogleBooks(searchTerm)
       .then((res) => {
-        setSearchResults(res?.data?.docs);
+        console.log(res)
+        setSearchResults(res);
         setDataLoading(false);
       })
       .catch((err) => {
