@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-import { getGoogleBooks, getOLBooks } from "@/actions/google";
+import { getGoogleBooks } from "@/actions/google";
 import { BooksContext } from "@/pages/_app";
 import Loading from "../shared/Loading";
 
@@ -19,7 +19,6 @@ export default function SearchBar() {
     setDataLoading(true);
     getGoogleBooks(searchTerm)
       .then((res) => {
-        console.log(res)
         setSearchResults(res);
         setDataLoading(false);
       })
@@ -49,10 +48,16 @@ export default function SearchBar() {
                   type="search"
                   name="search"
                   id="search"
-                  className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 text-xs sm:text-sm tracking-wid focus:ring-orange sm:text-sm sm:leading-6"
+                  autoComplete="new-password"
+                  className="block w-full rounded-none rounded-l-md py-1.5 pl-10 text-gray-900 placeholder:text-gray-400 text-xs sm:text-sm tracking-wide ring-inset ring-gray-300 focus:ring-transparent sm:text-sm sm:leading-6"
                   placeholder="Search for books..."
                   value={searchTerm}
                   onChange={onInputChange}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      onSubmit();
+                    }
+                  }}
                 />
               </div>
               <button
