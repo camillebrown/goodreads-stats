@@ -5,11 +5,10 @@ import { getGoogleBooks } from "@/actions/google";
 import { BooksContext } from "@/pages/_app";
 import Loading from "../shared/Loading";
 
-export default function SearchBar() {
-  const { setSearchResults, dataLoading, setDataLoading } =
-    useContext(BooksContext);
-  const [searchTerm, setSearchTerm] = useState("");
+export default function SearchBar({ setSearchResults }) {
+  const { dataLoading, setDataLoading } = useContext(BooksContext);
 
+  const [searchTerm, setSearchTerm] = useState("");
   const onInputChange = async (e) => {
     if (!e.target.value) setBooks();
     setSearchTerm(e.target.value);

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import Browse from "@/components/home/browse/Browse";
 import Loading from "@/components/shared/Loading";
@@ -7,7 +7,8 @@ import SideNav from "@/components/home/SideNav";
 import { BooksContext } from "./_app";
 
 export default function Home() {
-  const { searchResults, dataLoading } = useContext(BooksContext);
+  const { dataLoading } = useContext(BooksContext);
+  const [searchResults, setSearchResults] = useState(null);
 
   return (
     <div className="h-full bg-light-gray">
@@ -15,7 +16,7 @@ export default function Home() {
 
       <div className="xl:pl-56 py-12 lg:py-4 font-raleway">
         <div className="px-10">
-          <SearchBar />
+          <SearchBar setSearchResults={setSearchResults} />
           {dataLoading ? (
             <Loading containerClass="w-full flex justify-center mt-10" />
           ) : (

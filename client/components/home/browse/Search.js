@@ -1,10 +1,11 @@
 import React from "react";
 import { Rating } from "react-simple-star-rating";
 
-export default function Search({ searchResults }) {
+export default function Search({searchResults}) {
   const generateImageLink = (thumbnail) => {
     if (thumbnail) return `${thumbnail}&fife=w800`;
   };
+
   return (
     <div>
       {searchResults && (

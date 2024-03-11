@@ -12,6 +12,7 @@ import { raleway, serif } from "@/styles/fonts.js";
 
 export const ApiContext = createContext();
 export const BooksContext = createContext();
+export const SearchContext = createContext();
 export const UserContext = createContext();
 export const queryClient = new QueryClient();
 
@@ -25,7 +26,6 @@ export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null);
   const [books, setBooks] = useState(null);
   const [dataLoading, setDataLoading] = useState(false);
-  const [searchResults, setSearchResults] = useState(null);
 
   const baseRoutes = ["/", "/login"];
 
@@ -43,8 +43,6 @@ export default function App({ Component, pageProps }) {
             value={{
               books,
               setBooks,
-              searchResults,
-              setSearchResults,
               dataLoading,
               setDataLoading,
             }}
