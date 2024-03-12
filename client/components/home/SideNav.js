@@ -7,12 +7,30 @@ import {
   PresentationChartBarIcon,
   ServerIcon,
 } from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
 
 export default function SideNav() {
+  const router = useRouter();
+
   const browse = [
-    { name: "Top Books", href: "#", icon: ChartBarSquareIcon, current: false },
-    { name: "Discover", href: "#", icon: GlobeAltIcon, current: true },
-    { name: "Categories", href: "#", icon: ServerIcon, current: false },
+    {
+      name: "Discover",
+      onClickRoute: "/home?content=browse",
+      icon: GlobeAltIcon,
+      current: ['browse', 'search'].includes(router?.query?.content),
+    },
+    {
+      name: "Top Books",
+      onClickRoute: "/home?content=top_books",
+      icon: ChartBarSquareIcon,
+      current: router?.query?.content === "top_books",
+    },
+    {
+      name: "Categories",
+      onClickRoute: "/home?content=categories",
+      icon: ServerIcon,
+      current: router?.query?.content === "categories",
+    },
   ];
   const mybooks = [
     { name: "My Books", href: "#", icon: BookOpenIcon, current: false },
@@ -34,18 +52,22 @@ export default function SideNav() {
             </p>
             {browse.map((item) => (
               <div key={item.name}>
-                <a
-                  href={item.href}
+                <div
+                  onClick={() => {
+                    router.push(item.onClickRoute, undefined, {
+                      shallow: true,
+                    });
+                  }}
                   className={classNames(
                     item.current
                       ? "bg-sage/60 text-gray-800"
                       : "text-gray-800 hover:bg-sage/40",
-                    "group flex items-center gap-x-3 rounded-md p-1.5 leading-3 font-semibold"
+                    "group flex items-center gap-x-3 rounded-md p-1.5 leading-3 font-semibold cursor-pointer"
                   )}
                 >
                   <item.icon className="h-4 w-4 shrink-0" aria-hidden="true" />
                   {item.name}
-                </a>
+                </div>
               </div>
             ))}
           </div>
