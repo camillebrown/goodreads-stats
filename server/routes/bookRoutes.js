@@ -10,9 +10,8 @@ const {
 } = require("../controllers/bookControllers");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-
 router.route("/test").get(testRoute);
-router.route("/").get(isLoggedIn, getBooks);
+router.route("/:id").get(isLoggedIn, getBooks);
 router.route("/").post(isLoggedIn, createBook);
 router.route("/:id").put(isLoggedIn, updateBook);
 router.route("/:id").delete(isLoggedIn, deleteBook);

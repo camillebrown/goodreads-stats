@@ -3,7 +3,10 @@ const { Schema } = mongoose;
 
 const bookSchema = new Schema(
   {
-    book_name: {
+    google_id: {
+      type: String,
+    },
+    book_title: {
       type: String,
       required: true,
     },
@@ -13,27 +16,27 @@ const bookSchema = new Schema(
     },
     rating: {
       type: Number,
-      required: true,
       default: 0,
     },
     start_date: {
       type: Date,
-      required: true,
-      default: 0,
+      default: null,
     },
     end_date: {
       type: Date,
-      required: true,
-      default: 0,
+      default: null,
     },
     page_count: {
       type: Number,
-      required: true,
       default: 0,
     },
-    category: {
+    categories: {
+      type: [String],
+      default: [],
+    },
+    img: {
       type: String,
-      required: true,
+      default: '',
     },
     user: {
       type: mongoose.Types.ObjectId,

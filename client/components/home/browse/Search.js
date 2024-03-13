@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Rating } from "react-simple-star-rating";
 
 import useUser from "@/hooks/useUser";
 import AnimatedSaveBook from "@/components/shared/animated/AnimatedSaveBook";
+import { ApiContext } from "@/pages/_app";
+import { createBook, getUserBooks } from "@/actions/books";
 
 export default function Search({ searchResults }) {
   const { user } = useUser();
+  const api = useContext(ApiContext);
   const [isUserBook, setIsUserBook] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -14,12 +18,28 @@ export default function Search({ searchResults }) {
   };
 
   const saveToBooks = (r) => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsUserBook(true);
-      setIsLoading(false);
-    }, 1000);
+    // setIsLoading(true);
+    createBook(api, r)
+      .then((res) => {
+        console.log(res);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log("unable to save book", err);
+        setIsLoading(false);
+      });
+    // setTimeout(() => {
+    //   setIsUserBook(true);
+    //   setIsLoading(false);
+    // }, 1000);
   };
+
+  const { data: userBooks, error: booksError } = useQuery({
+    queryKey: ["books", user?.id],
+    queryFn: () => getUserBooks(api, user),
+    enabled: !!user && !!searchResults,
+    retry: false,
+  });
 
   return searchResults?.map((r, idx) => (
     <div key={idx}>
@@ -34,7 +54,7 @@ export default function Search({ searchResults }) {
         />
         <div
           className="absolute top-1 right-1 m-0.5 group cursor-pointer"
-          onClick={() => saveToBooks(r?.id)}
+          onClick={() => saveToBooks(r)}
         >
           <AnimatedSaveBook
             size="w-8 h-8"

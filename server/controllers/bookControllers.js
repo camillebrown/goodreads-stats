@@ -14,7 +14,9 @@ const testRoute = asyncHandler(async (req, res) => {
  */
 
 const getBooks = asyncHandler(async (req, res) => {
-  const foundUser = await User.findOne({ _id: req.body._id }).populate("books");
+  const foundUser = await User.findOne({ _id: req.params.id }).populate(
+    "books"
+  );
 
   if (foundUser) {
     res.status(201).json(foundUser.books);
@@ -30,43 +32,17 @@ const getBooks = asyncHandler(async (req, res) => {
  * @method POST
  */
 const createBook = asyncHandler(async (req, res) => {
-  console.log(req.body);
-  res.status(201).json({});
-  const {
-    book_name,
-    author,
-    rating,
-    start_date,
-    end_date,
-    page_count,
-    category,
-    user,
-  } = req.body;
-  //   const meal = await Meal.create({
-  //     meal_name,
-  //     protein,
-  //     fat,
-  //     carbs,
-  //     total_calories,
-  //     user: user._id,
-  //   });
+  const book = await Book.create({ ...req.body, user: req.session.user._id });
 
-  //   if (meal) {
-  //     const user = await User.findById({ _id: meal.user });
-  //     user.meals.push(meal);
-  //     await user.save();
-  //     res.status(201).json({
-  //       _id: meal._id,
-  //       meal_name: meal_name,
-  //       protein: protein,
-  //       fat: fat,
-  //       carbs: carbs,
-  //       total_calories: total_calories,
-  //     });
-  //   } else {
-  //     res.status(400);
-  //     throw new Error('Error occurred: Unable to create new meal');
-  //   }
+  if (book) {
+    const user = await User.findById({ _id: book.user });
+    user.books.push(book);
+    await user.save();
+    res.status(200).json({ ...book });
+  } else {
+    res.status(400);
+    throw new Error("Error occurred: Unable to create new book");
+  }
 });
 
 /***

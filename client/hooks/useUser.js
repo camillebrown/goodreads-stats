@@ -15,7 +15,7 @@ function useUser() {
       if (!user && !currentUser?.data) {
         router.push("/");
       } else {
-        setUser(currentUser);
+        setUser(currentUser?.data);
       }
     };
 

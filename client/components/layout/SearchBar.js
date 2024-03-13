@@ -1,12 +1,11 @@
 import React, { useContext, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-import { getGoogleBooks } from "@/actions/google";
 import { BooksContext } from "@/pages/_app";
-import Loading from "../shared/Loading";
+import { getGoogleBooks } from "@/actions/google";
 
 export default function SearchBar({ setContent, setSearchResults }) {
-  const { dataLoading, setDataLoading } = useContext(BooksContext);
+  const { setDataLoading } = useContext(BooksContext);
 
   const [searchTerm, setSearchTerm] = useState("");
   const onInputChange = async (e) => {
@@ -67,7 +66,7 @@ export default function SearchBar({ setContent, setSearchResults }) {
                 className="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-8 py-2 text-sm font-regular tracking-wide text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-orange hover:text-white hover:cursor-pointer"
                 onClick={onSubmit}
               >
-                {dataLoading ? <Loading size={20} color="#15643d" /> : "Search"}
+                Search
               </button>
             </div>
           </div>

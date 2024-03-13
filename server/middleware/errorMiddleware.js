@@ -1,10 +1,18 @@
 const errorHandler = (err, req, res, next) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  const statusCode = err.status || 500;
   res.status(statusCode);
-  res.json({
-    message: err.message,
-    stack: process.env.NODE_ENV === "production" ? null : err.stack,
-  });
+  if (statusCode === 500 && err.message === "User not logged in") {
+    res.json({
+      message: err.message,
+      action: "redirect",
+      redirectTo: "/login",
+    });
+  } else {
+    res.json({
+      message: err.message || "An unexpected error occurred",
+      stack: process.env.NODE_ENV === "production" ? null : err.stack,
+    });
+  }
 };
 
 module.exports = { errorHandler };
