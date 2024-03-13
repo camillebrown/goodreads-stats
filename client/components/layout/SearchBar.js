@@ -12,7 +12,7 @@ export default function SearchBar({ setContent, setSearchResults }) {
   const onInputChange = async (e) => {
     if (!e.target.value) {
       setSearchTerm("");
-      setContent('browse')
+      setContent("browse");
     }
     setSearchTerm(e.target.value);
   };
@@ -67,7 +67,7 @@ export default function SearchBar({ setContent, setSearchResults }) {
                 className="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-8 py-2 text-sm font-regular tracking-wide text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-orange hover:text-white hover:cursor-pointer"
                 onClick={onSubmit}
               >
-                {dataLoading ? <Loading size={20} /> : "Search"}
+                {dataLoading ? <Loading size={20} color="#15643d" /> : "Search"}
               </button>
             </div>
           </div>

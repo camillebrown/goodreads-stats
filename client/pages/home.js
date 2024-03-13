@@ -22,9 +22,15 @@ export default function Home() {
 
       <div className="xl:pl-56 py-12 lg:py-4 font-raleway">
         <div className="px-10">
-          <SearchBar setContent={setContent} setSearchResults={setSearchResults} />
+          <SearchBar
+            setContent={setContent}
+            setSearchResults={setSearchResults}
+          />
           {dataLoading ? (
-            <Loading containerClass="w-full flex justify-center mt-10" />
+            <Loading
+              color="#15643d"
+              containerClass="w-full flex justify-center mt-10"
+            />
           ) : (
             <Discovery content={content} searchResults={searchResults} />
           )}

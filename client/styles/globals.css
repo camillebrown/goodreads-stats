@@ -14,16 +14,50 @@ main {
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 30px #ddece4 inset !important;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ddece4 inset !important;
+}
+
+[type="search"]:focus {
+  border-color: rgb(154, 158, 163);
 }
 
 svg.star-svg {
   display: inline;
 }
 
-[type='search']:focus{
-  border-color: rgb(154, 158, 163);
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-miterlimit: 10;
+}
+.checkmark {
+  stroke-miterlimit: 10;
+}
+
+.checkmark__check {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  color: #68c079
+}
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 10px 20px 30px #d67c18;
+  }
 }
