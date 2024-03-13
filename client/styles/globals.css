@@ -40,7 +40,6 @@ svg.star-svg {
 .checkmark__check {
   stroke-dasharray: 48;
   stroke-dashoffset: 48;
-  color: #68c079
 }
 @keyframes stroke {
   100% {

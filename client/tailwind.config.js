@@ -10,7 +10,6 @@ module.exports = {
       colors: {
         cream: "#fcf5e2",
         sage: "#49916d",
-        'bright-green': "#68c079",
         green: "#15643d",
         salmon: "#eb7f56",
         orange: "#d67c18",

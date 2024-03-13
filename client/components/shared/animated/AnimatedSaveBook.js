@@ -19,7 +19,7 @@ export default function AnimatedSaveBook({
   };
 
   return (
-    <div>
+    <div className="transition-opacity duration-500">
       {isUserBook ? (
         <AnimatedSuccessIcon {...props} />
       ) : (

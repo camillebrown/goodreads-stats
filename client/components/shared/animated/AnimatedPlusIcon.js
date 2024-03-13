@@ -28,7 +28,7 @@ export default function AnimatedPlusIcon({
     >
       <circle
         className={classNames(
-          "stroke-1 animate-stroke fill-sage group-hover:fill-bright-green",
+          "stroke-1 animate-stroke fill-sage group-hover:fill-green",
           addBGColor
         )}
         cx="17"

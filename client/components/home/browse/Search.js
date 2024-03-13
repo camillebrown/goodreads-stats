@@ -40,7 +40,7 @@ export default function Search({ searchResults }) {
             size="w-8 h-8"
             iconColor="stroke-white"
             isLoading={isLoading}
-            addBGColor="stroke-sage"
+            addBGColor="stroke-sage group-hover:stroke-green"
             successBGColor="stroke-orange"
             isUserBook={isUserBook}
           />
