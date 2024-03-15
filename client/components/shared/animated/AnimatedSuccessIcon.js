@@ -10,24 +10,24 @@ export default function AnimatedSuccessIcon({
   createdAt,
   successBGColor,
 }) {
-  const justCreated = difference_in_seconds(DateTime.fromISO(createdAt)) < 45;
+  const justCreated = difference_in_seconds(DateTime.fromISO(createdAt)) < 15;
+
+  if (!justCreated) return;
 
   return (
     <svg
       className={classNames(
-        "checkmark stroke-2 block rounded-full my-[10%] mx-auto",
+        "checkmark stroke-2 block rounded-full my-[10%] mx-auto animate-fill-scale",
         size,
-        iconColor,
-        justCreated ? "animate-fill-scale" : "shadow-orange"
+        iconColor
       )}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 52 52"
     >
       <circle
         className={classNames(
-          "checkmark__circle stroke-2 fill-none",
-          successBGColor,
-          justCreated ? "animate-stroke" : "check-stroke"
+          "checkmark__circle stroke-2 fill-none animate-stroke",
+          successBGColor
         )}
         cx="26"
         cy="26"
@@ -35,10 +35,7 @@ export default function AnimatedSuccessIcon({
         fill="none"
       />{" "}
       <path
-        className={classNames(
-          "checkmark__check origin-[50%_50%]",
-          justCreated ? "animate-stroke-slow" : "check-stroke"
-        )}
+        className="checkmark__check origin-[50%_50%] animate-stroke-slow"
         fill="none"
         d="M14.1 27.2l7.1 7.2 16.7-16.8"
       />

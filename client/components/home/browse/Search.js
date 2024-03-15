@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import classNames from "classnames";
 import { useQuery } from "@tanstack/react-query";
 import { Rating } from "react-simple-star-rating";
 
@@ -41,6 +42,7 @@ export default function Search({ searchResults }) {
       });
   };
 
+  //DO SOMETHING WITH THESE BOOK ERRORS
   const { data: userBooks, error: booksError } = useQuery({
     queryKey: ["books", user?.id],
     queryFn: () => getUserBooks(api, user),
@@ -48,13 +50,15 @@ export default function Search({ searchResults }) {
     retry: false,
   });
 
+  console.log(userBooks)
+
   useEffect(() => {
     if (userBooks && searchResults) {
       setFullSearchResults(getFullSearchResults(userBooks, searchResults));
     }
   }, [userBooks, searchResults]);
 
-  if (!fullSearchResults)
+  if (searchResults && !fullSearchResults)
     return (
       <Loading
         className="w-14 h-14"
@@ -76,7 +80,9 @@ export default function Search({ searchResults }) {
               className="h-full w-full object-cover object-center"
             />
             <div
-              className="absolute top-1 right-1 m-0.5 group cursor-pointer"
+              className={classNames("absolute top-1 right-1 m-0.5 group", {
+                "cursor-pointer": !r?.user_saved,
+              })}
               onClick={() => {
                 !r?.user_saved && saveToBooks(r);
               }}
@@ -103,7 +109,11 @@ export default function Search({ searchResults }) {
             fillColor="#15643d"
             initialValue={r?.volumeInfo?.averageRating || 0}
             readonly
+            className="leading-3"
           />
+          {r?.user_saved && (
+            <p className="font-semibold text-xs text-orange">In Your Library</p>
+          )}
         </div>
       ))}
     </div>
