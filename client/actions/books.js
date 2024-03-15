@@ -20,13 +20,5 @@ export const createBook = (api, book) => {
     img: book.volumeInfo?.imageLinks?.thumbnail,
   };
 
-  return api
-    .post("/api/books", { ...formattedBook })
-
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log("unable to get books");
-    });
+  return api.post("/api/books", { ...formattedBook });
 };

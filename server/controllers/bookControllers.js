@@ -74,9 +74,24 @@ const updateBook = asyncHandler(async (req, res) => {
  * @route http://localhost:8080/api/books/:id
  * @method DELETE
  */
-const deleteBook = (req, res) => {
-  console.log(req.body);
-  // res.status(200);
-};
+const deleteBook = asyncHandler(async (req, res) => {
+  const book = await Book.findOne({
+    _id: req.params.id,
+    user: req.session.user._id,
+  });
+  if (!book) {
+    return res
+      .status(404)
+      .send("Book not found or does not belong to the user");
+  }
+
+  await Book.deleteOne({ _id: req.params.id });
+
+  await User.findByIdAndUpdate(req.session.user._id, {
+    $pull: { books: req.params.id },
+  });
+
+  res.status(200).send("Book deleted successfully");
+});
 
 module.exports = { testRoute, getBooks, createBook, updateBook, deleteBook };

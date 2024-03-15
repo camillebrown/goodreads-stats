@@ -3,12 +3,13 @@ import AnimatedPlusIcon from "./AnimatedPlusIcon";
 import AnimatedSuccessIcon from "./AnimatedSuccessIcon";
 
 export default function AnimatedSaveBook({
-  isUserBook,
   addBGColor,
-  size,
+  createdAt,
   iconColor,
-  successBGColor,
   isLoading,
+  isUserBook,
+  size,
+  successBGColor,
 }) {
   const props = {
     size,
@@ -16,6 +17,7 @@ export default function AnimatedSaveBook({
     addBGColor,
     isLoading,
     successBGColor,
+    createdAt
   };
 
   return (

@@ -5,6 +5,7 @@ const bookSchema = new Schema(
   {
     google_id: {
       type: String,
+      unique: true,
     },
     book_title: {
       type: String,

@@ -1,16 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Rating } from "react-simple-star-rating";
 
 import useUser from "@/hooks/useUser";
+import useToast from "@/hooks/useToast";
+import Loading from "@/components/shared/Loading";
 import AnimatedSaveBook from "@/components/shared/animated/AnimatedSaveBook";
-import { ApiContext } from "@/pages/_app";
 import { createBook, getUserBooks } from "@/actions/books";
+import { ApiContext, queryClient } from "@/pages/_app";
+import { getFullSearchResults } from "./search_functions";
 
 export default function Search({ searchResults }) {
   const { user } = useUser();
   const api = useContext(ApiContext);
-  const [isUserBook, setIsUserBook] = useState(false);
+  const makeToast = useToast();
+  const [fullSearchResults, setFullSearchResults] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   const generateImageLink = (thumbnail) => {
@@ -18,20 +22,23 @@ export default function Search({ searchResults }) {
   };
 
   const saveToBooks = (r) => {
-    // setIsLoading(true);
+    setIsLoading(true);
     createBook(api, r)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        makeToast("Book added to your library!", "success", "px-8");
+        queryClient.invalidateQueries({ queryKey: ["books"] });
         setIsLoading(false);
       })
       .catch((err) => {
-        console.log("unable to save book", err);
+        let msg;
+        if (err.response.status === 400) {
+          msg = err.response.data.message;
+        } else {
+          msg = "An Error Occurred: Unable to save book to library.";
+        }
+        makeToast(msg, "error", "px-16");
         setIsLoading(false);
       });
-    // setTimeout(() => {
-    //   setIsUserBook(true);
-    //   setIsLoading(false);
-    // }, 1000);
   };
 
   const { data: userBooks, error: booksError } = useQuery({
@@ -41,43 +48,64 @@ export default function Search({ searchResults }) {
     retry: false,
   });
 
-  return searchResults?.map((r, idx) => (
-    <div key={idx}>
-      <div
-        key={idx}
-        className="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7"
-      >
-        <img
-          src={generateImageLink(r?.volumeInfo?.imageLinks?.thumbnail)}
-          alt={r?.volumeInfo?.title}
-          className="h-full w-full object-cover object-center"
-        />
-        <div
-          className="absolute top-1 right-1 m-0.5 group cursor-pointer"
-          onClick={() => saveToBooks(r)}
-        >
-          <AnimatedSaveBook
-            size="w-8 h-8"
-            iconColor="stroke-white"
-            isLoading={isLoading}
-            addBGColor="stroke-sage group-hover:stroke-green"
-            successBGColor="stroke-orange"
-            isUserBook={isUserBook}
+  useEffect(() => {
+    if (userBooks && searchResults) {
+      setFullSearchResults(getFullSearchResults(userBooks, searchResults));
+    }
+  }, [userBooks, searchResults]);
+
+  if (!fullSearchResults)
+    return (
+      <Loading
+        className="w-14 h-14"
+        containerClass="w-full flex justify-center mt-10"
+      />
+    );
+
+  return (
+    <div className="my-4 w-full grid gap-x-6 gap-y-10 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 mid:grid-cols-5 lg:grid-cols-6 xl:grid-cols-6 xl:gap-x-8">
+      {fullSearchResults?.map((r, idx) => (
+        <div key={idx}>
+          <div
+            key={idx}
+            className="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7"
+          >
+            <img
+              src={generateImageLink(r?.volumeInfo?.imageLinks?.thumbnail)}
+              alt={r?.volumeInfo?.title}
+              className="h-full w-full object-cover object-center"
+            />
+            <div
+              className="absolute top-1 right-1 m-0.5 group cursor-pointer"
+              onClick={() => {
+                !r?.user_saved && saveToBooks(r);
+              }}
+            >
+              <AnimatedSaveBook
+                size="w-8 h-8"
+                iconColor="stroke-white"
+                isLoading={isLoading}
+                addBGColor="stroke-sage group-hover:stroke-green"
+                successBGColor="stroke-orange"
+                isUserBook={r?.user_saved}
+                createdAt={r?.book_saved_at}
+              />
+            </div>
+          </div>
+          <h3 className="mt-2 text-sm font-semibold tracking-wide text-gray-700 truncate">
+            {r?.volumeInfo?.title}
+          </h3>
+          <h3 className="text-sm font-regular tracking-wide text-gray-400 truncate">
+            {r?.volumeInfo?.authors?.[0]}
+          </h3>
+          <Rating
+            size={10}
+            fillColor="#15643d"
+            initialValue={r?.volumeInfo?.averageRating || 0}
+            readonly
           />
         </div>
-      </div>
-      <h3 className="mt-2 text-sm font-semibold tracking-wide text-gray-700 truncate">
-        {r?.volumeInfo?.title}
-      </h3>
-      <h3 className="text-sm font-regular tracking-wide text-gray-400 truncate">
-        {r?.volumeInfo?.authors?.[0]}
-      </h3>
-      <Rating
-        size={10}
-        fillColor="#15643d"
-        initialValue={r?.volumeInfo?.averageRating || 0}
-        readonly
-      />
+      ))}
     </div>
-  ));
+  );
 }
