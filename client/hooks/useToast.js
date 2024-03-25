@@ -6,15 +6,14 @@ import {
 } from "@heroicons/react/24/outline";
 
 export default function useToast() {
-  const makeToast = (msg, type, toastClass) =>
-    toast.custom((t) => (
+  function makeToast(msg, type, toastClass) {
+    return toast.custom((t) => (
       <div
         className={classNames(
           "absolute top-3 right-3 shadow-lg mx-auto w-96 max-w-full text-sm pointer-events-auto bg-clip-padding rounded-lg block mb-3",
           t.visible ? "toast-in" : "toast-out",
           toastClass
         )}
-        style={{ background: type === "error" ? "#e22d20" : "#16a34a" }}
         id="static-example"
         role="alert"
         aria-live="assertive"
@@ -35,6 +34,7 @@ export default function useToast() {
         </div>
       </div>
     ));
+  }
 
   return makeToast;
 }

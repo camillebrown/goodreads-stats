@@ -2,9 +2,8 @@ import { useContext, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-import useUser from "@/hooks/useUser";
 import Loading from "@/components/shared/Loading";
-import { ApiContext } from "./_app";
+import { ApiContext, UserContext } from "./_app";
 import { logoutUser } from "@/actions/users";
 import { useRouter } from "next/router";
 
@@ -17,7 +16,7 @@ const navigation = [
 export default function Home() {
   const router = useRouter();
   const api = useContext(ApiContext);
-  const { user, setUser } = useUser();
+  const { user, setUser } = useContext(UserContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 

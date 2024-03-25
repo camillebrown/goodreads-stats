@@ -21,7 +21,7 @@ export default function Login() {
         </div>
       </div>
       <div className="relative hidden w-0 flex-1 lg:flex flex-col items-center justify-center px-4">
-        <Image src={home} alt="Guy sitting on couch" className="w-3/5" />
+        <Image src={home} alt="Guy sitting on couch" className="w-3/5" priority/>
       </div>
     </div>
   );

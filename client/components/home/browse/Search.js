@@ -3,17 +3,16 @@ import classNames from "classnames";
 import { useQuery } from "@tanstack/react-query";
 import { Rating } from "react-simple-star-rating";
 
-import useUser from "@/hooks/useUser";
 import useToast from "@/hooks/useToast";
 import Loading from "@/components/shared/Loading";
 import AnimatedSaveBook from "@/components/shared/animated/AnimatedSaveBook";
 import { createBook, getUserBooks } from "@/actions/books";
-import { ApiContext, queryClient } from "@/pages/_app";
+import { ApiContext, queryClient, UserContext } from "@/pages/_app";
 import { getFullSearchResults } from "./search_functions";
 
 export default function Search({ searchResults }) {
-  const { user } = useUser();
   const api = useContext(ApiContext);
+  const { user } = useContext(UserContext);
   const makeToast = useToast();
   const [fullSearchResults, setFullSearchResults] = useState();
   const [isLoading, setIsLoading] = useState(false);

@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 import OAuthLinks from "./OAuthLinks";
 import { ApiContext, UserContext } from "@/pages/_app";
@@ -11,6 +12,7 @@ export default function LoginForm() {
   const router = useRouter();
   const api = useContext(ApiContext);
   const { setUser } = useContext(UserContext);
+  const [error, setError] = useState();
 
   const onSubmit = async (values) => {
     loginUser(api, values)
@@ -20,6 +22,7 @@ export default function LoginForm() {
       })
       .catch((err) => {
         console.log(err.response.data.message);
+        setError(err.response.data.message);
       });
   };
 
@@ -47,7 +50,7 @@ export default function LoginForm() {
                 name="email"
                 type="email"
                 autoComplete="new-password"
-                placeholder='Email'
+                placeholder="Email"
                 required
                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange sm:text-sm sm:leading-6"
               />
@@ -71,7 +74,7 @@ export default function LoginForm() {
                 id="password"
                 name="password"
                 type="password"
-                placeholder='Password'
+                placeholder="Password"
                 autoComplete="new-password"
                 required
                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange sm:text-sm sm:leading-6"
@@ -82,8 +85,24 @@ export default function LoginForm() {
                 name="password"
               />
             </div>
+            {error && (
+              <div className="flex items-center my-1.5">
+                <div className="flex-shrink-0">
+                  <ExclamationTriangleIcon
+                    className="h-4 w-4 text-error-red"
+                    aria-hidden="true"
+                  />
+                </div>
+                <div className="ml-2">
+                  <h3 className="text-xs font-medium text-error-red">
+                    {error}
+                  </h3>
+                </div>
+              </div>
+            )}
           </div>
 
+          {/* TODO!!! what happens here!! */}
           <div className="flex justify-end">
             <div className="text-sm leading-6">
               <a
@@ -94,7 +113,6 @@ export default function LoginForm() {
               </a>
             </div>
           </div>
-
           <div>
             <button
               type="submit"
@@ -107,7 +125,7 @@ export default function LoginForm() {
       </Formik>
 
       {/* <OAuthLinks />
-        Add Google Oauth Link!!!
+        TODO: Add Google Oauth Link!!!
       */}
     </div>
   );

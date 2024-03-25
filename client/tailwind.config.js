@@ -17,6 +17,7 @@ module.exports = {
         "bright-green": "#1aae5f",
         "deep-orange": "#a05907",
         "light-gray": "#f6f6f6",
+        "success-green": "#16a34a"
       },
       fontFamily: {
         serif: ["var(--font-serif)"],

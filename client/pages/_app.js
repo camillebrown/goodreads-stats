@@ -2,15 +2,15 @@
 import "@/styles/globals.css";
 import "@/styles/fonts.js";
 import axios from "axios";
-import { createContext, useEffect, useContext, useState } from "react";
+import classNames from "classnames";
+import { Toaster } from "react-hot-toast";
+import { useRouter } from "next/router";
+import { createContext, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import classNames from "classnames";
 import Navbar from "@/components/layout/Navbar";
-import { useRouter } from "next/router";
+import useAuth from "@/hooks/useAuth";
 import { raleway, serif } from "@/styles/fonts.js";
-import { getCurrentUser } from "@/actions/users";
-import useToast from "@/hooks/useToast";
 
 export const ApiContext = createContext();
 export const BooksContext = createContext();
@@ -24,12 +24,14 @@ const headers = {
 };
 
 export default function App({ Component, pageProps }) {
+  const RequireAuth = useAuth();
   const { pathname } = useRouter();
   const [user, setUser] = useState(null);
   const [books, setBooks] = useState(null);
   const [dataLoading, setDataLoading] = useState(false);
 
   const baseRoutes = ["/", "/login"];
+  const isBaseRoute = baseRoutes.includes(pathname);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -50,48 +52,31 @@ export default function App({ Component, pageProps }) {
             }}
           >
             <main className={classNames(serif.variable, raleway.variable)}>
-              {!baseRoutes.includes(pathname) && <Navbar />}
-              <RequireAuth>
+              <Toaster
+                position="top-center"
+                reverseOrder={false}
+                gutter={8}
+                toastOptions={{
+                  duration: 3000,
+                  style: {
+                    boxShadow: "none",
+                    minWidth: "20%",
+                    background: "none",
+                  },
+                }}
+              />
+              {!isBaseRoute && <Navbar />}
+              {isBaseRoute ? (
                 <Component {...pageProps} />
-              </RequireAuth>
+              ) : (
+                <RequireAuth>
+                  <Component {...pageProps} />
+                </RequireAuth>
+              )}
             </main>
           </BooksContext.Provider>
         </UserContext.Provider>
       </ApiContext.Provider>
     </QueryClientProvider>
   );
-}
-
-function RequireAuth({ children }) {
-  const router = useRouter();
-  const api = useContext(ApiContext);
-  const makeToast = useToast();
-
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const current_user = await getCurrentUser(api);
-        if (current_user) {
-          api.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${current_user.token}`;
-        }
-      } catch (error) {
-        makeToast(
-          error.response.status === 401
-            ? "You are being logged out due to inactivity"
-            : "Error fetching current user",
-          "error",
-          "px-8"
-        );
-        setTimeout(() => {
-          router.push("/");
-        }, 2000);
-      }
-    };
-
-    fetchCurrentUser();
-  }, []);
-
-  return children;
 }

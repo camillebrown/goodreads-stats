@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { Popover } from "@headlessui/react";
-import { useRouter } from "next/navigation";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 
@@ -9,14 +8,12 @@ import Divider from "../shared/Divider";
 import MobileNavButton from "./MobileNavButton";
 import MobileNavMenu from "./MobileNavMenu";
 import NavMenu from "./NavMenu";
-import useUser from "@/hooks/useUser";
-import { ApiContext } from "@/pages/_app";
+import { ApiContext, UserContext } from "@/pages/_app";
 import { logoutUser } from "@/actions/users";
 
 export default function Navbar() {
-  const router = useRouter();
   const api = useContext(ApiContext);
-  const { user, setUser } = useUser(api);
+  const { user, setUser } = useContext(UserContext);
   const userNavigation = [
     { name: "My Books", href: "/books" },
     { name: "Dashboard", href: "/dashboard" },
@@ -24,8 +21,6 @@ export default function Navbar() {
   ];
 
   const cta = () => {
-    if (!user) return router.push("/login");
-
     logoutUser(api);
     setUser(null);
   };
