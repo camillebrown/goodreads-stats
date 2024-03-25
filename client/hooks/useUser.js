@@ -1,21 +1,33 @@
 import { useContext, useEffect } from "react";
-import { ApiContext, UserContext } from "@/pages/_app";
-import { getCurrentUser } from "@/actions/users";
 import { useRouter } from "next/router";
+import { DateTime } from "luxon";
+
+import { UserContext } from "@/pages/_app";
 
 function useUser() {
-  const api = useContext(ApiContext);
   const router = useRouter();
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const fetchCurrentUser = async () => {
-      const currentUser = await getCurrentUser(api);
+    const userData = JSON.parse(localStorage.getItem("goodreader-auth"));
 
-      if (!user && !currentUser?.data) {
-        router.push("/");
+    if (userData)
+      console.log({
+        expires: DateTime.fromMillis(userData?.expires).toLocaleString(
+          DateTime.DATETIME_FULL_WITH_SECONDS
+        ),
+        isExpired: DateTime.now() > DateTime.fromMillis(userData?.expires),
+      });
+
+    const fetchCurrentUser = async () => {
+      if (
+        !userData ||
+        DateTime.now() > DateTime.fromMillis(userData?.expires)
+      ) {
+        localStorage.removeItem("goodreader-auth");
+        router.push("/login");
       } else {
-        setUser(currentUser?.data);
+        setUser(userData);
       }
     };
 

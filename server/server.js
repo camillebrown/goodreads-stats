@@ -1,5 +1,4 @@
 require("dotenv").config();
-const cookieSession = require("cookie-session");
 const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -25,14 +24,6 @@ app.use(cors(corsOptions));
 
 ////////////// MIDDLEWARE //////////////
 // Every call goes thru this
-app.use(
-  cookieSession({
-    name: 'goodreader-session',
-    keys: [keys.cookieKey],
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-  })
-);
-
 app.use(express.json());
 
 require("./routes/authRoutes")(app);

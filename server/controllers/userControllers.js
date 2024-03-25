@@ -36,13 +36,19 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
   });
+  
+  const { token, expiresIn } = generateToken(user._id);
+  //TODO: CHANGE TO 24 HOURS
+  const now = new Date();
+  const expirationDate = new Date(now.getTime() + expiresIn * 1000);
 
   if (user) {
     res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),
+      token,
+      expires: expirationDate.getTime(),
     });
   } else {
     res.status(400);
@@ -53,19 +59,20 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
+  
+  const { token, expiresIn } = generateToken(user._id);
+  
+  //TODO: CHANGE TO 24 HOURS
+  const now = new Date();
+  const expirationDate = new Date(now.getTime() + expiresIn * 1000);
 
   if (user && (await user.matchPassword(password))) {
-    req.session.user = {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-    };
-
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),
+      token,
+      expires: expirationDate.getTime(),
     });
   } else {
     res.status(400);
@@ -74,12 +81,6 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logout = (req, res) => {
-  if (!req.session.user) {
-    return res.status(400).send("No user logged in");
-  }
-
-  req.session = null;
-  res.clearCookie(keys.cookieKey);
   res.status(200).send("Logged out successfully");
 };
 
