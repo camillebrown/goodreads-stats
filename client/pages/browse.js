@@ -1,10 +1,10 @@
 import { useEffect, useContext, useState } from "react";
 import { useRouter } from "next/router";
 
-import Discovery from "@/components/home/browse/Discovery";
+import Browse from "@/components/browse/Browse";
 import Loading from "@/components/shared/Loading";
 import SearchBar from "@/components/layout/SearchBar";
-import SideNav from "@/components/home/SideNav";
+import SideNav from "@/components/layout/SideNav";
 import { BooksContext } from "./_app";
 
 export default function Home() {
@@ -12,21 +12,18 @@ export default function Home() {
   const urlContent = router?.query?.content;
   const { searchResults, dataLoading } = useContext(BooksContext);
 
-  const [content, setContent] = useState("browse");
+  const [content, setContent] = useState("discover");
 
   useEffect(() => {
-    setContent(urlContent ? urlContent : "browse");
+    setContent(urlContent ? urlContent : "discover");
   }, [urlContent]);
 
+  console.log({ searchResults });
   useEffect(() => {
-    if (searchResults && urlContent !== 'search') {
-      router.push("/home?content=search", undefined, { shallow: true });
-    }
-    if (!searchResults && urlContent === 'search') {
-      router.push("/home?content=browse", undefined, { shallow: true });
+    if (!searchResults && urlContent === "search") {
+      router.push("/home?content=discover", undefined, { shallow: true });
     }
   }, [dataLoading, searchResults, urlContent, router]);
-  
 
   return (
     <div className="h-full bg-light-gray">
@@ -35,13 +32,16 @@ export default function Home() {
       <div className="xl:pl-56 py-12 lg:py-4 font-raleway">
         <div className="px-10">
           <SearchBar setContent={setContent} />
+          {searchResults && content !== "search" && (
+            <button>Back to my Search</button>
+          )}
           {dataLoading ? (
             <Loading
               color="#15643d"
               containerClass="w-full flex justify-center mt-10"
             />
           ) : (
-            <Discovery content={content} />
+            <Browse content={content} />
           )}
         </div>
       </div>

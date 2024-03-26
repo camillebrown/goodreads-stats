@@ -1,27 +1,27 @@
 import React, { useContext } from "react";
 
-import Browse from "./DiscoveryTabs/Browse";
-import Categories from "./DiscoveryTabs/Categories";
+import Discover from "./BrowseTabs/Discover";
+import Categories from "./BrowseTabs/Categories";
 import Loading from "@/components/shared/Loading";
 import Search from "./Search";
-import TopBooks from "./DiscoveryTabs/TopBooks";
+import TopBooks from "./BrowseTabs/TopBooks";
 import { BooksContext } from "@/pages/_app";
 
-export default function Discovery({ content }) {
+export default function Browse({ content, viewResults }) {
   const { searchResults } = useContext(BooksContext);
 
   const getContent = () => {
     switch (content) {
       case "search":
         return <Search searchResults={searchResults} />;
-      case "browse":
-        return <Browse />;
+      case "discover":
+        return <Discover />;
       case "top_books":
         return <TopBooks />;
       case "categories":
         return <Categories />;
       default:
-        return <Browse />;
+        return <Discover />;
     }
   };
 
@@ -36,11 +36,6 @@ export default function Discovery({ content }) {
 
   return (
     <div className="lg:w-full lg:max-w-full">
-      {searchResults && (
-        <h2 className="font-semibold text-base sm:text-lg uppercase tracking-widest text-gray-400 mt-2">
-          Search Results
-        </h2>
-      )}
       {getContent()}
     </div>
   );

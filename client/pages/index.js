@@ -8,8 +8,8 @@ import { logoutUser } from "@/actions/users";
 import { useRouter } from "next/router";
 
 const navigation = [
-  { name: "Browse", href: "/home?content=browse" },
-  { name: "My Books", href: "/home?content=mybooks" },
+  { name: "Browse", href: "/browse?content=discover" },
+  { name: "My Books", href: "/books" },
   { name: "Profile", href: "/profile" },
 ];
 

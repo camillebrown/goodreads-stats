@@ -15,19 +15,19 @@ export default function SideNav() {
   const browse = [
     {
       name: "Discover",
-      onClickRoute: "/home?content=browse",
+      onClickRoute: "/browse?content=discover",
       icon: GlobeAltIcon,
-      current: ['browse', 'search'].includes(router?.query?.content),
+      current: ['discover', 'search'].includes(router?.query?.content),
     },
     {
       name: "Top Books",
-      onClickRoute: "/home?content=top_books",
+      onClickRoute: "/browse?content=top_books",
       icon: ChartBarSquareIcon,
       current: router?.query?.content === "top_books",
     },
     {
       name: "Categories",
-      onClickRoute: "/home?content=categories",
+      onClickRoute: "/browse?content=categories",
       icon: ServerIcon,
       current: router?.query?.content === "categories",
     },

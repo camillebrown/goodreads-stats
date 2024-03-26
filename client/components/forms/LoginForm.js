@@ -18,7 +18,7 @@ export default function LoginForm() {
     loginUser(api, values)
       .then((res) => {
         setUser(res.data);
-        router.push("/home?content=browse");
+        router.push("/browse?content=discover");
       })
       .catch((err) => {
         console.log(err.response.data.message);
