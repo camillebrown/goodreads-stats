@@ -1,13 +1,15 @@
 import React, { useContext, useState } from "react";
+import classNames from "classnames";
+import { useRouter } from "next/router";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 import { BooksContext } from "@/pages/_app";
 import { getGoogleBooks } from "@/actions/google";
-import { useRouter } from "next/router";
 
 export default function SearchBar({ setContent }) {
   const router = useRouter();
-  const { setSearchResults, setDataLoading } = useContext(BooksContext);
+  const { searchResults, setSearchResults, setDataLoading } =
+    useContext(BooksContext);
 
   const [searchTerm, setSearchTerm] = useState("");
   const onInputChange = async (e) => {
@@ -22,7 +24,7 @@ export default function SearchBar({ setContent }) {
     setDataLoading(true);
     getGoogleBooks(searchTerm)
       .then((res) => {
-        setSearchResults(res);
+        setSearchResults({ query: searchTerm, data: res });
         setDataLoading(false);
         router.push("/browse?content=search", undefined, { shallow: true });
       })
@@ -34,7 +36,12 @@ export default function SearchBar({ setContent }) {
 
   return (
     <div className="min-w-0 flex-1 lg:w-full">
-      <div className="flex items-center pt-4 pb-2 sm:pb-4 lg:mx-auto lg:max-w-3xl xl:mx-0 lg:max-w-none">
+      <div
+        className={classNames(
+          "flex items-center pt-4 lg:mx-auto lg:max-w-3xl xl:mx-0 lg:max-w-none",
+          { "pb-2 sm:pb-4": !searchResults?.query }
+        )}
+      >
         <div className="w-full">
           <label htmlFor="search" className="sr-only">
             Search Books...

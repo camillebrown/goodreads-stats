@@ -18,7 +18,6 @@ export default function Home() {
     setContent(urlContent ? urlContent : "discover");
   }, [urlContent]);
 
-  console.log({ searchResults });
   useEffect(() => {
     if (!searchResults && urlContent === "search") {
       router.push("/home?content=discover", undefined, { shallow: true });
@@ -33,7 +32,16 @@ export default function Home() {
         <div className="px-10">
           <SearchBar setContent={setContent} />
           {searchResults && content !== "search" && (
-            <button>Back to my Search</button>
+            <button
+              onClick={() =>
+                router.push("/home?content=search", undefined, {
+                  shallow: true,
+                })
+              }
+              className="text-sm tracking-wide pl-0.5 my-1 text-gray-900 underline hover:text-deep-orange hover:cursor-pointer capitalize"
+            >
+              Back to '{searchResults?.query}' Results
+            </button>
           )}
           {dataLoading ? (
             <Loading

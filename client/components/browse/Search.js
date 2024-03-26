@@ -65,7 +65,7 @@ export default function Search({ searchResults }) {
 
   return (
     <div>
-      <h2 className="font-semibold text-base sm:text-lg uppercase tracking-widest text-gray-400 mt-2">
+      <h2 className="font-semibold text-base sm:text-lg uppercase tracking-widest text-gray-400">
         Search Results
       </h2>
       <div className="my-4 w-full grid gap-x-6 gap-y-10 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 mid:grid-cols-5 lg:grid-cols-6 xl:grid-cols-6 xl:gap-x-8">
@@ -99,7 +99,7 @@ export default function Search({ searchResults }) {
                 />
               </div>
             </div>
-            <h3 className="mt-2 text-sm font-semibold tracking-wide text-gray-700 truncate">
+            <h3 className="mt-2 text-sm font-semibold tracking-wide text-gray-900 truncate">
               {r?.volumeInfo?.title}
             </h3>
             <h3 className="text-sm font-regular tracking-wide text-gray-400 truncate">

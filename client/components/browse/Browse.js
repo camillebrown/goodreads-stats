@@ -35,7 +35,7 @@ export default function Browse({ content, viewResults }) {
     );
 
   return (
-    <div className="lg:w-full lg:max-w-full">
+    <div className="lg:w-full lg:max-w-full my-6">
       {getContent()}
     </div>
   );

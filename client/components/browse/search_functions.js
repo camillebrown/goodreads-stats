@@ -7,7 +7,7 @@ export const getFullSearchResults = (userBooks, searchResults) => {
     });
   });
 
-  const enrichedSearchResults = searchResults.map((result) => {
+  const enrichedSearchResults = searchResults?.data?.map((result) => {
     return {
       ...result,
       user_saved: savedBooksLookup.has(result.id),
