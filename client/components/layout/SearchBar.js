@@ -4,8 +4,8 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { BooksContext } from "@/pages/_app";
 import { getGoogleBooks } from "@/actions/google";
 
-export default function SearchBar({ setContent, setSearchResults }) {
-  const { setDataLoading } = useContext(BooksContext);
+export default function SearchBar({ setContent }) {
+  const { setSearchResults, setDataLoading } = useContext(BooksContext);
 
   const [searchTerm, setSearchTerm] = useState("");
   const onInputChange = async (e) => {

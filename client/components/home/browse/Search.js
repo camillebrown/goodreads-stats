@@ -43,7 +43,7 @@ export default function Search({ searchResults }) {
 
   //DO SOMETHING WITH THESE BOOK ERRORS
   const { data: userBooks, error: booksError } = useQuery({
-    queryKey: ["books", user?.id],
+    queryKey: ["books", user?._id],
     queryFn: () => getUserBooks(api, user),
     enabled: !!user && !!searchResults,
     retry: false,

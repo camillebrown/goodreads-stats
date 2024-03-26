@@ -11,45 +11,43 @@ function useAuth() {
     const makeToast = useToast();
     const api = useContext(ApiContext);
     const { user, setUser } = useContext(UserContext);
-  
+
     useEffect(() => {
       const userData = JSON.parse(localStorage.getItem("goodreader-auth"));
-      let timeoutId;
-    
+
       async function fetchCurrentUser() {
         if (!userData) router.push("/login");
-    
+
         if (userData) {
-          api.defaults.headers.common["Authorization"] = `Bearer ${userData.token}`;
-    
+          api.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${userData.token}`;
+
           await getCurrentUser(api)
             .then((res) => {
               setUser(res.data);
             })
             .catch((error) => {
+              console.log(error);
               const msg =
-                error.response.data.msg === "Token expired. Route to login"
+                error?.response?.data?.msg === "Token expired. Route to login"
                   ? "You are being logged out due to inactivity"
-                  : "Error fetching current user";
-    
-              makeToast(msg, "error", "bg-error-red px-8");
-              timeoutId = setTimeout(() => {
+                  : error?.response?.data?.msg;
+
+              makeToast(msg, "error", "px-8");
+              if (
+                error?.response?.data?.msg ===
+                "Authorization token not provided."
+              ) {
                 router.push("/");
-              }, 2000);
+              }
             });
         }
-      };
-    
+      }
+
       if (!user) fetchCurrentUser();
-    
-      return () => {
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-        }
-      };
     }, [user]);
-    
-  
+
     return children;
   }
 

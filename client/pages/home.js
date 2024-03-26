@@ -9,12 +9,21 @@ import { BooksContext } from "./_app";
 
 export default function Home() {
   const router = useRouter();
-  const { dataLoading } = useContext(BooksContext);
+  const urlContent = router?.query?.content;
+  const { searchResults, dataLoading } = useContext(BooksContext);
 
-  const [content, setContent] = useState(router?.query?.content);
-  const [searchResults, setSearchResults] = useState(null);
+  const [content, setContent] = useState("browse");
 
-  useEffect(() => setContent(router?.query?.content), [router?.query?.content]);
+  useEffect(() => {
+    setContent(urlContent ? urlContent : "browse");
+  }, [urlContent]);
+
+  useEffect(() => {
+    if (searchResults && urlContent !== 'search') {
+      router.push("/home?content=search", undefined, { shallow: true });
+    }
+  }, [dataLoading, searchResults, urlContent, router]);
+  
 
   return (
     <div className="h-full bg-light-gray">
@@ -22,17 +31,14 @@ export default function Home() {
 
       <div className="xl:pl-56 py-12 lg:py-4 font-raleway">
         <div className="px-10">
-          <SearchBar
-            setContent={setContent}
-            setSearchResults={setSearchResults}
-          />
+          <SearchBar setContent={setContent} />
           {dataLoading ? (
             <Loading
               color="#15643d"
               containerClass="w-full flex justify-center mt-10"
             />
           ) : (
-            <Discovery content={content} searchResults={searchResults} />
+            <Discovery content={content} />
           )}
         </div>
       </div>

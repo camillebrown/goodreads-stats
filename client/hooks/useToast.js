@@ -14,6 +14,7 @@ export default function useToast() {
           t.visible ? "toast-in" : "toast-out",
           toastClass
         )}
+        style={{ backgroundColor: type === "error" ? "#e22d20" : "#16a34a" }}
         id="static-example"
         role="alert"
         aria-live="assertive"

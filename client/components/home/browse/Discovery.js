@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
+import React, { useContext } from "react";
 
 import Browse from "./DiscoveryTabs/Browse";
 import Categories from "./DiscoveryTabs/Categories";
 import Loading from "@/components/shared/Loading";
 import Search from "./Search";
 import TopBooks from "./DiscoveryTabs/TopBooks";
+import { BooksContext } from "@/pages/_app";
 
-export default function Discovery({ content, searchResults }) {
-  const router = useRouter();
+export default function Discovery({ content }) {
+  const { searchResults } = useContext(BooksContext);
 
   const getContent = () => {
     switch (content) {
@@ -24,14 +24,6 @@ export default function Discovery({ content, searchResults }) {
         return <Browse />;
     }
   };
-
-  useEffect(() => {
-    if (searchResults) {
-      router.push("/home?content=search", undefined, {
-        shallow: true,
-      });
-    }
-  }, [searchResults]);
 
   if (!content)
     return (

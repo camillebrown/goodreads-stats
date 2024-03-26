@@ -29,6 +29,7 @@ export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null);
   const [books, setBooks] = useState(null);
   const [dataLoading, setDataLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState(null);
 
   const baseRoutes = ["/", "/login"];
   const isBaseRoute = baseRoutes.includes(pathname);
@@ -36,11 +37,7 @@ export default function App({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ApiContext.Provider
-        value={axios.create({
-          baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-          headers: headers,
-          withCredentials: true,
-        })}
+        value={configureAxios()}
       >
         <UserContext.Provider value={{ user, setUser }}>
           <BooksContext.Provider
@@ -49,6 +46,8 @@ export default function App({ Component, pageProps }) {
               setBooks,
               dataLoading,
               setDataLoading,
+              searchResults,
+              setSearchResults,
             }}
           >
             <main className={classNames(serif.variable, raleway.variable)}>
@@ -66,7 +65,7 @@ export default function App({ Component, pageProps }) {
                 }}
               />
               {!isBaseRoute && <Navbar />}
-              {isBaseRoute ? (
+              {pathname === "/login" ? (
                 <Component {...pageProps} />
               ) : (
                 <RequireAuth>
@@ -79,4 +78,31 @@ export default function App({ Component, pageProps }) {
       </ApiContext.Provider>
     </QueryClientProvider>
   );
+}
+
+function configureAxios() {
+  const axiosInstance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  });
+
+  axiosInstance.interceptors.request.use(
+    (config) => {
+      const userData = JSON.parse(localStorage.getItem("goodreader-auth"));
+      if (userData && userData.token) {
+        config.headers.Authorization = `Bearer ${userData.token}`;
+      }
+      return config;
+    },
+    (error) => {
+      console.log("Error with bearer token", error);
+      return Promise.reject(error);
+    }
+  );
+
+  return axiosInstance;
 }
