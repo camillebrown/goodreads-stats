@@ -1,6 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import { useRouter } from "next/router";
 
+import BackToContentButton from "@/components/browse/BackToContentButton";
 import Browse from "@/components/browse/Browse";
 import Loading from "@/components/shared/Loading";
 import SearchBar from "@/components/layout/SearchBar";
@@ -20,7 +21,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!searchResults && urlContent === "search") {
-      router.push("/home?content=discover", undefined, { shallow: true });
+      router.push("/browse?content=discover", undefined, { shallow: true });
     }
   }, [dataLoading, searchResults, urlContent, router]);
 
@@ -31,18 +32,10 @@ export default function Home() {
       <div className="xl:pl-56 py-12 lg:py-4 font-raleway">
         <div className="px-10">
           <SearchBar setContent={setContent} />
-          {searchResults && content !== "search" && (
-            <button
-              onClick={() =>
-                router.push("/home?content=search", undefined, {
-                  shallow: true,
-                })
-              }
-              className="text-sm tracking-wide pl-0.5 my-1 text-gray-900 underline hover:text-deep-orange hover:cursor-pointer capitalize"
-            >
-              Back to '{searchResults?.query}' Results
-            </button>
-          )}
+          <BackToContentButton
+            content={content}
+            searchResults={searchResults}
+          />
           {dataLoading ? (
             <Loading
               color="#15643d"
