@@ -19,7 +19,6 @@ export default function BackToContentButton({ searchResults, content }) {
     contentTag = "discover";
   }
 
-  console.log(searchResults);
   if (!buttonText) return;
 
   return (

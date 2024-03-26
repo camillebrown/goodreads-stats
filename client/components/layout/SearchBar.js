@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 import { BooksContext } from "@/pages/_app";
-import { getGoogleBooks } from "@/actions/google";
+import { searchGoogleBooks } from "@/actions/queries";
 
 export default function SearchBar({ setContent }) {
   const router = useRouter();
@@ -22,7 +22,7 @@ export default function SearchBar({ setContent }) {
 
   const onSubmit = async () => {
     setDataLoading(true);
-    getGoogleBooks(searchTerm)
+    searchGoogleBooks(searchTerm)
       .then((res) => {
         setSearchResults({ query: searchTerm, data: res });
         setDataLoading(false);

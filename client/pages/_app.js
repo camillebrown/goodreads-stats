@@ -18,15 +18,11 @@ export const SearchContext = createContext();
 export const UserContext = createContext();
 export const queryClient = new QueryClient();
 
-const headers = {
-  Accept: "application/json",
-  "Content-Type": "application/json",
-};
-
 export default function App({ Component, pageProps }) {
   const RequireAuth = useAuth();
   const { pathname } = useRouter();
   const [user, setUser] = useState(null);
+
   const [books, setBooks] = useState(null);
   const [dataLoading, setDataLoading] = useState(false);
   const [searchResults, setSearchResults] = useState(null);

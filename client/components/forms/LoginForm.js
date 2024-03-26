@@ -4,7 +4,7 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 import OAuthLinks from "./OAuthLinks";
 import { ApiContext, UserContext } from "@/pages/_app";
-import { loginSchema } from "../../lib/loginSchema";
+import { loginSchema } from "../../lib/login_schema";
 import { loginUser } from "@/actions/users";
 import { useRouter } from "next/router";
 
