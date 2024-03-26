@@ -22,6 +22,9 @@ export default function Home() {
     if (searchResults && urlContent !== 'search') {
       router.push("/home?content=search", undefined, { shallow: true });
     }
+    if (!searchResults && urlContent === 'search') {
+      router.push("/home?content=browse", undefined, { shallow: true });
+    }
   }, [dataLoading, searchResults, urlContent, router]);
   
 

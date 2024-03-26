@@ -41,15 +41,13 @@ export default function Search({ searchResults }) {
       });
   };
 
-  //DO SOMETHING WITH THESE BOOK ERRORS
+  //TODO: DO SOMETHING WITH THESE BOOK ERRORS
   const { data: userBooks, error: booksError } = useQuery({
     queryKey: ["books", user?._id],
     queryFn: () => getUserBooks(api, user),
     enabled: !!user && !!searchResults,
     retry: false,
   });
-
-  console.log(userBooks)
 
   useEffect(() => {
     if (userBooks && searchResults) {

@@ -37,7 +37,7 @@ function useAuth() {
               makeToast(msg, "error", "px-8");
               if (
                 error?.response?.data?.msg ===
-                "Authorization token not provided."
+                "Token expired. Route to login"
               ) {
                 router.push("/");
               }
