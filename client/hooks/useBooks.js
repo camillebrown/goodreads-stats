@@ -3,6 +3,7 @@ import { ApiContext } from "@/pages/_app";
 
 import useToast from "./useToast";
 import { createBook } from "@/actions/books";
+import { queryClient } from "@/pages/_app";
 
 export default function useBooks() {
   const makeToast = useToast();
@@ -18,6 +19,7 @@ export default function useBooks() {
         setIsSaving(false);
       })
       .catch((err) => {
+        console.log(err)
         let msg;
         if (err.response.status === 400) {
           msg = err.response.data.message;

@@ -32,7 +32,7 @@ const getBooks = asyncHandler(async (req, res) => {
  * @method POST
  */
 const createBook = asyncHandler(async (req, res) => {
-  const book = await Book.create({ ...req.body, user: req.session.user._id });
+  const book = await Book.create({ ...req.body, user: req.user._id });
 
   if (book) {
     const user = await User.findById({ _id: book.user });

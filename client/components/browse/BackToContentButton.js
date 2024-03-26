@@ -28,7 +28,7 @@ export default function BackToContentButton({ searchResults, content }) {
           shallow: true,
         })
       }
-      className="text-xs font-serif tracking-widest pl-0.5 my-1 text-gray-900 underline hover:text-deep-orange hover:cursor-pointer"
+      className="text-xs tracking-widest pl-0.5 my-1 text-gray-900 underline hover:text-deep-orange hover:cursor-pointer"
     >
       {buttonText}
     </button>
