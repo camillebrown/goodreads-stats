@@ -7,20 +7,20 @@ import { BooksContext } from "@/pages/_app";
 export default function Discover() {
   const { books, setBooks } = useContext(BooksContext);
 
-  const { data: nytBooks, error: nytBooksError } = useQuery({
-    queryKey: ["NYT_books", "current"],
-    queryFn: getNYTBooks,
-    enabled: !books,
-    retry: false,
-  });
+  // const { data: nytBooks, error: nytBooksError } = useQuery({
+  //   queryKey: ["NYT_books", "current"],
+  //   queryFn: getNYTBooks,
+  //   enabled: !books,
+  //   retry: false,
+  // });
 
-  useEffect(() => {
-    if (nytBooks) {
-      setBooks(nytBooks);
-    }
-  }, [nytBooks]);
+  // useEffect(() => {
+  //   if (nytBooks) {
+  //     setBooks(nytBooks);
+  //   }
+  // }, [nytBooks]);
 
-  console.log({ books });
+  // console.log({ books });
 
   return <div>Discover</div>;
 }

@@ -1,9 +1,6 @@
 // check that a cookie session is set with this request
 export const getCurrentUser = async (api) => {
-  const response = await api.get("/api/auth/current_user");
-  if (response.status === 401) return null;
-
-  return response;
+  return await api.get("/api/auth/current_user");
 };
 
 export const loginUser = async (api, values) => {

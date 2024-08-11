@@ -15,8 +15,11 @@ function useAuth() {
     useEffect(() => {
       async function fetchCurrentUser() {
         try {
+          console.log('Requesting URL:', api.defaults.baseURL);
+          console.log('Request Headers:', api.defaults.headers);
           const res = await getCurrentUser(api);
           setUser(res.data);
+          router.push("/browse?content=discover");
         } catch (error) {
           console.log('UseAuth: Error fetching current user', error);
 

@@ -18,6 +18,7 @@ export const UserContext = createContext();
 export const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }) {
+  const api = configureAxios();
   const RequireAuth = useAuth();
   const { pathname } = useRouter();
   const [user, setUser] = useState(null);
@@ -31,7 +32,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ApiContext.Provider value={configureAxios()}>
+      <ApiContext.Provider value={api}>
         <UserContext.Provider value={{ user, setUser }}>
           <BooksContext.Provider
             value={{
@@ -70,7 +71,7 @@ export default function App({ Component, pageProps }) {
 
 function configureAxios() {
   const axiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+    baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

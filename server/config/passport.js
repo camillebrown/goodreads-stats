@@ -26,7 +26,7 @@ passport.use(
       if (!password) {
         return done(null, false, { message: "Password is required." });
       }
-      
+
       try {
         const user = await User.findOne({ email });
 
@@ -58,7 +58,17 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, cb) => {
       try {
-        const user = await User.findOrCreate({ googleId: profile.id });
+        let user = await User.findOne({ googleId: profile.id });
+    
+        if (!user) {
+          user = new User({
+            name: profile.displayName,
+            email: profile.emails[0].value,
+            googleId: profile.id,
+          });
+          user = await user.save();
+        }
+    
         return cb(null, user);
       } catch (err) {
         return cb(err);

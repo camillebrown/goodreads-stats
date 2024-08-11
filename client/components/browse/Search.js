@@ -10,40 +10,40 @@ import { getUserBooks } from "@/lib/actions/books";
 import { getFullSearchResults } from "./search_functions";
 
 export default function Search({ searchResults }) {
-  const api = useContext(ApiContext);
-  const { user } = useContext(UserContext);
-  const { isSaving, saveToBooks } = useBooks();
-  const [fullSearchResults, setFullSearchResults] = useState();
+  // const api = useContext(ApiContext);
+  // const { user } = useContext(UserContext);
+  // const { isSaving, saveToBooks } = useBooks();
+  // const [fullSearchResults, setFullSearchResults] = useState();
 
-  const generateImageLink = (thumbnail) => {
-    if (thumbnail) return `${thumbnail}&fife=w800`;
-  };
+  // const generateImageLink = (thumbnail) => {
+  //   if (thumbnail) return `${thumbnail}&fife=w800`;
+  // };
 
-  //TODO: DO SOMETHING WITH THESE BOOK ERRORS
-  const { data: userBooks, error: booksError } = useQuery({
-    queryKey: ["books", user?._id],
-    queryFn: () => getUserBooks(api, user),
-    enabled: !!user && !!searchResults,
-    retry: false,
-  });
+  // //TODO: DO SOMETHING WITH THESE BOOK ERRORS
+  // const { data: userBooks, error: booksError } = useQuery({
+  //   queryKey: ["books", user?._id],
+  //   queryFn: () => getUserBooks(api, user),
+  //   enabled: !!user && !!searchResults,
+  //   retry: false,
+  // });
 
-  useEffect(() => {
-    if (userBooks && searchResults) {
-      setFullSearchResults(getFullSearchResults(userBooks, searchResults));
-    }
-  }, [userBooks, searchResults]);
+  // useEffect(() => {
+  //   if (userBooks && searchResults) {
+  //     setFullSearchResults(getFullSearchResults(userBooks, searchResults));
+  //   }
+  // }, [userBooks, searchResults]);
 
-  if (searchResults && !fullSearchResults)
-    return (
-      <Loading
-        className="w-14 h-14"
-        containerClass="w-full flex justify-center mt-10"
-      />
-    );
+  // if (searchResults && !fullSearchResults)
+  //   return (
+  //     <Loading
+  //       className="w-14 h-14"
+  //       containerClass="w-full flex justify-center mt-10"
+  //     />
+  //   );
 
   return (
     <div>
-      <h2 className="font-semibold text-base sm:text-lg uppercase tracking-widest text-gray-400">
+      {/* <h2 className="font-semibold text-base sm:text-lg uppercase tracking-widest text-gray-400">
         Search Results
       </h2>
       <BookGridLayout>
@@ -63,7 +63,7 @@ export default function Search({ searchResults }) {
             />
           </div>
         ))}
-      </BookGridLayout>
+      </BookGridLayout> */}
     </div>
   );
 }

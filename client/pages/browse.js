@@ -13,22 +13,23 @@ export default function Home() {
   const urlContent = router?.query?.content;
   const { searchResults, dataLoading } = useContext(BooksContext);
 
-  const [content, setContent] = useState("discover");
+  console.log(urlContent, searchResults)
+  // const [content, setContent] = useState("discover");
 
-  useEffect(() => {
-    setContent(urlContent ? urlContent : "discover");
-  }, [urlContent]);
+  // useEffect(() => {
+  //   setContent(urlContent ? urlContent : "discover");
+  // }, [urlContent]);
 
-  useEffect(() => {
-    if (!searchResults && urlContent === "search") {
-      router.push("/browse?content=discover", undefined, { shallow: true });
-    }
-  }, [dataLoading, searchResults, urlContent, router]);
+  // useEffect(() => {
+  //   if (!searchResults && urlContent === "search") {
+  //     router.push("/browse?content=discover", undefined, { shallow: true });
+  //   }
+  // }, [dataLoading, searchResults, urlContent, router]);
 
   return (
     <div className="h-full bg-light-gray">
       <SideNav />
-
+{/* 
       <div className="xl:pl-56 py-12 lg:py-4 font-raleway">
         <div className="px-10">
           <SearchBar setContent={setContent} />
@@ -45,7 +46,7 @@ export default function Home() {
             <Browse content={content} />
           )}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

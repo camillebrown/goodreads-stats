@@ -33,6 +33,10 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
+app.use(()=>{
+  
+})
+
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 
