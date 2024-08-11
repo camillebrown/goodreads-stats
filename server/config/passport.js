@@ -1,62 +1,68 @@
 const bcrypt = require("bcryptjs");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const keys = require("./keys");
 const LocalStrategy = require("passport-local").Strategy;
 const passport = require("passport");
 const User = require("../models/User");
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user._id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, function (err, user) {
-    done(err, user);
-  });
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
 });
 
 // Local strategy (email and password)
 passport.use(
-  new LocalStrategy({ usernameField: "email" }, function (
-    email,
-    password,
-    done
-  ) {
-    User.findOne({ email: email }, function (err, user) {
-      if (err) {
-        return done(err);
+  new LocalStrategy(
+    { usernameField: "email" },
+    async (email, password, done) => {
+      if (!password) {
+        return done(null, false, { message: "Password is required." });
       }
-      if (!user) {
-        return done(null, false, { message: "Email not found." });
-      }
+      
+      try {
+        const user = await User.findOne({ email });
 
-      bcrypt.compare(password, user.password, function (err, isMatch) {
-        if (err) {
-          return done(err);
+        if (!user) {
+          return done(null, false, { message: "Email not found." });
         }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
         if (isMatch) {
           return done(null, user);
         } else {
           return done(null, false, { message: "Incorrect password." });
         }
-      });
-    });
-  })
+      } catch (err) {
+        return done(err);
+      }
+    }
+  )
 );
 
 // Google strategy
 passport.use(
   new GoogleStrategy(
     {
-      clientID: keys.google_client_id,
-      clientSecret: keys.google_client_secret,
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/auth/google/callback",
     },
-    (accessToken, refreshToken, profile, cb) => {
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return cb(err, user);
-      });
+    async (accessToken, refreshToken, profile, cb) => {
+      try {
+        const user = await User.findOrCreate({ googleId: profile.id });
+        return cb(null, user);
+      } catch (err) {
+        return cb(err);
+      }
     }
   )
 );

@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 import OAuthLinks from "./OAuthLinks";
 import { ApiContext, UserContext } from "@/pages/_app";
 import { loginSchema } from "../../lib/login_schema";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import { loginUser } from "@/lib/actions/auth";
+import { registerUser } from "@/lib/actions/auth";
 
-export default function LoginForm() {
+export default function SignUpForm() {
   const router = useRouter();
   const api = useContext(ApiContext);
   const { setUser } = useContext(UserContext);
@@ -17,9 +17,9 @@ export default function LoginForm() {
 
   const onSubmit = async (values) => {
     try {
-      const res = await loginUser(api, values);
+      const res = await registerUser(api, values);
       setUser(res.data);
-
+      
       router.push("/browse?content=discover");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
@@ -27,9 +27,10 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="mt-6 sm:mt-10">
+    <div className="mt-8">
       <Formik
         initialValues={{
+          name: "",
           email: "",
           password: "",
         }}
@@ -37,6 +38,25 @@ export default function LoginForm() {
         onSubmit={onSubmit}
       >
         <Form className="space-y-3 sm:space-y-6">
+          <div className="relative z-0">
+            <Field
+              id="name"
+              name="name"
+              type="name"
+              autoComplete="new-password"
+              placeholder=" "
+              required
+              className="peer block w-full appearance-none border-0 border-b border-primary-gray bg-transparent py-2.5 px-0 text-sm text-primary-gray focus:border-secondary-baby-blue focus:outline-none focus:ring-0"
+            />
+            <label className="absolute top-3 z-20 peer-placeholder-shown:-z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-primary-gray duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-secondary-baby-blue">
+              Your Name
+            </label>
+            <ErrorMessage
+              component="a"
+              className="text-red-500 text-xs"
+              name="name"
+            />
+          </div>
           <div className="relative z-0">
             <Field
               id="email"
@@ -88,35 +108,22 @@ export default function LoginForm() {
               </div>
             </div>
           )}
-
-          {/* TODO!!! what happens here!! */}
-          <div className="flex justify-end">
-            <div className="text-sm leading-6">
-              <Link
-                href="/forgot-password"
-                className="font-semibold text-secondary-baby-blue hover:text-secondary-baby-blue/90"
-              >
-                Forgot password?
-              </Link>
-            </div>
-          </div>
-          {/* TODO!!! what happens here!! */}
           <button
             type="submit"
-            className="flex w-full justify-center rounded-md bg-secondary-baby-blue p-3 tracking-wider font-semibold leading-6 text-white shadow-sm hover:bg-secondary-baby-blue/90"
+            className="!mt-10 w-full rounded-md bg-secondary-baby-blue p-3 tracking-wider font-semibold leading-6 text-white shadow-sm hover:bg-secondary-baby-blue/90"
           >
-            Sign in
+            Sign Up
           </button>
         </Form>
       </Formik>
       <OAuthLinks />
       <div className="flex justify-center items-center gap-2 mt-6">
-        <p>New Here?</p>
+        <p>Already have an account?</p>
         <Link
-          href="/signup"
+          href="/login"
           className="text-bright-red font-semibold hover:cursor-pointer hover:text-bright-red/80"
         >
-          Sign Up Now
+          Log In
         </Link>
       </div>
     </div>

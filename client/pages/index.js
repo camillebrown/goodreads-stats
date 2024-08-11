@@ -4,7 +4,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import Loading from "@/components/shared/Loading";
 import { ApiContext, UserContext } from "./_app";
-import { logoutUser } from "@/actions/users";
+import { logoutUser } from "@/lib/actions/auth";
 import { useRouter } from "next/router";
 
 const navigation = [

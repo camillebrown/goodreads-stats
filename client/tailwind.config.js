@@ -44,6 +44,9 @@ module.exports = {
         "fill-scale":
           "fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both",
       },
+      backgroundImage: {
+        'login-bg': "url('./bg2.svg')",
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],

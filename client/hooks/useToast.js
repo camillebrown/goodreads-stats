@@ -21,7 +21,7 @@ export default function useToast() {
         aria-atomic="true"
         data-mdb-autohide="false"
       >
-        <div className="flex justify-between items-center py-2 px-3 bg-clip-padding border-b rounded-lg">
+        <div className="flex justify-between items-center py-2 px-3 bg-clip-padding">
           <div className="flex items-center gap-2">
             {type === "error" ? (
               <ExclamationTriangleIcon className="text-white mr-4 w-5 h-5" />

@@ -9,9 +9,11 @@ import MobileNavButton from "./MobileNavButton";
 import MobileNavMenu from "./MobileNavMenu";
 import NavMenu from "./NavMenu";
 import { ApiContext, UserContext } from "@/pages/_app";
-import { logoutUser } from "@/actions/users";
+import { logoutUser } from "@/lib/actions/auth";
+import useToast from "@/hooks/useToast";
 
 export default function Navbar() {
+  const makeToast = useToast();
   const api = useContext(ApiContext);
   const { user, setUser } = useContext(UserContext);
   const userNavigation = [
@@ -20,9 +22,15 @@ export default function Navbar() {
     { name: "Profile", href: "/profile" },
   ];
 
-  const cta = () => {
-    logoutUser(api);
-    setUser(null);
+  const handleLogout = async () => {
+    try {
+      await logoutUser(api);
+      setUser(null);
+      makeToast("Successfully logged out", "success", "px-8");
+      router.push("/login");
+    } catch (error) {
+      makeToast("Failed to log out", "error", "px-8");
+    }
   };
 
   return (
@@ -52,8 +60,9 @@ export default function Navbar() {
               <MobileNavButton open={open} />
               <div className="hidden lg:flex lg:items-center lg:justify-end lg:gap-4 w-4/5 xl:w-7/12">
                 <div className="flex flex-shrink-0 justify-end items-center gap-6 px-2">
+                  {/* TODO: ALSO CHECK FOR LOGIN! */}
                   <CTAButton
-                    onClick={cta}
+                    onClick={handleLogout}
                     buttonClass="bg-orange hover:bg-deep-orange"
                     buttonText={user ? "Sign Out" : "Sign In"}
                   />
