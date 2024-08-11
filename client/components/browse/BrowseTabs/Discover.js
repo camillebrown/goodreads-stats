@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { getNYTBooks } from "@/actions/queries";
+import { getNYTBooks } from "@/lib/actions/queries";
 import { BooksContext } from "@/pages/_app";
 
 export default function Discover() {

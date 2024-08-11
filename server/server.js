@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: ".env.development.local" });
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require("express");
@@ -6,7 +6,10 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
 
+require("./config/passport");
+
 const keys = require("./config/keys");
+const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const bookRoutes = require("./routes/bookRoutes");
 const { errorHandler } = require("./middleware/errorMiddleware");
@@ -36,19 +39,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 ////////////// MIDDLEWARE //////////////
 // Every call goes thru this
 app.use(express.json());
-app.use(session({
-  secret: keys.jwtSecret,
-  resave: false,
-  saveUninitialized: true
-}));
+app.use(
+  session({
+    secret: keys.jwtSecret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-require("./routes/authRoutes")(app);
 require("./routes/googleRoutes")(app);
 app.use("/api/users", userRoutes);
 app.use("/api/books", bookRoutes);
+app.use("/api/auth", authRoutes);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 8080;

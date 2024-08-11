@@ -2,7 +2,6 @@
 import "@/styles/globals.css";
 import "@/styles/fonts.js";
 import axios from "axios";
-import classNames from "classnames";
 import { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import { createContext, useState } from "react";
@@ -27,7 +26,7 @@ export default function App({ Component, pageProps }) {
   const [dataLoading, setDataLoading] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
 
-  const baseRoutes = ["/", "/login"];
+  const baseRoutes = ["/", "/login", "/signup"];
   const isBaseRoute = baseRoutes.includes(pathname);
 
   return (
@@ -51,17 +50,10 @@ export default function App({ Component, pageProps }) {
                 position="top-center"
                 reverseOrder={false}
                 gutter={8}
-                toastOptions={{
-                  duration: 3000,
-                  style: {
-                    boxShadow: "none",
-                    minWidth: "20%",
-                    background: "none",
-                  },
-                }}
+                toastOptions={{ duration: 5000 }}
               />
               {!isBaseRoute && <Navbar />}
-              {pathname === "/login" ? (
+              {["/login", "/signup"].includes(pathname) ? (
                 <Component {...pageProps} />
               ) : (
                 <RequireAuth>
@@ -85,20 +77,6 @@ function configureAxios() {
     },
     withCredentials: true,
   });
-
-  axiosInstance.interceptors.request.use(
-    (config) => {
-      const userData = JSON.parse(localStorage.getItem("goodreader-auth"));
-      if (userData && userData.token) {
-        config.headers.Authorization = `Bearer ${userData.token}`;
-      }
-      return config;
-    },
-    (error) => {
-      console.log("Error with bearer token", error);
-      return Promise.reject(error);
-    }
-  );
 
   return axiosInstance;
 }

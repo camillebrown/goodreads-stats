@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 import { BooksContext } from "@/pages/_app";
-import { searchGoogleBooks } from "@/actions/queries";
+import { searchGoogleBooks } from "@/lib/actions/queries";
 
 export default function SearchBar({ setContent }) {
   const router = useRouter();

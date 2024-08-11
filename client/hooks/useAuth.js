@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import useToast from "./useToast";
 import { ApiContext, UserContext } from "@/pages/_app";
-import { getCurrentUser } from "@/actions/users";
+import { getCurrentUser } from "@/lib/actions/auth";
 
 function useAuth() {
   function RequireAuth({ children }) {
@@ -13,40 +13,26 @@ function useAuth() {
     const { user, setUser } = useContext(UserContext);
 
     useEffect(() => {
-      const userData = JSON.parse(localStorage.getItem("goodreader-auth"));
-
       async function fetchCurrentUser() {
-        if (!userData) router.push("/login");
+        try {
+          const res = await getCurrentUser(api);
+          setUser(res.data);
+        } catch (error) {
+          console.log('UseAuth: Error fetching current user', error);
 
-        if (userData) {
-          api.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${userData.token}`;
+          if (error?.response?.data?.msg === "Token expired. Route to login") {
+            makeToast("You are being logged out due to inactivity", "error", "px-8");
+          }
 
-          await getCurrentUser(api)
-            .then((res) => {
-              setUser(res.data);
-            })
-            .catch((error) => {
-              console.log(error);
-              const msg =
-                error?.response?.data?.msg === "Token expired. Route to login"
-                  ? "You are being logged out due to inactivity"
-                  : error?.response?.data?.msg;
-
-              makeToast(msg, "error", "px-8");
-              if (
-                error?.response?.data?.msg ===
-                "Token expired. Route to login"
-              ) {
-                router.push("/");
-              }
-            });
+          setUser(null);
+          router.push("/login");
         }
       }
 
-      if (!user) fetchCurrentUser();
-    }, [user]);
+      if (!user) {
+        fetchCurrentUser();
+      }
+    }, [user, api, router, makeToast, setUser]);
 
     return children;
   }

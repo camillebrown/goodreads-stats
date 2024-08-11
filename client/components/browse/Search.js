@@ -6,7 +6,7 @@ import GridBookDisplay from "../shared/GridBookDisplay";
 import Loading from "@/components/shared/Loading";
 import useBooks from "@/hooks/useBooks";
 import { ApiContext, UserContext } from "@/pages/_app";
-import { getUserBooks } from "@/actions/books";
+import { getUserBooks } from "@/lib/actions/books";
 import { getFullSearchResults } from "./search_functions";
 
 export default function Search({ searchResults }) {
