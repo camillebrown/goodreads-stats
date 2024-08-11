@@ -1,27 +1,23 @@
 import LoginForm from "@/components/forms/LoginForm";
 import Image from "next/image";
-import home from "../styles/home-bg.png";
+import bg1 from "../styles/bg.svg";
 
 export default function Login() {
   return (
-    <div className="flex min-h-full flex-1 bg-light-gray lg:pl-20 font-raleway">
-      <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white shadow-lg">
-        <div className="mx-auto w-full max-w-sm lg:w-96">
-          <div>
-            <img
-              className="h-10 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt="Your Company"
-            />
-            <h2 className="mt-2 sm:mt-8 text-2xl font-semibold leading-9 tracking-tight text-gray-900">
-              Sign in to your account
-            </h2>
-          </div>
-          <LoginForm />
-        </div>
+    <div className="font-raleway w-full min-h-screen h-screen flex items-center justify-center">
+      <div className="w-2/5 h-full flex flex-col justify-center text-primary-gray tracking-wider py-24 px-16">
+        <h2 className="text-5xl font-bold text-secondary-baby-blue">Welcome Back!</h2>
+        <p className="text-2xl my-2">Please log in to your account.</p>
+        <LoginForm />
       </div>
-      <div className="relative hidden w-0 flex-1 lg:flex flex-col items-center justify-center px-4">
-        <Image src={home} alt="Guy sitting on couch" className="w-3/5" priority/>
+
+      <div className="relative hidden w-full h-full flex-1 lg:flex flex-col items-center justify-center">
+        <Image
+          src={bg1}
+          alt="Background Image"
+          className="w-full h-full object-cover object-left"
+          priority
+        />
       </div>
     </div>
   );

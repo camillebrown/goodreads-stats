@@ -37,77 +37,64 @@ export default function LoginForm() {
         onSubmit={onSubmit}
       >
         <Form className="space-y-3 sm:space-y-6">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Email address
+          <div className="relative z-0">
+            <Field
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="new-password"
+              placeholder=" "
+              required
+              className="peer block w-full appearance-none border-0 border-b border-primary-gray bg-transparent py-2.5 px-0 text-sm text-primary-gray focus:border-secondary-baby-blue focus:outline-none focus:ring-0"
+            />
+            <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-primary-gray duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-secondary-baby-blue">
+              Email Address
             </label>
-            <div className="mt-2">
-              <Field
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="new-password"
-                placeholder="Email"
-                required
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange sm:text-sm sm:leading-6"
-              />
-              <ErrorMessage
-                component="a"
-                className="text-red-500 text-xs"
-                name="email"
-              />
-            </div>
+            <ErrorMessage
+              component="a"
+              className="text-red-500 text-xs"
+              name="email"
+            />
           </div>
-
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
+          <div className="relative z-0">
+            <Field
+              id="password"
+              name="password"
+              type="password"
+              placeholder=" "
+              autoComplete="new-password"
+              required
+              className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-primary-gray focus:border-secondary-baby-blue focus:outline-none focus:ring-0"
+            />
+            <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-secondary-baby-blue">
               Password
             </label>
-            <div className="mt-2">
-              <Field
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Password"
-                autoComplete="new-password"
-                required
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange sm:text-sm sm:leading-6"
-              />
-              <ErrorMessage
-                component="a"
-                className="text-red-500 text-xs"
-                name="password"
-              />
-            </div>
-            {error && (
-              <div className="flex items-center my-1.5">
-                <div className="flex-shrink-0">
-                  <ExclamationTriangleIcon
-                    className="h-4 w-4 text-error-red"
-                    aria-hidden="true"
-                  />
-                </div>
-                <div className="ml-2">
-                  <h3 className="text-xs font-medium text-error-red">
-                    {error}
-                  </h3>
-                </div>
-              </div>
-            )}
+            <ErrorMessage
+              component="a"
+              className="text-red-500 text-xs"
+              name="password"
+            />
           </div>
+          {error && (
+            <div className="flex items-center my-1.5">
+              <div className="flex-shrink-0">
+                <ExclamationTriangleIcon
+                  className="h-4 w-4 text-error-red"
+                  aria-hidden="true"
+                />
+              </div>
+              <div className="ml-2">
+                <h3 className="text-xs font-medium text-error-red">{error}</h3>
+              </div>
+            </div>
+          )}
 
           {/* TODO!!! what happens here!! */}
           <div className="flex justify-end">
             <div className="text-sm leading-6">
               <a
                 href="#"
-                className="font-semibold text-sage hover:text-indigo-500"
+                className="font-semibold text-secondary-baby-blue hover:text-secondary-baby-blue/90"
               >
                 Forgot password?
               </a>
@@ -116,17 +103,20 @@ export default function LoginForm() {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-sage px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green"
+              className="flex w-full justify-center rounded-md bg-secondary-baby-blue p-3 tracking-wider font-semibold leading-6 text-white shadow-sm hover:bg-secondary-baby-blue/90"
             >
               Sign in
             </button>
           </div>
         </Form>
       </Formik>
-
-      {/* <OAuthLinks />
-        TODO: Add Google Oauth Link!!!
-      */}
+      <OAuthLinks />
+      <div className="flex justify-center items-center gap-2 my-6">
+        <p>New Here?</p>
+        <p className="text-bright-red font-semibold hover:cursor-pointer hover:text-bright-red/80">
+          Sign Up Now
+        </p>
+      </div>
     </div>
   );
 }
