@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Navbar from "@/components/layout/Navbar";
 import useAuth from "@/hooks/useAuth";
-import { raleway, serif } from "@/styles/fonts.js";
+import { raleway, manrope, montserrat } from "../styles/fonts.js";
 
 export const ApiContext = createContext();
 export const BooksContext = createContext();
@@ -32,9 +32,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ApiContext.Provider
-        value={configureAxios()}
-      >
+      <ApiContext.Provider value={configureAxios()}>
         <UserContext.Provider value={{ user, setUser }}>
           <BooksContext.Provider
             value={{
@@ -46,7 +44,9 @@ export default function App({ Component, pageProps }) {
               setSearchResults,
             }}
           >
-            <main className={classNames(serif.variable, raleway.variable)}>
+            <main
+              className={`${manrope.variable} ${montserrat.variable} ${raleway.variable}`}
+            >
               <Toaster
                 position="top-center"
                 reverseOrder={false}

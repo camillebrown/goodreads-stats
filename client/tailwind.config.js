@@ -8,22 +8,29 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        "primary-gray": "#505052",
+        "secondary-gray": "#636363",
+        "bright-red": "#F8442D",
+        "baby-blue": "#9EBEFF",
+        "secondary-baby-blue": "#4d78ce",
+        gold: "#FEAC26",
+
         cream: "#fcf5e2",
         sage: "#49916d",
+        "light-sage": "#84c9a7",
         green: "#15643d",
         salmon: "#eb7f56",
+        "test-salmon": "#e65539",
         orange: "#d67c18",
         "error-red": "#e22d20",
         "deep-orange": "#a05907",
         "light-gray": "#f6f6f6",
-        "success-green": "#16a34a"
+        "success-green": "#16a34a",
       },
       fontFamily: {
-        serif: ["var(--font-serif)"],
         raleway: ["var(--font-raleway)"],
-      },
-      boxShadow: {
-        'orange': 'inset 0px 10px 20px 30px #d67c18',
+        manrope: ["var(--font-manrope)"],
+        montserrat: ["var(--font-montserrat)"],
       },
       screens: {
         xs: "480px",
