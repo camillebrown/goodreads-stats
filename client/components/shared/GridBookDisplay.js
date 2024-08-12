@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { Rating } from "react-simple-star-rating";
 
-import SaveBookButton from "./SaveBookButton";
+import BookActionButton from "./BookActionButton";
 
 export default function GridBookDisplay({
   author,
@@ -25,7 +25,7 @@ export default function GridBookDisplay({
             "cursor-pointer": !user_saved,
           })}
         >
-          <SaveBookButton book={book} isUserBook={user_saved} />
+          <BookActionButton book={book} isUserBook={user_saved} />
         </div>
       </div>
       <h3 className="mt-2 text-sm font-semibold tracking-wide text-primary-gray truncate">
@@ -42,7 +42,7 @@ export default function GridBookDisplay({
         className="leading-3"
       />
       {user_saved && (
-        <p className="font-semibold text-xs text-bright-red">In Your Library</p>
+        <p className="font-semibold text-xs text-baby-blue">In Your Library</p>
       )}
     </div>
   );

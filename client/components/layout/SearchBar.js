@@ -73,7 +73,7 @@ export default function SearchBar({ setContent }) {
               </div>
               <button
                 type="button"
-                className="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-8 py-2 text-sm font-regular tracking-wide text-white bg-secondary-baby-blue ring-1 ring-inset ring-gray-300 hover:bg-salmon hover:text-white hover:cursor-pointer"
+                className="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-8 py-2 text-sm font-regular tracking-wide text-white bg-salmon ring-1 ring-inset ring-gray-300 hover:bg-rich-salmon hover:text-white hover:cursor-pointer"
                 onClick={onSubmit}
               >
                 Search
