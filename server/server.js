@@ -28,14 +28,10 @@ mongoose
 
 const app = express();
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.BASE_FRONTEND_URL,
   credentials: true,
   optionsSuccessStatus: 200,
 };
-
-app.use(()=>{
-  
-})
 
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -49,7 +45,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
       maxAge: 1000 * 60 * 60 * 24,
     },
   })

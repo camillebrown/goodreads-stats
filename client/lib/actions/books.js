@@ -22,3 +22,7 @@ export const createBook = (api, book) => {
 
   return api.post("/api/books", { ...formattedBook });
 };
+
+export const deleteBook = (api, book) => {
+  return api.delete(`/api/books/${book?.id}`);
+};

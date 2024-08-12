@@ -10,7 +10,10 @@ export const searchGoogleBooks = async (query) => {
     )
     .then((r) => {
       let filteredItems = r.data.items.filter((item) => {
-        if (item?.volumeInfo?.categories?.includes("Juvenile Fiction"))
+        if (
+          item?.volumeInfo?.categories?.includes("Juvenile Fiction") ||
+          item?.accessInfo?.viewability === "NO_PAGES"
+        )
           return false;
         const title = item.volumeInfo.title;
         if (seenTitles.has(title)) {
@@ -20,6 +23,19 @@ export const searchGoogleBooks = async (query) => {
           return true;
         }
       });
+
+      filteredItems.sort((a, b) => {
+        const aRating = a.volumeInfo.averageRating || 0;
+        const bRating = b.volumeInfo.averageRating || 0;
+        return bRating - aRating;
+      });
+
+      filteredItems.sort((a, b) => {
+        const aIsFiction = a.volumeInfo.categories?.includes("fiction") ? 1 : 0;
+        const bIsFiction = b.volumeInfo.categories?.includes("fiction") ? 1 : 0;
+        return bIsFiction - aIsFiction;
+      });
+
       return filteredItems;
     })
     .catch((err) => {

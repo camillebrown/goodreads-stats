@@ -7,7 +7,7 @@ export default function MobileNavMenu({ user, userNavigation }) {
       <div className="border-t border-gray-200 pb-3 pt-4">
         <div className="mx-auto flex max-w-3xl items-center px-4 sm:px-6">
           <div>
-            <div className="text-base font-medium text-gray-800">
+            <div className="text-base font-medium text-primary-gray">
               {user?.name}
             </div>
             <div className="text-sm font-medium text-gray-500">
@@ -20,7 +20,7 @@ export default function MobileNavMenu({ user, userNavigation }) {
             <a
               key={item.name}
               href={item.href}
-              className="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+              className="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-primary-gray"
             >
               {item.name}
             </a>
