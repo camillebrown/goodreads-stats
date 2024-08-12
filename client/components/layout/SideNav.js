@@ -17,7 +17,7 @@ export default function SideNav() {
       name: "Discover",
       onClickRoute: "/browse?content=discover",
       icon: GlobeAltIcon,
-      current: ['discover', 'search'].includes(router?.query?.content),
+      current: ["discover", "search"].includes(router?.query?.content),
     },
     {
       name: "Top Books",
@@ -45,9 +45,9 @@ export default function SideNav() {
   return (
     <div className="hidden xl:fixed xl:h-full xl:flex xl:w-56 xl:flex-col">
       <div className="flex grow flex-col gap-y-5 overflow-y-auto px-3 ring-1 ring-white/5 border-r">
-        <nav className="flex flex-1 flex-col py-10 px-4 font-raleway text-xs divide-y">
-          <div className="pb-8">
-            <p className="font-semibold uppercase tracking-widest mx-1.5 mb-1 text-gray-400">
+        <nav className="flex flex-1 flex-col gap-4 py-10 px-4 font-raleway text-xs divide-y">
+          <div>
+            <p className="font-semibold uppercase tracking-widest m-1.5 text-gray-400">
               Browse
             </p>
             {browse.map((item) => (
@@ -60,8 +60,8 @@ export default function SideNav() {
                   }}
                   className={classNames(
                     item.current
-                      ? "bg-sage/60 text-gray-800"
-                      : "text-gray-800 hover:bg-sage/40",
+                      ? "bg-baby-blue/60 text-primary-gray"
+                      : "text-primary-gray hover:bg-baby-blue/60",
                     "group flex items-center gap-x-3 rounded-md p-1.5 leading-3 font-semibold cursor-pointer"
                   )}
                 >
@@ -72,8 +72,8 @@ export default function SideNav() {
             ))}
           </div>
 
-          <div className="pt-8">
-            <p className="font-semibold uppercase tracking-widest mx-1.5 mb-1 text-gray-400">
+          <div className="py-4">
+            <p className="font-semibold uppercase tracking-widest m-1.5 text-secondary-gray">
               Your Catalog
             </p>
             {mybooks.map((item) => (
@@ -82,8 +82,8 @@ export default function SideNav() {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-sage/60 text-gray-800"
-                      : "text-gray-800 hover:bg-sage/40",
+                      ? "bg-baby-blue/60 text-primary-gray"
+                      : "text-primary-gray hover:bg-baby-blue/60",
                     "group flex items-center gap-x-3 rounded-md p-1.5 leading-3 font-semibold"
                   )}
                 >

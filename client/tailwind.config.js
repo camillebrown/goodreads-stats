@@ -8,24 +8,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary-gray": "#505052",
+        "primary-gray": "#1f2937",
         "secondary-gray": "#636363",
-        "bright-red": "#F8442D",
+        "rich-salmon": "#F8442D",
+        salmon: "#f66350",
         "baby-blue": "#9EBEFF",
         "secondary-baby-blue": "#4d78ce",
+        lavendar: "#a21ef2",
         gold: "#FEAC26",
-
-        cream: "#fcf5e2",
-        sage: "#49916d",
-        "light-sage": "#84c9a7",
-        green: "#15643d",
-        salmon: "#eb7f56",
-        "test-salmon": "#e65539",
-        orange: "#d67c18",
+        "deep-gold": "#ff9a27",
         "error-red": "#e22d20",
-        "deep-orange": "#a05907",
-        "light-gray": "#f6f6f6",
-        "success-green": "#16a34a",
       },
       fontFamily: {
         raleway: ["var(--font-raleway)"],
@@ -36,6 +28,12 @@ module.exports = {
         xs: "480px",
         mid: "896px",
       },
+      keyframes: {
+        "scale-up": {
+          "0%": { transform: "scale(0)" },
+          "100%": { transform: "scale(1)" },
+        },
+      },
       animation: {
         "spin-slow": "spin 3s linear infinite",
         stroke: "stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards",
@@ -43,9 +41,10 @@ module.exports = {
           "stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards",
         "fill-scale":
           "fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both",
+        "scale-up": "scale-up 0.3s ease-out forwards",
       },
       backgroundImage: {
-        'login-bg': "url('./bg2.svg')",
+        "login-bg": "url('./bg2.svg')",
       },
     },
   },

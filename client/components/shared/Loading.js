@@ -1,17 +1,17 @@
 import React from "react";
-import { Oval } from "react-loader-spinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames";
 
-export default function Loading({ size, color, containerClass }) {
+export default function Loading({ className, containerClass }) {
   return (
-    <div className={containerClass}>
-      <Oval
-        height={size}
-        width={size}
-        radius="9"
-        color={color}
-        ariaLabel="oval-shape-loading"
-        wrapperClass
-        secondaryColor="#49916d"
+    <div className={`flex justify-center ${containerClass}`} role="loading">
+      <FontAwesomeIcon
+        icon={faCircleNotch}
+        className={classNames(
+          "text-4xl text-primary-gray animate-spin",
+          className
+        )}
       />
     </div>
   );

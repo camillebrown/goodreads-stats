@@ -56,10 +56,9 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/auth/google/callback",
     },
-    async (accessToken, refreshToken, profile, cb) => {
+    async (accessToken, refreshToken, profile, done) => {
       try {
         let user = await User.findOne({ googleId: profile.id });
-    
         if (!user) {
           user = new User({
             name: profile.displayName,
@@ -68,10 +67,10 @@ passport.use(
           });
           user = await user.save();
         }
-    
-        return cb(null, user);
+
+        return done(null, user);
       } catch (err) {
-        return cb(err);
+        return done(err);
       }
     }
   )

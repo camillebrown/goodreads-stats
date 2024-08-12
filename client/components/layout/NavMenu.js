@@ -11,7 +11,7 @@ export default function NavMenu({ userNavigation }) {
           <span className="absolute -inset-1.5" />
           <span className="sr-only">Open user menu</span>
           <UserCircleIcon
-            className="h-6 w-6 text-sage"
+            className="h-6 w-6 text-rich-salmon"
             aria-hidden="true"
           />
         </Menu.Button>
@@ -33,7 +33,7 @@ export default function NavMenu({ userNavigation }) {
                   href={item.href}
                   className={classNames(
                     active ? "bg-gray-100" : "",
-                    "block px-4 py-2 text-sm text-gray-900"
+                    "block px-4 py-2 text-sm text-primary-gray"
                   )}
                 >
                   {item.name}

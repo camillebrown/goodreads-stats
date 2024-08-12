@@ -63,7 +63,7 @@ export default function Navbar() {
                   {/* TODO: ALSO CHECK FOR LOGIN! */}
                   <CTAButton
                     onClick={handleLogout}
-                    buttonClass="bg-orange hover:bg-deep-orange"
+                    buttonClass="bg-secondary-baby-blue hover:bg-rich-salmon"
                     buttonText={user ? "Sign Out" : "Sign In"}
                   />
                 </div>
@@ -75,7 +75,7 @@ export default function Navbar() {
                   <NavMenu userNavigation={userNavigation} />
                   <a href="/profile">
                     <Cog6ToothIcon
-                      className="h-6 w-6 text-sage"
+                      className="h-6 w-6 text-rich-salmon"
                       aria-hidden="true"
                     />
                   </a>
