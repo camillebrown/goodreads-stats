@@ -60,8 +60,8 @@ export default function SideNav() {
                   }}
                   className={classNames(
                     item.current
-                      ? "bg-baby-blue/60 text-primary-gray"
-                      : "text-primary-gray hover:bg-baby-blue/60",
+                      ? "bg-secondary-baby-blue/60 text-primary-gray"
+                      : "text-primary-gray hover:bg-secondary-baby-blue/60",
                     "group flex items-center gap-x-3 rounded-md p-1.5 leading-3 font-semibold cursor-pointer"
                   )}
                 >
@@ -82,8 +82,8 @@ export default function SideNav() {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-baby-blue/60 text-primary-gray"
-                      : "text-primary-gray hover:bg-baby-blue/60",
+                      ? "bg-secondary-baby-blue/60 text-primary-gray"
+                      : "text-primary-gray hover:bg-secondary-baby-blue/60",
                     "group flex items-center gap-x-3 rounded-md p-1.5 leading-3 font-semibold"
                   )}
                 >

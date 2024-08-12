@@ -63,7 +63,7 @@ export default function Navbar() {
                   {/* TODO: ALSO CHECK FOR LOGIN! */}
                   <CTAButton
                     onClick={handleLogout}
-                    buttonClass="bg-secondary-baby-blue hover:bg-rich-salmon"
+                    buttonClass="bg-baby-blue hover:bg-rich-salmon"
                     buttonText={user ? "Sign Out" : "Sign In"}
                   />
                 </div>

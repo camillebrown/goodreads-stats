@@ -91,7 +91,7 @@ export default function Home() {
             ) : (
               <div
                 onClick={signOut}
-                className="text-sm font-semibold leading-6 text-white cursor-pointer hover:text-secondary-baby-blue"
+                className="text-sm font-semibold leading-6 text-white cursor-pointer hover:text-baby-blue"
               >
                 Sign out <span aria-hidden="true">&rarr;</span>
               </div>

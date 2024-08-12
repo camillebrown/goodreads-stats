@@ -46,9 +46,9 @@ export default function SignUpForm() {
               autoComplete="new-password"
               placeholder=" "
               required
-              className="peer block w-full appearance-none border-0 border-b border-primary-gray bg-transparent py-2.5 px-0 text-sm text-primary-gray focus:border-secondary-baby-blue focus:outline-none focus:ring-0"
+              className="peer block w-full appearance-none border-0 border-b border-primary-gray bg-transparent py-2.5 px-0 text-sm text-primary-gray focus:border-baby-blue focus:outline-none focus:ring-0"
             />
-            <label className="absolute top-3 z-20 peer-placeholder-shown:-z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-primary-gray duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-secondary-baby-blue">
+            <label className="absolute top-3 z-20 peer-placeholder-shown:-z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-primary-gray duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-baby-blue">
               Your Name
             </label>
             <ErrorMessage
@@ -65,9 +65,9 @@ export default function SignUpForm() {
               autoComplete="new-password"
               placeholder=" "
               required
-              className="peer block w-full appearance-none border-0 border-b border-primary-gray bg-transparent py-2.5 px-0 text-sm text-primary-gray focus:border-secondary-baby-blue focus:outline-none focus:ring-0"
+              className="peer block w-full appearance-none border-0 border-b border-primary-gray bg-transparent py-2.5 px-0 text-sm text-primary-gray focus:border-baby-blue focus:outline-none focus:ring-0"
             />
-            <label className="absolute top-3 z-20 peer-placeholder-shown:-z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-primary-gray duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-secondary-baby-blue">
+            <label className="absolute top-3 z-20 peer-placeholder-shown:-z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-primary-gray duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-baby-blue">
               Email Address
             </label>
             <ErrorMessage
@@ -84,9 +84,9 @@ export default function SignUpForm() {
               placeholder=" "
               autoComplete="new-password"
               required
-              className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-primary-gray focus:border-secondary-baby-blue focus:outline-none focus:ring-0"
+              className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-primary-gray focus:border-baby-blue focus:outline-none focus:ring-0"
             />
-            <label className="absolute top-3 z-20 peer-placeholder-shown:-z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-secondary-baby-blue">
+            <label className="absolute top-3 z-20 peer-placeholder-shown:-z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-baby-blue">
               Password
             </label>
             <ErrorMessage
@@ -110,7 +110,7 @@ export default function SignUpForm() {
           )}
           <button
             type="submit"
-            className="!mt-10 w-full rounded-md bg-secondary-baby-blue p-3 tracking-wider font-semibold leading-6 text-white shadow-sm hover:bg-secondary-baby-blue/90"
+            className="!mt-10 w-full rounded-md bg-baby-blue p-3 tracking-wider font-semibold leading-6 text-white shadow-sm hover:bg-baby-blue/90"
           >
             Sign Up
           </button>
