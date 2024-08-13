@@ -1,4 +1,4 @@
-import { Raleway, Montserrat, Manrope } from "next/font/google";
+import { Manrope,Montserrat, Raleway } from "next/font/google";
 
 export const raleway = Raleway({
   subsets: ["latin"],

@@ -1,9 +1,9 @@
-import { toast } from "react-hot-toast";
-import classNames from "classnames";
 import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
+import classNames from "classnames";
+import { toast } from "react-hot-toast";
 
 export default function useToast() {
   function makeToast(msg, type, toastClass) {

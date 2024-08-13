@@ -1,5 +1,3 @@
-import React from "react";
-import classNames from "classnames";
 import {
   BookOpenIcon,
   ChartBarSquareIcon,
@@ -7,8 +5,11 @@ import {
   PresentationChartBarIcon,
   ServerIcon,
 } from "@heroicons/react/24/outline";
-import { useRouter } from "next/router";
+import classNames from "classnames";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
+import React from "react";
 
 export default function SideNav() {
   const router = useRouter();
@@ -86,7 +87,7 @@ export default function SideNav() {
             </p>
             {mybooks.map((item) => (
               <div key={item.name}>
-                <a
+                <Link
                   href={item.href}
                   className={classNames(
                     item.current
@@ -97,7 +98,7 @@ export default function SideNav() {
                 >
                   <item.icon className="h-4 w-4 shrink-0" aria-hidden="true" />
                   {item.name}
-                </a>
+                </Link>
               </div>
             ))}
           </div>

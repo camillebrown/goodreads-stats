@@ -1,15 +1,15 @@
 import {
+  faArrowDownShortWide,
+  faArrowDownWideShort,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
   Listbox,
   ListboxButton,
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import {
-  faArrowDownWideShort,
-  faArrowDownShortWide,
-} from "@fortawesome/free-solid-svg-icons";
 
 export default function BookFilterInput({
   selectedSort,

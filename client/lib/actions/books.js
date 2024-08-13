@@ -15,6 +15,7 @@ export const createBook = (api, book) => {
     book_title: book.volumeInfo?.title,
     author: book.volumeInfo?.authors[0],
     page_count: book.volumeInfo?.pageCount,
+    description: book.volumeInfo?.description,
     categories: book.volumeInfo?.categories,
     img: book.volumeInfo?.imageLinks?.thumbnail,
   };
