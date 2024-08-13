@@ -14,7 +14,6 @@ export const createBook = (api, book) => {
     google_id: book.id,
     book_title: book.volumeInfo?.title,
     author: book.volumeInfo?.authors[0],
-    rating: book.volumeInfo?.averageRating,
     page_count: book.volumeInfo?.pageCount,
     categories: book.volumeInfo?.categories,
     img: book.volumeInfo?.imageLinks?.thumbnail,
@@ -24,5 +23,5 @@ export const createBook = (api, book) => {
 };
 
 export const deleteBook = (api, book) => {
-  return api.delete(`/api/books/${book?.id}`);
+  return api.delete(`/api/books/${book?._id}`);
 };

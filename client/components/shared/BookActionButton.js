@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import Loading from "./Loading";
-import classNames from "classnames";
 import useBooks from "@/hooks/useBooks";
 import DeleteBookModal from "../modals/DeleteBookModal";
 
@@ -20,7 +19,6 @@ export default function BookActionButton({ book, isUserBook }) {
   const toggleModal = () => {
     setModalActive(!modalActive);
   };
-
 
   const getIconStack = () => {
     if (isSaving === book?.id)
@@ -34,21 +32,16 @@ export default function BookActionButton({ book, isUserBook }) {
     if (isUserBook) {
       return (
         <span
-          className="fa-layers fa-fw text-[40px] cursor-pointer"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          className="fa-layers fa-fw text-[40px] cursor-pointer group"
           onClick={() => setModalActive(true)}
         >
           <FontAwesomeIcon
             icon={faSquare}
-            className={isHovered ? "text-white" : "text-rich-salmon"}
+            className="text-rich-salmon group-hover:text-white"
           />
           <FontAwesomeIcon
             icon={isHovered ? faHeartCircleMinus : faHeartCircleCheck}
-            className={classNames(
-              "text-lg",
-              isHovered ? "text-rich-salmon" : "text-white"
-            )}
+            className="text-lg text-white group-hover:text-rich-salmon"
           />
         </span>
       );
@@ -79,7 +72,7 @@ export default function BookActionButton({ book, isUserBook }) {
         toggleModal={toggleModal}
         book={book}
       />
-      <div className="transition-opacity duration-500">{getIconStack()}</div>
+      <div className="transition-opacity duration-50">{getIconStack()}</div>
     </>
   );
 }

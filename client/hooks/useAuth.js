@@ -17,7 +17,6 @@ function useAuth() {
         try {
           const res = await getCurrentUser(api);
           setUser(res.data);
-          router.push("/browse?content=discover");
         } catch (error) {
           console.log('UseAuth: Error fetching current user', error);
 
