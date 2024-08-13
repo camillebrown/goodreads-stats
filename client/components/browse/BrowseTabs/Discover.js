@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect } from "react";
-
-import { getNYTBooks } from "@/lib/actions/queries";
 import { BooksContext } from "@/pages/_app";
+import { useQuery } from "@tanstack/react-query";
+
+import { getNYTBooks } from "@lib/actions/queries";
 
 export default function Discover() {
   const { books, setBooks } = useContext(BooksContext);

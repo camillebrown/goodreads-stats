@@ -1,14 +1,14 @@
-import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-import BackToContentButton from "@/components/browse/BackToContentButton";
-import BrowseSearchBar from "@/components/browse/BrowseSearchBar";
-import Categories from "@/components/browse/BrowseTabs/Categories";
-import Discover from "@/components/browse/BrowseTabs/Discover";
-import TopBooks from "@/components/browse/BrowseTabs/TopBooks";
-import SearchResults from "@/components/browse/SearchResults";
-import MainLayout from "@/components/layout/MainLayout";
-import Loading from "@/components/shared/Loading";
+import BackToContentButton from "@browse/BackToContentButton";
+import BrowseSearchBar from "@browse/BrowseSearchBar";
+import Categories from "@browse/BrowseTabs/Categories";
+import Discover from "@browse/BrowseTabs/Discover";
+import TopBooks from "@browse/BrowseTabs/TopBooks";
+import SearchResults from "@browse/SearchResults";
+import MainLayout from "@layout/MainLayout";
+import Loading from "@shared/Loading";
 
 export default function Browse() {
   const router = useRouter();

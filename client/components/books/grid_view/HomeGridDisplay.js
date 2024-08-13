@@ -1,8 +1,7 @@
 import React from "react";
 
-import BookGridLayout from "@/components/layout/BookGridLayout";
-import { generateImageLink } from "@/lib/search_functions";
-
+import BookGridLayout from "@layout/BookGridLayout";
+import { generateImageLink } from "@lib/search_functions";
 import HomeGridBookItem from "./HomeGridBookItem";
 
 export default function HomeGridDisplay({ sortedBooks }) {

@@ -1,6 +1,6 @@
 import { Rating } from "react-simple-star-rating";
 
-import { difference_in_days } from "@/lib/date_formatters";
+import { difference_in_days } from "@lib/date_formatters";
 
 export const columns = [
   {
@@ -14,7 +14,9 @@ export const columns = [
             {original?.book_title}
           </div>
           <dl className="font-normal lg:hidden">
-            <dd className="mt-1 truncate text-gray-700">Author: {original?.author}</dd>
+            <dd className="mt-1 truncate text-gray-700">
+              Author: {original?.author}
+            </dd>
             <dd className="mt-1 truncate text-gray-500 sm:hidden">
               {original?.author}
             </dd>

@@ -1,12 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import Loading from "@/components/shared/Loading";
-import { getUserBooks } from "@/lib/actions/books";
-import { generateImageLink } from "@/lib/search_functions";
-import { ApiContext, UserContext } from "@/pages/_app";
-import SearchBookDisplay from "@/SearchBookDisplay";
-
+import { ApiContext, UserContext } from "pages/_app";
+import SearchBookDisplay from "@browse/SearchBookDisplay";
+import { getUserBooks } from "@lib/actions/books";
+import { generateImageLink } from "@lib/search_functions";
+import Loading from "@shared/Loading";
 import { getFullSearchResults } from "../../lib/search_functions";
 import BookGridLayout from "../layout/BookGridLayout";
 

@@ -1,14 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
 import { useContext, useMemo, useState } from "react";
-
 import FilterDisplay from "@/components/books/FilterDisplay";
 import HomeGridDisplay from "@/components/books/grid_view/HomeGridDisplay";
 import HomeListDisplay from "@/components/books/list_view/HomeListDisplay";
-import MainLayout from "@/components/layout/MainLayout";
-import Loading from "@/components/shared/Loading";
-import useBooks from "@/hooks/useBooks";
-import { getUserBooks } from "@/lib/actions/books";
-import { ApiContext, UserContext } from "@/pages/_app";
+import { useQuery } from "@tanstack/react-query";
+
+import { ApiContext, UserContext } from "pages/_app";
+import useBooks from "@hooks/useBooks";
+import MainLayout from "@layout/MainLayout";
+import { getUserBooks } from "@lib/actions/books";
+import Loading from "@shared/Loading";
 
 export default function MyBooks() {
   const api = useContext(ApiContext);

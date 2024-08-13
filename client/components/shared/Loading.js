@@ -1,7 +1,7 @@
+import React from "react";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import React from "react";
 
 export default function Loading({ className, containerClass }) {
   return (

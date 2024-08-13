@@ -1,8 +1,8 @@
+import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Link from "next/link";
-import { Fragment } from "react";
 
 export default function NavMenu({ userNavigation }) {
   return (

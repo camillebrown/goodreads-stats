@@ -1,10 +1,9 @@
-import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
+import { useRouter } from "next/router";
 
-import { getCurrentUser } from "@/lib/actions/auth";
-import { ApiContext, UserContext } from "@/pages/_app";
-
-import useToast from "./useToast";
+import { ApiContext, UserContext } from "pages/_app";
+import useToast from "@hooks/useToast";
+import { getCurrentUser } from "@lib/actions/auth";
 
 function useAuth() {
   function RequireAuth({ children }) {
@@ -19,10 +18,14 @@ function useAuth() {
           const res = await getCurrentUser(api);
           setUser(res.data);
         } catch (error) {
-          console.log('UseAuth: Error fetching current user', error);
+          console.log("UseAuth: Error fetching current user", error);
 
           if (error?.response?.data?.msg === "Token expired. Route to login") {
-            makeToast("You are being logged out due to inactivity", "error", "px-8");
+            makeToast(
+              "You are being logged out due to inactivity",
+              "error",
+              "px-8"
+            );
           }
 
           setUser(null);

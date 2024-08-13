@@ -1,6 +1,6 @@
+import React from "react";
 import { Popover } from "@headlessui/react";
 import Link from "next/link";
-import React from "react";
 
 export default function MobileNavMenu({ user, userNavigation }) {
   return (

@@ -1,3 +1,4 @@
+import React from "react";
 import {
   BookOpenIcon,
   ChartBarSquareIcon,
@@ -9,7 +10,6 @@ import classNames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
-import React from "react";
 
 export default function SideNav() {
   const router = useRouter();

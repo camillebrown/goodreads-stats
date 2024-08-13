@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -7,10 +8,9 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import classNames from "classnames";
-import { useState } from "react";
 
-import { columns } from "@/ColumnData";
-import SearchBar from "@/components/layout/SearchBar";
+import { columns } from "@books/list_view/table/ColumnData";
+import SearchBar from "@layout/SearchBar";
 
 export default function BookListTable({ userBooks }) {
   const [data, _setData] = useState(() => [...userBooks]);
