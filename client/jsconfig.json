@@ -1,13 +1,14 @@
 {
-  "extends": "next/core-web-vitals",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@components/*": ["components/*"],
       "@books/*": ["components/books/*"],
       "@browse/*": ["components/browse/*"],
       "@layout/*": ["components/layout/*"],
       "@shared/*": ["components/shared/*"],
-      "@lib/*": ["lib/*"]
+      "@lib/*": ["lib/*"],
+      "@hooks/*": ["hooks/*"]
     }
   }
 }

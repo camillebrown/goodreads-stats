@@ -1,19 +1,18 @@
 {
   "extends": "next/core-web-vitals",
-  "plugins": ["simple-import-sort"],
-  "rules": {
-    "simple-import-sort/imports": "warn"
-  },
+  "plugins": [],
+  "rules": {},
   "settings": {
     "import/resolver": {
       "alias": {
         "map": [
-          ["@", "./"],
+          ["@components", "./components/"],
           ["@books", "./components/books"],
           ["@browse", "./components/browse"],
           ["@layout", "./components/layout"],
           ["@shared", "./components/shared"],
-          ["@lib", "./lib"]
+          ["@lib", "./lib"],
+          ["@hooks", "./hooks"]
         ],
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }

@@ -1,5 +1,5 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
 
 export default function OAuthLinks() {
   return (
@@ -9,7 +9,9 @@ export default function OAuthLinks() {
           <div className="w-full border-t border-gray-200" />
         </div>
         <div className="relative flex justify-center text-sm font-medium leading-6">
-          <span className="bg-white px-6 text-primary-gray">Or continue with</span>
+          <span className="bg-white px-6 text-primary-gray">
+            Or continue with
+          </span>
         </div>
       </div>
 

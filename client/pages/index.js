@@ -1,13 +1,12 @@
+import { useContext, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
 
-import Loading from "@/components/shared/Loading";
-import { logoutUser } from "@/lib/actions/auth";
-
+import { logoutUser } from "@lib/actions/auth";
+import Loading from "@shared/Loading";
 import { ApiContext, UserContext } from "./_app";
 
 const navigation = [
@@ -58,6 +57,8 @@ export default function Home() {
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                 alt=""
+                width={0}
+                height={0}
               />
             </Link>
           </div>
@@ -116,6 +117,8 @@ export default function Home() {
                   className="h-8 w-auto"
                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                   alt=""
+                  width={0}
+                  height={0}
                 />
               </Link>
               <button
@@ -159,6 +162,8 @@ export default function Home() {
           src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2830&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
           alt=""
           className="absolute inset-0 -z-10 h-full w-full object-cover"
+          width={0}
+          height={0}
         />
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"

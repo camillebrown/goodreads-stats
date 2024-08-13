@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -5,9 +6,8 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import React from "react";
 
-import useBooks from "@/hooks/useBooks";
+import useBooks from "@hooks/useBooks";
 
 export default function DeleteBookModal({ book, modalActive, toggleModal }) {
   const { deleteUserBook } = useBooks();

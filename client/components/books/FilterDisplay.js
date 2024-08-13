@@ -1,8 +1,8 @@
+import React from "react";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Squares2X2Icon, TableCellsIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import React from "react";
 
 import BookFilterInput from "./BookFilterInput";
 

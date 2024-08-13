@@ -1,11 +1,10 @@
+import React, { useContext, useState } from "react";
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
 
-import { searchGoogleBooks } from "@/lib/actions/queries";
-import { BooksContext } from "@/pages/_app";
-
-import SearchBar from "../layout/SearchBar";
+import { BooksContext } from "pages/_app";
+import SearchBar from "@layout/SearchBar";
+import { searchGoogleBooks } from "@lib/actions/queries";
 
 export default function BrowseSearchBar({ setContent }) {
   const router = useRouter();

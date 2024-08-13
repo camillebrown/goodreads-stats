@@ -23,6 +23,8 @@ export default function SearchBookDisplay({
           src={imgSrc}
           alt={title}
           className="h-full w-full object-cover object-center rounded-lg"
+          width={0}
+          height={0}
         />
         <div
           className={classNames("absolute top-1.5 right-0.5 group", {

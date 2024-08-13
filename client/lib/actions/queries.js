@@ -11,12 +11,13 @@ export const searchGoogleBooks = async (query) => {
     const seenTitles = new Set();
     const filteredItems = response.data.items
       .filter((item) => {
-        
         const categories = item?.volumeInfo?.categories || [];
         const title = item?.volumeInfo?.title;
-        
-        const restrictedCategories = ["Juvenile Fiction", 'Session laws'];
-        const isRestricted = categories.some(category => restrictedCategories.includes(category));
+
+        const restrictedCategories = ["Juvenile Fiction", "Session laws"];
+        const isRestricted = categories.some((category) =>
+          restrictedCategories.includes(category)
+        );
         if (isRestricted || item?.accessInfo?.viewability === "NO_PAGES") {
           return false;
         }

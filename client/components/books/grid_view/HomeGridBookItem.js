@@ -1,6 +1,6 @@
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { Rating } from "react-simple-star-rating";
 
 import DeleteBookModal from "../../modals/DeleteBookModal";
@@ -26,6 +26,8 @@ export default function HomeGridBookItem({ book, imgSrc }) {
             src={imgSrc}
             alt={book?.book_title}
             className="h-full w-full object-cover object-center rounded-lg"
+            width={0}
+            height={0}
           />
         </div>
         <div className="transition duration-500 text-center">

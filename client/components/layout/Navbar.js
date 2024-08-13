@@ -1,19 +1,18 @@
+import { useContext } from "react";
 import { Popover } from "@headlessui/react";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
 
-import useToast from "@/hooks/useToast";
-import { logoutUser } from "@/lib/actions/auth";
-import { ApiContext, UserContext } from "@/pages/_app";
-
-import CTAButton from "../shared/CTAButton";
-import Divider from "../shared/Divider";
-import MobileNavButton from "./MobileNavButton";
-import MobileNavMenu from "./MobileNavMenu";
-import NavMenu from "./NavMenu";
+import { ApiContext, UserContext } from "pages/_app";
+import useToast from "@hooks/useToast";
+import MobileNavButton from "@layout/MobileNavButton";
+import MobileNavMenu from "@layout/MobileNavMenu";
+import NavMenu from "@layout/NavMenu";
+import { logoutUser } from "@lib/actions/auth";
+import CTAButton from "@shared/CTAButton";
+import Divider from "@shared/Divider";
 
 export default function Navbar() {
   const makeToast = useToast();
@@ -56,6 +55,8 @@ export default function Navbar() {
                     className="h-8 w-3/4 sm:w-auto"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     alt="Your Company"
+                    width={0}
+                    height={0}
                   />
                 </div>
                 <Divider height="h-1/2" color="bg-gray-400" />

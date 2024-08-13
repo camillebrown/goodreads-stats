@@ -1,17 +1,17 @@
 "use client";
-import "@/styles/globals.css";
-import "@/styles/fonts.js";
 
+import "../styles/globals.css";
+import "../styles/fonts.js";
+
+import { createContext, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { createContext, useState } from "react";
 import { Toaster } from "react-hot-toast";
 
-import Navbar from "@/components/layout/Navbar";
-import useAuth from "@/hooks/useAuth";
-
-import { manrope, montserrat,raleway } from "../styles/fonts.js";
+import useAuth from "@hooks/useAuth";
+import Navbar from "@layout/Navbar";
+import { manrope, montserrat, raleway } from "../styles/fonts.js";
 
 export const ApiContext = createContext();
 export const BooksContext = createContext();

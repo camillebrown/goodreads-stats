@@ -1,14 +1,13 @@
+import React, { useContext, useState } from "react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { ErrorMessage,Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
 
-import { registerUser } from "@/lib/actions/auth";
-import { ApiContext, UserContext } from "@/pages/_app";
-
+import { ApiContext, UserContext } from "pages/_app";
+import OAuthLinks from "@components/forms/OAuthLinks";
+import { registerUser } from "@lib/actions/auth";
 import { loginSchema } from "../../lib/login_schema";
-import OAuthLinks from "./OAuthLinks";
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -20,7 +19,7 @@ export default function SignUpForm() {
     try {
       const res = await registerUser(api, values);
       setUser(res.data);
-      
+
       router.push("/browse?content=discover");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
