@@ -1,5 +1,7 @@
-import LoginForm from "@/components/forms/LoginForm";
 import Image from "next/image";
+
+import LoginForm from "@/components/forms/LoginForm";
+
 import bg1 from "../styles/bg.svg";
 
 export default function Login() {

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -6,6 +5,8 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import React from "react";
+
 import useBooks from "@/hooks/useBooks";
 
 export default function DeleteBookModal({ book, modalActive, toggleModal }) {
@@ -39,6 +40,7 @@ export default function DeleteBookModal({ book, modalActive, toggleModal }) {
                   Delete This Book?
                 </DialogTitle>
                 <div className="text-primary">
+                  {/* eslint-disable-next-line react/no-unescaped-entities */}
                   Are you sure you'd like to delete the following book from your
                   saved books:
                   <p className="font-semibold mt-4 text-xl text-baby-blue">

@@ -1,15 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import React, { useContext, useEffect, useState } from "react";
 
-import BookGridLayout from "../layout/BookGridLayout";
-import SearchBookDisplay from "./SearchBookDisplay";
 import Loading from "@/components/shared/Loading";
-import { ApiContext, UserContext } from "@/pages/_app";
 import { getUserBooks } from "@/lib/actions/books";
-import { getFullSearchResults } from "../../lib/search_functions";
 import { generateImageLink } from "@/lib/search_functions";
+import { ApiContext, UserContext } from "@/pages/_app";
+import SearchBookDisplay from "@/SearchBookDisplay";
 
-export default function Search({ searchResults }) {
+import { getFullSearchResults } from "../../lib/search_functions";
+import BookGridLayout from "../layout/BookGridLayout";
+
+export default function SearchResults({ searchResults }) {
   const api = useContext(ApiContext);
   const { user } = useContext(UserContext);
   const [fullSearchResults, setFullSearchResults] = useState();

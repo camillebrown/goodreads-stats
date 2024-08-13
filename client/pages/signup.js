@@ -1,5 +1,7 @@
-import SignUpForm from "@/components/forms/SignUpForm";
 import Image from "next/image";
+
+import SignUpForm from "@/components/forms/SignUpForm";
+
 import bg1 from "../styles/bg.svg";
 
 export default function SignUp() {

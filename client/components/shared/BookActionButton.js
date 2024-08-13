@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
-  faSquare,
+  faHeart as fasHeart,
   faHeartCircleCheck,
   faHeartCircleMinus,
-  faHeart as fasHeart,
+  faSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import Loading from "./Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+
 import useBooks from "@/hooks/useBooks";
+
 import DeleteBookModal from "../modals/DeleteBookModal";
+import Loading from "./Loading";
 
 export default function BookActionButton({ book, isUserBook }) {
   const { isSaving, saveToBooks } = useBooks();

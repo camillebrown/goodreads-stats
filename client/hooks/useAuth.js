@@ -1,9 +1,10 @@
-import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
+
+import { getCurrentUser } from "@/lib/actions/auth";
+import { ApiContext, UserContext } from "@/pages/_app";
 
 import useToast from "./useToast";
-import { ApiContext, UserContext } from "@/pages/_app";
-import { getCurrentUser } from "@/lib/actions/auth";
 
 function useAuth() {
   function RequireAuth({ children }) {

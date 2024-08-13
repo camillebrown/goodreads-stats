@@ -1,13 +1,14 @@
-import React, { useContext, useState } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { ErrorMessage,Field, Form, Formik } from "formik";
 import Link from "next/link";
-
-import OAuthLinks from "./OAuthLinks";
-import { ApiContext, UserContext } from "@/pages/_app";
-import { loginSchema } from "../../lib/login_schema";
 import { useRouter } from "next/router";
+import React, { useContext, useState } from "react";
+
 import { registerUser } from "@/lib/actions/auth";
+import { ApiContext, UserContext } from "@/pages/_app";
+
+import { loginSchema } from "../../lib/login_schema";
+import OAuthLinks from "./OAuthLinks";
 
 export default function SignUpForm() {
   const router = useRouter();

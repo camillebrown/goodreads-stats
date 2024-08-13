@@ -1,6 +1,6 @@
-import React from "react";
 import { Popover } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import React from "react";
 
 export default function MobileNavButton({ open }) {
   return (

@@ -1,9 +1,11 @@
-import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Rating } from "react-simple-star-rating";
-import DeleteBookModal from "../modals/DeleteBookModal";
 
-export default function HomeGridDisplay({ book, imgSrc }) {
+import DeleteBookModal from "../../modals/DeleteBookModal";
+
+export default function HomeGridBookItem({ book, imgSrc }) {
   // TODO: CHANGE TO USEMODAL HOOK
   const [modalActive, setModalActive] = useState(false);
 
@@ -20,7 +22,7 @@ export default function HomeGridDisplay({ book, imgSrc }) {
       />
       <div className="group p-3 rounded-lg">
         <div className="relative aspect-h-1 aspect-w-1 w-full min-h-72 overflow-hidden rounded-lg bg-transparent xl:aspect-h-8 xl:aspect-w-7">
-          <img
+          <Image
             src={imgSrc}
             alt={book?.book_title}
             className="h-full w-full object-cover object-center rounded-lg"
@@ -41,7 +43,7 @@ export default function HomeGridDisplay({ book, imgSrc }) {
               className="leading-3"
             />
             <Link
-              href={`/books/${book._id}`}
+              href={`/books/${book?._id}`}
               className="text-sm font-semibold rounded-md bg-baby-blue text-white hover:bg-baby-blue/90 px-4 py-2"
             >
               See Details

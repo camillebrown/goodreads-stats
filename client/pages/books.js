@@ -1,16 +1,14 @@
-import { useContext, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useContext, useMemo, useState } from "react";
 
-import { ApiContext, UserContext } from "@/pages/_app";
-import { getUserBooks } from "@/lib/actions/books";
+import FilterDisplay from "@/components/books/FilterDisplay";
+import HomeGridDisplay from "@/components/books/grid_view/HomeGridDisplay";
+import HomeListDisplay from "@/components/books/list_view/HomeListDisplay";
 import MainLayout from "@/components/layout/MainLayout";
 import Loading from "@/components/shared/Loading";
-import BookGridLayout from "../components/layout/BookGridLayout";
-import { generateImageLink } from "@/lib/search_functions";
-import HomeGridDisplay from "@/components/books/HomeGridDisplay";
-import FilterDisplay from "@/components/books/FilterDisplay";
-import HomeListDisplay from "@/components/books/HomeListDisplay";
 import useBooks from "@/hooks/useBooks";
+import { getUserBooks } from "@/lib/actions/books";
+import { ApiContext, UserContext } from "@/pages/_app";
 
 export default function MyBooks() {
   const api = useContext(ApiContext);
@@ -25,7 +23,15 @@ export default function MyBooks() {
     { title: "Pages (Asc)", type: "pages_asc" },
   ];
 
+  const tabs = [
+    { title: "All", type: "all", className: "rounded-l-lg" },
+    { title: "Want to Read", type: "tbr" },
+    { title: "Currently Reading", type: "current" },
+    { title: "Read", type: "read" },
+  ];
+
   const [display, setDisplay] = useState("grid");
+  const [bookGroup, setBookGroup] = useState(tabs[0].type);
   const [selectedSort, setSelectedSort] = useState(sortOptions[0]);
 
   //TODO: DO SOMETHING WITH THESE BOOK ERRORS
@@ -46,7 +52,7 @@ export default function MyBooks() {
       return sorted;
     }
     return [];
-  }, [userBooks, selectedSort]);
+  }, [userBooks, selectedSort, sortBooks]);
 
   return (
     <MainLayout>
@@ -55,32 +61,23 @@ export default function MyBooks() {
           Your Books
         </h2>
         <FilterDisplay
+          tabs={tabs}
+          bookGroup={bookGroup}
+          setBookGroup={setBookGroup}
           display={display}
           setDisplay={setDisplay}
           selectedSort={selectedSort}
           setSelectedSort={setSelectedSort}
           sortOptions={sortOptions}
         />
+
+        {/* TODO: ADD ABILITY TO SEARCH USER BOOKS! REACT TABLE GLOBAL FILTER */}
         {booksLoading || !sortedBooks ? (
           <Loading className="text-rich-salmon w-14 h-14 my-8" />
         ) : display === "grid" ? (
-          <BookGridLayout>
-            {sortedBooks.length > 0 ? (
-              sortedBooks.map((r, idx) => (
-                <div key={idx} className="flex justify-center">
-                  <HomeGridDisplay
-                    imgSrc={generateImageLink(r?.img)}
-                    book={r}
-                  />
-                </div>
-              ))
-            ) : (
-              // TODO: ADD BANNER TO PUSH TO DISCOVER PAGE
-              <p>No saved books yet.</p>
-            )}
-          </BookGridLayout>
+          <HomeGridDisplay sortedBooks={sortedBooks} />
         ) : (
-          <HomeListDisplay userBooks={sortedBooks} />
+          <HomeListDisplay sortedBooks={sortedBooks} />
         )}
       </div>
     </MainLayout>

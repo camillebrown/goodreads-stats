@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function OAuthLinks() {
@@ -13,7 +14,7 @@ export default function OAuthLinks() {
       </div>
 
       <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <a
+        <Link
           href={`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`}
           className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-primary-gray shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
         >
@@ -36,9 +37,9 @@ export default function OAuthLinks() {
             />
           </svg>
           <span className="text-sm font-semibold leading-6">Google</span>
-        </a>
+        </Link>
 
-        <a
+        <Link
           href="#"
           className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-primary-gray shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
         >
@@ -55,7 +56,7 @@ export default function OAuthLinks() {
             />
           </svg>
           <span className="text-sm font-semibold leading-6">GitHub</span>
-        </a>
+        </Link>
       </div>
     </div>
   );

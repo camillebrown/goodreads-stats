@@ -1,7 +1,8 @@
-import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
+import Link from "next/link";
+import { Fragment } from "react";
 
 export default function NavMenu({ userNavigation }) {
   return (
@@ -29,7 +30,7 @@ export default function NavMenu({ userNavigation }) {
           {userNavigation.map((item) => (
             <Menu.Item key={item.name}>
               {({ active }) => (
-                <a
+                <Link
                   href={item.href}
                   className={classNames(
                     active ? "bg-gray-100" : "",
@@ -37,7 +38,7 @@ export default function NavMenu({ userNavigation }) {
                   )}
                 >
                   {item.name}
-                </a>
+                </Link>
               )}
             </Menu.Item>
           ))}

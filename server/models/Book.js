@@ -19,6 +19,14 @@ const bookSchema = new Schema(
       type: Number,
       default: 0,
     },
+    status: {
+      type: String,
+      default: null,
+    },
+    description: {
+      type: String,
+      default: null,
+    },
     start_date: {
       type: Date,
       default: null,

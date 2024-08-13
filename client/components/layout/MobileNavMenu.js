@@ -1,5 +1,6 @@
-import React from "react";
 import { Popover } from "@headlessui/react";
+import Link from "next/link";
+import React from "react";
 
 export default function MobileNavMenu({ user, userNavigation }) {
   return (
@@ -17,13 +18,13 @@ export default function MobileNavMenu({ user, userNavigation }) {
         </div>
         <div className="mx-auto mt-3 max-w-3xl space-y-1 px-2 sm:px-4">
           {userNavigation.map((item) => (
-            <a
+            <Link
               key={item.name}
               href={item.href}
               className="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-primary-gray"
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
