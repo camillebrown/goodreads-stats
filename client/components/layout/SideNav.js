@@ -8,9 +8,11 @@ import {
   ServerIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 export default function SideNav() {
   const router = useRouter();
+  const pathname = usePathname();
 
   const browse = [
     {
@@ -32,13 +34,19 @@ export default function SideNav() {
       current: router?.query?.content === "categories",
     },
   ];
+
   const mybooks = [
-    { name: "My Books", href: "#", icon: BookOpenIcon, current: false },
+    {
+      name: "My Books",
+      href: "/books",
+      icon: BookOpenIcon,
+      current: pathname === "/books/",
+    },
     {
       name: "Dashboard",
       href: "#",
       icon: PresentationChartBarIcon,
-      current: false,
+      current: pathname === "/dashboard/",
     },
   ];
 

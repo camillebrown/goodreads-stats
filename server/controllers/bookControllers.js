@@ -77,7 +77,7 @@ const updateBook = asyncHandler(async (req, res) => {
  const deleteBook = asyncHandler(async (req, res, next) => {
   try {
     const book = await Book.findOne({
-      google_id: req.params.id,
+      _id: req.params.id,
       user: req.session.passport.user,
     });
 

@@ -38,13 +38,13 @@ export default function DeleteBookModal({ book, modalActive, toggleModal }) {
                 >
                   Delete This Book?
                 </DialogTitle>
-                <p className="text-primary">
+                <div className="text-primary">
                   Are you sure you'd like to delete the following book from your
                   saved books:
                   <p className="font-semibold mt-4 text-xl text-baby-blue">
-                    {book?.volumeInfo?.title}
+                    {book?.volumeInfo?.title || book?.book_title}
                   </p>
-                </p>
+                </div>
               </div>
             </div>
             <div className="mt-4 sm:mt-8 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">

@@ -2,6 +2,7 @@ export const getFullSearchResults = (userBooks, searchResults) => {
   const savedBooksLookup = new Map();
   userBooks.forEach((book) => {
     savedBooksLookup.set(book.google_id, {
+      _id: book._id,
       saved: true,
       createdAt: book.createdAt,
     });
@@ -11,6 +12,7 @@ export const getFullSearchResults = (userBooks, searchResults) => {
     ?.map((result) => {
       return {
         ...result,
+        _id: savedBooksLookup?.get(result.id)?._id,
         user_saved: savedBooksLookup.has(result.id),
         book_saved_at: savedBooksLookup.has(result.id)
           ? savedBooksLookup?.get(result.id)?.createdAt
@@ -25,4 +27,8 @@ export const getFullSearchResults = (userBooks, searchResults) => {
       }
     });
   return enrichedSearchResults;
+};
+
+export const generateImageLink = (thumbnail) => {
+  if (thumbnail) return `${thumbnail}&fife=w800`;
 };
