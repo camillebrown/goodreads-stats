@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { Popover } from "@headlessui/react";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import Image from "next/image";
 import Link from "next/link";
 
 import { ApiContext, UserContext } from "pages/_app";
@@ -51,12 +50,10 @@ export default function Navbar() {
             <div className="relative flex justify-between">
               <div className="flex items-center md:absolute md:inset-y-0 md:left-0 lg:static w-full md:w-4/5 xl:w-5/12 md:gap-2">
                 <div className="flex items-center sm:w-1/12">
-                  <Image
+                  <img
                     className="h-8 w-3/4 sm:w-auto"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     alt="Your Company"
-                    width={0}
-                    height={0}
                   />
                 </div>
                 <Divider height="h-1/2" color="bg-gray-400" />

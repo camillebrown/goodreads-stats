@@ -1,7 +1,6 @@
-import Image from "next/image";
-
 import LoginForm from "@components/forms/LoginForm";
-import bg1 from "../styles/bg.svg";
+import Image from "next/image";
+import bg from "../styles/bg.svg"
 
 export default function Login() {
   return (
@@ -14,10 +13,10 @@ export default function Login() {
 
       <div className="relative hidden w-full h-full flex-1 lg:flex flex-col items-center justify-center">
         <Image
-          src={bg1}
+          src={bg}
           alt="Background Image"
           className="w-full h-full object-cover object-left"
-          priority
+          priority="true"
           width={0}
           height={0}
         />

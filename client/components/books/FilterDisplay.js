@@ -52,10 +52,10 @@ export default function FilterDisplay({
           />
           <TableCellsIcon
             aria-hidden="true"
-            onClick={() => setDisplay("table")}
+            onClick={() => setDisplay("list")}
             className={classNames(
               "h-5 w-5 cursor-pointer",
-              display === "table"
+              display === "list"
                 ? "text-salmon"
                 : "cursor-pointer text-tertiary-gray hover:text-salmon"
             )}
@@ -63,10 +63,10 @@ export default function FilterDisplay({
           <FontAwesomeIcon
             icon={faList}
             aria-hidden="true"
-            onClick={() => setDisplay("list")}
+            onClick={() => setDisplay("detail")}
             className={classNames(
               "h-4 w-4",
-              display === "list"
+              display === "detail"
                 ? "text-salmon"
                 : "cursor-pointer text-tertiary-gray hover:text-salmon"
             )}

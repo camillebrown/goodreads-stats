@@ -7,7 +7,7 @@ const bookSchema = new Schema(
       type: String,
       unique: true,
     },
-    book_title: {
+    title: {
       type: String,
       required: true,
     },
@@ -19,9 +19,13 @@ const bookSchema = new Schema(
       type: Number,
       default: 0,
     },
+    avg_rating: {
+      type: Number,
+      default: null,
+    },
     status: {
       type: String,
-      default: null,
+      default: 'tbr',
     },
     description: {
       type: String,

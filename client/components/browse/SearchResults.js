@@ -36,6 +36,7 @@ export default function SearchResults({ searchResults }) {
       />
     );
 
+    console.log(fullSearchResults)
   return (
     <div>
       <h2 className="font-semibold text-base sm:text-lg font-montserrat tracking-wider">

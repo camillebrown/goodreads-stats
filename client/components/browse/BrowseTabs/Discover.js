@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { BooksContext } from "@/pages/_app";
+import { BooksContext } from "pages/_app";
 import { useQuery } from "@tanstack/react-query";
 
 import { getNYTBooks } from "@lib/actions/queries";
