@@ -22,6 +22,12 @@ module.exports = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "http",
+        hostname: "books.google.com",
+        port: "",
+        pathname: "/books/**",
+      },
     ],
   },
 };

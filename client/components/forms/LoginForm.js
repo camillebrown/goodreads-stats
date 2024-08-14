@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { ApiContext, UserContext } from "pages/_app";
 import OAuthLinks from "@components/forms/OAuthLinks";
 import { loginUser } from "@lib/actions/auth";
-import { loginSchema } from "../../lib/login_schema";
+import { loginSchema } from "@lib/login_schema";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -114,7 +114,7 @@ export default function LoginForm() {
         <p>New Here?</p>
         <Link
           href="/signup"
-          className="text-bright-red font-semibold hover:cursor-pointer hover:text-bright-red/80"
+          className="text-salmon font-semibold hover:cursor-pointer hover:text-rich-salmon"
         >
           Sign Up Now
         </Link>

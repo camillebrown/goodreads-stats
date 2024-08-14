@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import Image from "next/image";
 import { Rating } from "react-simple-star-rating";
 
 import BookActionButton from "../shared/BookActionButton";
@@ -19,12 +18,10 @@ export default function SearchBookDisplay({
       )}
     >
       <div className="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-        <Image
+        <img
           src={imgSrc}
           alt={title}
-          className="h-full w-full object-cover object-center rounded-lg"
-          width={0}
-          height={0}
+          className="h-full w-full max-h-[17rem] max-w-48 object-fill object-center rounded-lg"
         />
         <div
           className={classNames("absolute top-1.5 right-0.5 group", {

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Rating } from "react-simple-star-rating";
 
@@ -22,12 +21,10 @@ export default function HomeGridBookItem({ book, imgSrc }) {
       />
       <div className="group p-3 rounded-lg">
         <div className="relative aspect-h-1 aspect-w-1 w-full min-h-72 overflow-hidden rounded-lg bg-transparent xl:aspect-h-8 xl:aspect-w-7">
-          <Image
+          <img
             src={imgSrc}
             alt={book?.book_title}
-            className="h-full w-full object-cover object-center rounded-lg"
-            width={0}
-            height={0}
+            className="h-full w-full max-h-[17rem] max-w-48 object-fill object-center rounded-lg"
           />
         </div>
         <div className="transition duration-500 text-center">

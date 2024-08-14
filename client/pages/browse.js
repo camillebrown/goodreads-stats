@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
+import { BooksContext } from "./_app";
 import BackToContentButton from "@browse/BackToContentButton";
 import BrowseSearchBar from "@browse/BrowseSearchBar";
 import Categories from "@browse/BrowseTabs/Categories";

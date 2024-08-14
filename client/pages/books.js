@@ -1,10 +1,11 @@
 import { useContext, useMemo, useState } from "react";
-import FilterDisplay from "@/components/books/FilterDisplay";
-import HomeGridDisplay from "@/components/books/grid_view/HomeGridDisplay";
-import HomeListDisplay from "@/components/books/list_view/HomeListDisplay";
 import { useQuery } from "@tanstack/react-query";
 
 import { ApiContext, UserContext } from "pages/_app";
+import FilterDisplay from "@books/FilterDisplay";
+import HomeGridDisplay from "@books/grid_view/HomeGridDisplay";
+import HomeListDisplay from "@books/list_view/HomeListDisplay";
+import HomeDetailDisplay from "@components/books/detail_view/HomeDetailDisplay";
 import useBooks from "@hooks/useBooks";
 import MainLayout from "@layout/MainLayout";
 import { getUserBooks } from "@lib/actions/books";
@@ -34,6 +35,19 @@ export default function MyBooks() {
   const [bookGroup, setBookGroup] = useState(tabs[0].type);
   const [selectedSort, setSelectedSort] = useState(sortOptions[0]);
 
+  const getContent = () => {
+    switch (display) {
+      case "grid":
+        return <HomeGridDisplay sortedBooks={sortedBooks} />;
+      case "list":
+        return <HomeListDisplay sortedBooks={sortedBooks} />;
+      case "detail":
+        return <HomeDetailDisplay sortedBooks={sortedBooks} />;
+      default:
+        return <HomeGridDisplay sortedBooks={sortedBooks} />;
+    }
+  };
+
   //TODO: DO SOMETHING WITH THESE BOOK ERRORS
   const {
     data: userBooks,
@@ -54,6 +68,7 @@ export default function MyBooks() {
     return [];
   }, [userBooks, selectedSort, sortBooks]);
 
+  console.log(sortedBooks);
   return (
     <MainLayout>
       <div className="my-4">
@@ -74,10 +89,8 @@ export default function MyBooks() {
         {/* TODO: ADD ABILITY TO SEARCH USER BOOKS! REACT TABLE GLOBAL FILTER */}
         {booksLoading || !sortedBooks ? (
           <Loading className="text-rich-salmon w-14 h-14 my-8" />
-        ) : display === "grid" ? (
-          <HomeGridDisplay sortedBooks={sortedBooks} />
         ) : (
-          <HomeListDisplay sortedBooks={sortedBooks} />
+          <div>{getContent()}</div>
         )}
       </div>
     </MainLayout>

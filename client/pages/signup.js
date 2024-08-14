@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import SignUpForm from "@components/forms/SignUpForm";
 import bg1 from "../styles/bg.svg";
 
@@ -14,13 +12,11 @@ export default function SignUp() {
       </div>
 
       <div className="relative hidden w-full h-full flex-1 lg:flex flex-col items-center justify-center">
-        <Image
+        <img
           src={bg1}
           alt="Background Image"
           className="w-full h-full object-cover object-left"
-          priority
-          width={0}
-          height={0}
+          priority="true"
         />
       </div>
     </div>
