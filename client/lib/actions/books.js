@@ -24,6 +24,10 @@ export const createBook = (api, book) => {
   return api.post("/api/books", { ...formattedBook });
 };
 
+export const updateBook = (api, book) => {
+  return api.put(`/api/books/${book?._id}`, { book });
+};
+
 export const deleteBook = (api, book) => {
   return api.delete(`/api/books/${book?._id}`);
 };

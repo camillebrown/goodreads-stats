@@ -51,22 +51,25 @@ const createBook = asyncHandler(async (req, res) => {
  * @method PUT
  */
 const updateBook = asyncHandler(async (req, res) => {
-  console.log(req.body);
-  // const { email, password } = req.body;
-  // const user = await User.findOne({ email });
+  const { book } = req.body;
+  const foundBook = await Book.findOne({
+    _id: book._id,
+    user: req.session.passport.user,
+  });
 
-  // if (user && (await user.matchPassword(password))) {
-  //   res.json({
-  //     _id: user._id,
-  //     name: user.name,
-  //     email: user.email,
-  //     pic: user.pic,
-  //     token: generateToken(user._id),
-  //   });
-  // } else {
-  //   res.status(400);
-  //   throw new Error('Invalid Email or Password!');
-  // }
+  if (foundBook) {
+    Object.assign(foundBook, book);
+
+    const updatedBook = await foundBook.save();
+
+    res.status(200).json({
+      message: "Book updated successfully",
+      book: updatedBook,
+    });
+  } else {
+    res.status(404);
+    throw new Error("An error occurred. Book not found in user books.");
+  }
 });
 
 /***
@@ -74,7 +77,7 @@ const updateBook = asyncHandler(async (req, res) => {
  * @route http://localhost:8080/api/books/:id
  * @method DELETE
  */
- const deleteBook = asyncHandler(async (req, res, next) => {
+const deleteBook = asyncHandler(async (req, res, next) => {
   try {
     const book = await Book.findOne({
       _id: req.params.id,
@@ -82,7 +85,9 @@ const updateBook = asyncHandler(async (req, res) => {
     });
 
     if (!book) {
-      return res.status(404).send("Book not found or does not belong to the user");
+      return res
+        .status(404)
+        .send("Book not found or does not belong to the user");
     }
 
     await Book.deleteOne({ _id: book._id });
@@ -96,6 +101,5 @@ const updateBook = asyncHandler(async (req, res) => {
     next(error);
   }
 });
-
 
 module.exports = { testRoute, getBooks, createBook, updateBook, deleteBook };

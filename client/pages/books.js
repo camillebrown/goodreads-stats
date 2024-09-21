@@ -1,93 +1,40 @@
-import { useContext, useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
-import { ApiContext, UserContext } from "pages/_app";
+import HomeDetailDisplay from "@books/detail_view/HomeDetailDisplay";
 import FilterDisplay from "@books/FilterDisplay";
 import HomeGridDisplay from "@books/grid_view/HomeGridDisplay";
 import HomeListDisplay from "@books/list_view/HomeListDisplay";
-import HomeDetailDisplay from "@components/books/detail_view/HomeDetailDisplay";
-import useBooks from "@hooks/useBooks";
+import { useBooks } from "@hooks/useBooks";
 import MainLayout from "@layout/MainLayout";
-import { getUserBooks } from "@lib/actions/books";
 import Loading from "@shared/Loading";
 
 export default function MyBooks() {
-  const api = useContext(ApiContext);
-  const { user } = useContext(UserContext);
-  const { sortBooks } = useBooks();
-  const sortOptions = [
-    { title: "Newest to Oldest", type: "date_desc" },
-    { title: "Oldest to Newest", type: "date_asc" },
-    { title: "Rating (Desc)", type: "rating_desc" },
-    { title: "Rating (Asc)", type: "rating_asc" },
-    { title: "Pages (Desc)", type: "pages_desc" },
-    { title: "Pages (Asc)", type: "pages_asc" },
-  ];
-
-  const tabs = [
-    { title: "All", type: "all", className: "rounded-l-lg" },
-    { title: "Want to Read", type: "tbr" },
-    { title: "Currently Reading", type: "current" },
-    { title: "Read", type: "read" },
-  ];
-
   const [display, setDisplay] = useState("grid");
-  const [bookGroup, setBookGroup] = useState(tabs[0].type);
-  const [selectedSort, setSelectedSort] = useState(sortOptions[0]);
+  const { booksLoading, consolidatedBooks } = useBooks();
 
   const getContent = () => {
     switch (display) {
       case "grid":
-        return <HomeGridDisplay sortedBooks={sortedBooks} />;
+        return <HomeGridDisplay />;
       case "list":
-        return <HomeListDisplay sortedBooks={sortedBooks} />;
+        return <HomeListDisplay />;
       case "detail":
-        return <HomeDetailDisplay sortedBooks={sortedBooks} />;
+        return <HomeDetailDisplay />;
       default:
-        return <HomeGridDisplay sortedBooks={sortedBooks} />;
+        return <HomeGridDisplay />;
     }
   };
 
-  //TODO: DO SOMETHING WITH THESE BOOK ERRORS
-  const {
-    data: userBooks,
-    isLoading: booksLoading,
-    error: booksError,
-  } = useQuery({
-    queryKey: ["books", user?._id],
-    queryFn: () => getUserBooks(api, user),
-    enabled: !!user,
-    retry: false,
-  });
-
-  const sortedBooks = useMemo(() => {
-    if (userBooks) {
-      const sorted = sortBooks(userBooks, selectedSort);
-      return sorted;
-    }
-    return [];
-  }, [userBooks, selectedSort, sortBooks]);
-
-  console.log(sortedBooks);
   return (
     <MainLayout>
       <div className="my-4">
         <h2 className="font-semibold uppercase text-base sm:text-2xl font-montserrat tracking-wide">
           Your Books
         </h2>
-        <FilterDisplay
-          tabs={tabs}
-          bookGroup={bookGroup}
-          setBookGroup={setBookGroup}
-          display={display}
-          setDisplay={setDisplay}
-          selectedSort={selectedSort}
-          setSelectedSort={setSelectedSort}
-          sortOptions={sortOptions}
-        />
+        <FilterDisplay display={display} setDisplay={setDisplay} />
 
         {/* TODO: ADD ABILITY TO SEARCH USER BOOKS! REACT TABLE GLOBAL FILTER */}
-        {booksLoading || !sortedBooks ? (
+        {booksLoading || !consolidatedBooks ? (
           <Loading className="text-rich-salmon w-14 h-14 my-8" />
         ) : (
           <div>{getContent()}</div>

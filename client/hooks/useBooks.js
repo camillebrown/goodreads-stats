@@ -1,35 +1,47 @@
-import { useContext, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import { ApiContext, queryClient } from "pages/_app";
-import { createBook, deleteBook } from "@lib/actions/books";
+import { ApiContext, queryClient, UserContext } from "pages/_app";
+import { deleteBook, getUserBooks } from "@lib/actions/books";
+import { bookSortOptions, tableTabs } from "@lib/constants/variables";
 import { sortDatesAsc, sortDatesDesc } from "@lib/date_formatters";
 import useToast from "./useToast";
 
-export default function useBooks() {
+export const BooksContext = createContext(null);
+
+export const BooksProvider = ({ children }) => {
   const makeToast = useToast();
   const api = useContext(ApiContext);
+  const { user } = useContext(UserContext);
+  const [books, setBooks] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [searchResults, setSearchResults] = useState(null);
+  const [statusFilter, setStatusFilter] = useState(tableTabs[0].type);
+  const [selectedSort, setSelectedSort] = useState(bookSortOptions[0]);
 
-  function saveToBooks(r) {
-    setIsSaving(r.id);
-    createBook(api, r)
-      .then(() => {
-        makeToast("Book added to your library!", "success", "px-8");
-        queryClient.invalidateQueries({ queryKey: ["books"] });
-        setIsSaving(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        let msg;
-        if (err.response.status === 400) {
-          msg = err.response.data.message;
-        } else {
-          msg = "An Error Occurred: Unable to save book to library.";
-        }
-        makeToast(msg, "error", "px-16");
-        setIsSaving(false);
-      });
-  }
+  const {
+    data: userBooks,
+    isLoading: booksLoading,
+    error: booksError,
+    refetch: refetchBooks,
+    isRefetching: refetchingBooks,
+  } = useQuery({
+    queryKey: ["books", user?._id],
+    queryFn: () => getUserBooks(api, user),
+    enabled: !!user,
+    retry: false,
+  });
+
+  const consolidatedBooks = useMemo(() => {
+    if (!books) return [];
+    const consolidated = sortAndFilterBooks(books, selectedSort, statusFilter);
+
+    return consolidated;
+  }, [books, selectedSort, statusFilter, sortAndFilterBooks]);
+
+  useEffect(() => {
+    setBooks(userBooks);
+  }, [userBooks]);
 
   function deleteUserBook(r) {
     setIsSaving(r);
@@ -52,9 +64,13 @@ export default function useBooks() {
       });
   }
 
-  function sortBooks(books, sort) {
+  function sortAndFilterBooks(books, sort, filter) {
+    const filteredBooks = books.filter((b) => {
+      if (filter === "all") return b;
+      return b.status === filter;
+    });
     const sortByField = (field, direction) => {
-      return books.slice().sort((a, b) => {
+      return filteredBooks.slice().sort((a, b) => {
         if (a[field] < b[field]) return direction === "asc" ? -1 : 1;
         if (a[field] > b[field]) return direction === "asc" ? 1 : -1;
         return 0;
@@ -63,9 +79,9 @@ export default function useBooks() {
 
     switch (sort.type) {
       case "date_desc":
-        return sortDatesDesc(books);
+        return sortDatesDesc(filteredBooks);
       case "date_asc":
-        return sortDatesAsc(books);
+        return sortDatesAsc(filteredBooks);
       case "rating_desc":
         return sortByField("rating", "desc");
       case "rating_asc":
@@ -75,9 +91,38 @@ export default function useBooks() {
       case "pages_asc":
         return sortByField("page_count", "asc");
       default:
-        return sortDatesDesc(books);
+        return sortDatesDesc(filteredBooks);
     }
   }
 
-  return { isSaving, saveToBooks, deleteUserBook, sortBooks };
+  // TODO: DELETE UNUSED PARAMS && PARSE OUT SEARCH RESULT INFO FOR BROWSE
+  return (
+    <BooksContext.Provider
+      value={{
+        books,
+        setBooks,
+        booksLoading,
+        booksError,
+        refetchBooks,
+        refetchingBooks,
+        consolidatedBooks,
+        isSaving,
+        setIsSaving,
+        deleteUserBook,
+        sortAndFilterBooks,
+        searchResults,
+        setSearchResults,
+        statusFilter,
+        setStatusFilter,
+        selectedSort,
+        setSelectedSort,
+      }}
+    >
+      {children}
+    </BooksContext.Provider>
+  );
+};
+
+export function useBooks() {
+  return useContext(BooksContext);
 }

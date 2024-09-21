@@ -11,13 +11,14 @@ import {
 } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
-export default function BookFilterInput({
-  selectedSort,
-  setSelectedSort,
-  sortOptions,
-}) {
+import { useBooks } from "@hooks/useBooks";
+import { bookSortOptions } from "@lib/constants/variables";
+
+export default function BookFilterInput() {
+  const { selectedSort, setSelectedSort } = useBooks();
+
   const handleChange = (selectedType) => {
-    const selectedOption = sortOptions.find(
+    const selectedOption = bookSortOptions.find(
       (option) => option.type === selectedType
     );
     setSelectedSort(selectedOption);
@@ -28,7 +29,7 @@ export default function BookFilterInput({
         <ListboxButton className="group relative w-full bg-white cursor-pointer text-primary-gray hover:text-salmon pl-3 pr-10 text-left sm:text-sm sm:leading-6">
           <span className="flex items-center">
             <FontAwesomeIcon icon={faArrowDownWideShort} />
-            <span className="ml-3 block truncate">{selectedSort.title}</span>
+            <span className="ml-3 block truncate">{selectedSort?.title}</span>
           </span>
           <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
             <ChevronUpDownIcon
@@ -41,7 +42,7 @@ export default function BookFilterInput({
           transition
           className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
         >
-          {sortOptions.map((o, idx) => (
+          {bookSortOptions.map((o, idx) => (
             <ListboxOption
               key={idx}
               value={o.type}
