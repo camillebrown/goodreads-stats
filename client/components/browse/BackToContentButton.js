@@ -1,15 +1,17 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-export default function BackToContentButton({ searchResults, content }) {
-  const router = useRouter();
+import { useSearchResults } from "@hooks/useSearchResults";
+
+export default function BackToContentButton({ content }) {
   let buttonText;
   let contentTag;
+  const router = useRouter();
+  const { searchResults } = useSearchResults();
 
   if (searchResults && content !== "search") {
     buttonText = (
       <p>
-        {/* eslint-disable-next-line react/no-unescaped-entities */}
         Back to <span className="capitalize">'{searchResults?.query}'</span>
         Results
       </p>

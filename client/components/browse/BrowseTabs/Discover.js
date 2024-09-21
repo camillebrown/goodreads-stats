@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getNYTBooks } from "@lib/actions/queries";
 
 export default function Discover() {
-  const { books, setBooks } = useContext(BooksContext);
+  // const { books, setBooks } = useContext(BooksContext);
 
   // const { data: nytBooks, error: nytBooksError } = useQuery({
   //   queryKey: ["NYT_books", "current"],

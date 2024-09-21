@@ -16,6 +16,19 @@ export default function BookStatus({ book, status }) {
     );
   };
 
+  const getClass = () => {
+    switch (matchStatus().value) {
+      case "tbr":
+        return "bg-salmon/20 text-rich-salmon border-salmon/20 hover:bg-salmon/40";
+      case "current":
+        return "bg-deep-gold/20 text-deep-gold border-deep-gold/20 hover:bg-deep-gold/30";
+      case "read":
+        return "bg-lavendar/20 text-lavendar border-lavendar/20 hover:bg-lavendar/30";
+      default:
+        return "bg-tertiary-gray/20 text-tertiary-gray border-tertiary-gray";
+    }
+  };
+
   return (
     <>
       <ChangeBookStatusModal
@@ -26,7 +39,7 @@ export default function BookStatus({ book, status }) {
       <span
         className={classNames(
           "inline-flex items-center gap-x-0.5 rounded-md px-2 py-1 text-xs font-semibold border cursor-pointer",
-          matchStatus()?.statusClass
+          getClass()
         )}
       >
         {matchStatus()?.title}

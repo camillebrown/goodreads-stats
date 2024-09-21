@@ -24,6 +24,19 @@ export default function ChangeBookStatusModal({
   const api = useContext(ApiContext);
   const { isSaving, setIsSaving, refetchBooks, deleteUserBook } = useBooks();
 
+  const getClass = (status) => {
+    switch (status) {
+      case "tbr":
+        return "bg-salmon/20 text-rich-salmon border-salmon/20 hover:bg-salmon/40";
+      case "current":
+        return "bg-deep-gold/20 text-deep-gold border-deep-gold/20 hover:bg-deep-gold/30";
+      case "read":
+        return "bg-lavendar/20 text-lavendar border-lavendar/20 hover:bg-lavendar/30";
+      default:
+        return "bg-tertiary-gray/20 text-tertiary-gray border-tertiary-gray";
+    }
+  };
+
   const updateUserBook = async (status) => {
     setIsSaving(book?.id);
     await updateBook(api, { ...book, status: status })
@@ -108,7 +121,7 @@ export default function ChangeBookStatusModal({
                             }
                             className={classNames(
                               "inline-flex items-center gap-x-0.5 rounded-md px-2 py-1 text-xs font-medium cursor-pointer sm:w-1/3 justify-center border",
-                              s.statusClass,
+                              getClass(s.value),
                               {
                                 "!bg-gray-100 !text-tertiary-gray !border-tertiary-gray !cursor-not-allowed":
                                   book?.status === s.value,

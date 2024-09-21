@@ -15,7 +15,6 @@ export const BooksProvider = ({ children }) => {
   const { user } = useContext(UserContext);
   const [books, setBooks] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
-  const [searchResults, setSearchResults] = useState(null);
   const [statusFilter, setStatusFilter] = useState(tableTabs[0].type);
   const [selectedSort, setSelectedSort] = useState(bookSortOptions[0]);
 
@@ -28,7 +27,7 @@ export const BooksProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["books", user?._id],
     queryFn: () => getUserBooks(api, user),
-    enabled: !!user,
+    enabled: !!user && !books,
     retry: false,
   });
 
@@ -110,8 +109,6 @@ export const BooksProvider = ({ children }) => {
         setIsSaving,
         deleteUserBook,
         sortAndFilterBooks,
-        searchResults,
-        setSearchResults,
         statusFilter,
         setStatusFilter,
         selectedSort,
