@@ -15,6 +15,7 @@ module.exports = {
         salmon: "#f66350",
         "secondary-baby-blue": "#9EBEFF",
         "baby-blue": "#4d78ce",
+        "dark-blue": "#3c5c9d",
         lavendar: "#a21ef2",
         gold: "#FEAC26",
         "deep-gold": "#ff9a27",

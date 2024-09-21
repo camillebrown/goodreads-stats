@@ -1,17 +1,12 @@
-import { useState } from "react";
 import Link from "next/link";
 import { Rating } from "react-simple-star-rating";
 
+import useModal from "@hooks/useModal";
 import DeleteBookModal from "../../modals/DeleteBookModal";
 
 export default function HomeGridBookItem({ book, imgSrc }) {
-  // TODO: CHANGE TO USEMODAL HOOK
-  const [modalActive, setModalActive] = useState(false);
-
-  const toggleModal = () => {
-    setModalActive(!modalActive);
-  };
-
+  const { modalActive, toggleModal } = useModal();
+  
   return (
     <>
       <DeleteBookModal

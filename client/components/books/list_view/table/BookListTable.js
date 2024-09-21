@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -11,9 +11,11 @@ import classNames from "classnames";
 
 import { columns } from "@books/list_view/table/ColumnData";
 import SearchBar from "@layout/SearchBar";
+import { useBooks } from "@hooks/useBooks";
 
-export default function BookListTable({ userBooks }) {
-  const [data, _setData] = useState(() => [...userBooks]);
+export default function BookListTable() {
+  const { consolidatedBooks: userBooks, statusFilter } = useBooks()
+  const data = useMemo(() => userBooks || [], [userBooks]);
   const [globalFilter, setGlobalFilter] = useState("");
 
   const customFilterFn = (row, columnIds, filterValue) => {
@@ -74,15 +76,24 @@ export default function BookListTable({ userBooks }) {
           ))}
         </thead>
         <tbody className="divide-y divide-gray-200 bg-white text-sm">
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+          {!data.length ? (
+            <tr>
+              <td colSpan={columns.length} className="px-1.5 py-3.5">
+                No {statusFilter === "tbr" ? "want to read" : statusFilter}{" "}
+                books saved.
+              </td>
             </tr>
-          ))}
+          ) : (
+            table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

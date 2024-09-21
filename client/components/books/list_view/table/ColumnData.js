@@ -1,18 +1,23 @@
-import { Rating } from "react-simple-star-rating";
+import Link from "next/link";
 
+import BookRating from "@components/shared/BookRating";
+import BookStatus from "@components/shared/BookStatus";
 import { difference_in_days } from "@lib/date_formatters";
 
 export const columns = [
   {
-    accessorKey: "book_title",
+    accessorKey: "title",
     header: "Title",
     headerClassName: "hidden lg:table-cell",
     cell: ({ row: { original } }) => {
       return (
         <div className="w-full max-w-0 py-1.5 text-sm font-medium sm:w-auto sm:max-w-none sm:pl-0">
-          <div className="hidden px-1.5 py-1.5 text-sm font-semibold text-baby-blue hover:text-secondary-baby-blue lg:table-cell cursor-pointer">
-            {original?.book_title}
-          </div>
+          <Link
+            href={`/books/${original._id}`}
+            className="hidden px-1.5 py-1.5 text-sm font-semibold text-baby-blue hover:text-dark-blue lg:table-cell cursor-pointer"
+          >
+            {original?.title}
+          </Link>
           <dl className="font-normal lg:hidden">
             <dd className="mt-1 truncate text-gray-700">
               Author: {original?.author}
@@ -39,21 +44,16 @@ export const columns = [
   {
     accessorKey: "rating",
     header: "Rating",
-    cell: ({ row: { original } }) =>
-      original?.rating === 0 ? (
-        "Not Yet Rated"
-      ) : (
-        <Rating
-          size={20}
-          fillColor="#FEAC26"
-          initialValue={original?.rating}
-          className="leading-3"
-        />
-      ),
+    cell: ({ row: { original } }) => (
+      <BookRating status={original?.status} rating={original?.rating} />
+    ),
   },
   {
     accessorKey: "status",
     header: "Status",
+    cell: ({ row: { original } }) => (
+      <BookStatus book={original} status={original?.status} />
+    ),
   },
   {
     accessorKey: "page_count",
@@ -62,7 +62,7 @@ export const columns = [
   {
     accessorFn: ({ row: original }) => {
       return !difference_in_days(original?.start_date, original?.end_date)
-        ? "No Reading Dates Log"
+        ? "None Logged"
         : difference_in_days(original?.start_date, original?.end_date);
     },
     header: "Reading Time (Days)",

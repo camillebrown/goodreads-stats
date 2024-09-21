@@ -8,17 +8,41 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { ApiContext, queryClient } from "pages/_app";
 import DeleteBookModal from "@components/modals/DeleteBookModal";
 import useBooks from "@hooks/useBooks";
+import useModal from "@hooks/useModal";
+import { createBook } from "@lib/actions/books";
 import Loading from "@shared/Loading";
 
 export default function BookActionButton({ book, isUserBook }) {
-  const { isSaving, saveToBooks } = useBooks();
-  const [isHovered, setIsHovered] = useState(false);
-  const [modalActive, setModalActive] = useState(false);
+  const api = useContext(ApiContext);
+  const makeToast = useToast();
+  const { modalActive, setModalActive, toggleModal } = useModal();
+  const { isSaving, setIsSaving } = useBooks();
 
-  const toggleModal = () => {
-    setModalActive(!modalActive);
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // TODO: Double check this is working!!
+  const saveToBooks = async (r) => {
+    setIsSaving(r.id);
+    await createBook(api, r)
+      .then(() => {
+        makeToast("Book added to your library!", "success", "px-8");
+        queryClient.invalidateQueries({ queryKey: ["books"] });
+        setIsSaving(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        let msg;
+        if (err.response.status === 400) {
+          msg = err.response.data.message;
+        } else {
+          msg = "An Error Occurred: Unable to save book to library.";
+        }
+        makeToast(msg, "error", "px-16");
+        setIsSaving(false);
+      });
   };
 
   const getIconStack = () => {

@@ -10,11 +10,11 @@ import { useRouter } from "next/router";
 import { Toaster } from "react-hot-toast";
 
 import useAuth from "@hooks/useAuth";
+import { BooksProvider } from "@hooks/useBooks";
 import Navbar from "@layout/Navbar";
 import { manrope, montserrat, raleway } from "../styles/fonts.js";
 
 export const ApiContext = createContext();
-export const BooksContext = createContext();
 export const SearchContext = createContext();
 export const UserContext = createContext();
 export const queryClient = new QueryClient();
@@ -25,10 +25,6 @@ export default function App({ Component, pageProps }) {
   const { pathname } = useRouter();
   const [user, setUser] = useState(null);
 
-  const [books, setBooks] = useState(null);
-  const [dataLoading, setDataLoading] = useState(false);
-  const [searchResults, setSearchResults] = useState(null);
-
   const baseRoutes = ["/", "/login", "/signup"];
   const isBaseRoute = baseRoutes.includes(pathname);
 
@@ -36,16 +32,7 @@ export default function App({ Component, pageProps }) {
     <QueryClientProvider client={queryClient}>
       <ApiContext.Provider value={api}>
         <UserContext.Provider value={{ user, setUser }}>
-          <BooksContext.Provider
-            value={{
-              books,
-              setBooks,
-              dataLoading,
-              setDataLoading,
-              searchResults,
-              setSearchResults,
-            }}
-          >
+          <BooksProvider>
             <main
               className={`${manrope.variable} ${montserrat.variable} ${raleway.variable}`}
             >
@@ -64,7 +51,7 @@ export default function App({ Component, pageProps }) {
                 </RequireAuth>
               )}
             </main>
-          </BooksContext.Provider>
+          </BooksProvider>
         </UserContext.Provider>
       </ApiContext.Provider>
     </QueryClientProvider>

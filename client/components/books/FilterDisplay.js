@@ -4,32 +4,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Squares2X2Icon, TableCellsIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 
+import { useBooks } from "@hooks/useBooks";
+import { tableTabs } from "@lib/constants/variables";
 import BookFilterInput from "./BookFilterInput";
 
-export default function FilterDisplay({
-  tabs,
-  bookGroup,
-  setBookGroup,
-  display,
-  setDisplay,
-  selectedSort,
-  setSelectedSort,
-  sortOptions,
-}) {
+export default function FilterDisplay({ display, setDisplay }) {
+  const { statusFilter, setStatusFilter } = useBooks();
+  
   return (
     <div className="w-full flex items-center justify-between border rounded-lg text-sm mt-4">
       <div className="flex items-center">
-        {tabs.map((tab) => {
+        {tableTabs.map((tab) => {
           return (
             <p
               key={tab?.type}
-              onClick={() => setBookGroup(tab?.type)}
+              onClick={() => setStatusFilter(tab?.type)}
               className={classNames(
                 "min-w-24 text-center py-2 px-4 cursor-pointer hover:bg-secondary-baby-blue/60 !border-r",
                 tab?.className,
                 {
                   "bg-secondary-baby-blue/60 font-semibold":
-                    tab?.type === bookGroup,
+                    tab?.type === statusFilter,
                 }
               )}
             >
@@ -72,11 +67,7 @@ export default function FilterDisplay({
             )}
           />
         </div>
-        <BookFilterInput
-          selectedSort={selectedSort}
-          setSelectedSort={setSelectedSort}
-          sortOptions={sortOptions}
-        />
+        <BookFilterInput />
       </div>
     </div>
   );

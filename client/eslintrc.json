@@ -1,0 +1,7 @@
+{
+  "extends": ["next", "eslint:recommended", "plugin:react/recommended"],
+  "rules": {
+    "no-undef": "error",
+    "import/no-unresolved": "error"
+  }
+}
