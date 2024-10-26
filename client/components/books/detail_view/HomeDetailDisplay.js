@@ -40,7 +40,7 @@ export default function HomeDetailDisplay() {
                       {!book?.avg_rating ? (
                         "No Avg Rating"
                       ) : (
-                        <div className="text-primary-gray font-semibold text-xl">
+                        <div className="text-dark-blue font-semibold text-xl">
                           <p>
                             {book?.avg_rating}
                             <span className="text-sm text-tertiary-gray font-normal mx-1">

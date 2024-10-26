@@ -60,11 +60,15 @@ export const columns = [
     header: "Page Count",
   },
   {
-    accessorFn: ({ row: original }) => {
+    accessorFn: ({ row: original }) =>
+      difference_in_days(original?.start_date, original?.end_date),
+    header: "Reading Time (Days)",
+    cell: ({ row: { original } }) => {
+      if (original?.status !== "read") return "N/A";
+
       return !difference_in_days(original?.start_date, original?.end_date)
-        ? "None Logged"
+        ? "Add Reading Dates Button"
         : difference_in_days(original?.start_date, original?.end_date);
     },
-    header: "Reading Time (Days)",
   },
 ];
