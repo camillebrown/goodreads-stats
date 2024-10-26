@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { BooksContext } from "./_app";
 import BackToContentButton from "@browse/BackToContentButton";
 import BrowseSearchBar from "@browse/BrowseSearchBar";
 import Categories from "@browse/BrowseTabs/Categories";
 import Discover from "@browse/BrowseTabs/Discover";
 import TopBooks from "@browse/BrowseTabs/TopBooks";
 import SearchResults from "@browse/SearchResults";
+import { useSearchResults } from "@hooks/useSearchResults";
 import MainLayout from "@layout/MainLayout";
 import Loading from "@shared/Loading";
 
@@ -15,8 +15,8 @@ export default function Browse() {
   const router = useRouter();
   const { query } = router;
 
-  const { searchResults, dataLoading } = useContext(BooksContext);
   const [content, setContent] = useState("discover");
+  const { searchResults, dataLoading } = useSearchResults();
 
   useEffect(() => {
     setContent(query?.content ? query?.content : "discover");
@@ -31,7 +31,7 @@ export default function Browse() {
   const getContent = () => {
     switch (content) {
       case "search":
-        return <SearchResults searchResults={searchResults} />;
+        return <SearchResults />;
       case "discover":
         return <Discover />;
       case "top_books":
@@ -46,7 +46,7 @@ export default function Browse() {
   return (
     <MainLayout>
       <BrowseSearchBar setContent={setContent} />
-      <BackToContentButton content={content} searchResults={searchResults} />
+      <BackToContentButton content={content} />
       {dataLoading ? (
         <Loading className="text-rich-salmon w-14 h-14 my-8" />
       ) : (

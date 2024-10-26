@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 
-import { BooksContext } from "pages/_app";
+import { useSearchResults } from "@hooks/useSearchResults";
 import SearchBar from "@layout/SearchBar";
 import { searchGoogleBooks } from "@lib/actions/queries";
 
 export default function BrowseSearchBar({ setContent }) {
   const router = useRouter();
   const { searchResults, setSearchResults, setDataLoading } =
-    useContext(BooksContext);
+    useSearchResults();
 
   const [searchTerm, setSearchTerm] = useState("");
   const onInputChange = async (e) => {

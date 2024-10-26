@@ -45,7 +45,7 @@ export default function SideNav() {
     },
     {
       name: "Dashboard",
-      href: "#",
+      href: "/dashboard",
       icon: PresentationChartBarIcon,
       current: pathname === "/dashboard/",
     },

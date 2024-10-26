@@ -1,32 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-
-import { ApiContext, UserContext } from "pages/_app";
 import SearchBookDisplay from "@browse/SearchBookDisplay";
-import { getUserBooks } from "@lib/actions/books";
+import { useSearchResults } from "@hooks/useSearchResults";
 import { generateImageLink } from "@lib/search_functions";
 import Loading from "@shared/Loading";
-import { getFullSearchResults } from "../../lib/search_functions";
 import BookGridLayout from "../layout/BookGridLayout";
 
-export default function SearchResults({ searchResults }) {
-  const api = useContext(ApiContext);
-  const { user } = useContext(UserContext);
-  const [fullSearchResults, setFullSearchResults] = useState();
-
-  //TODO: DO SOMETHING WITH THESE BOOK ERRORS
-  const { data: userBooks, error: booksError } = useQuery({
-    queryKey: ["books", user?._id],
-    queryFn: () => getUserBooks(api, user),
-    enabled: !!user && !!searchResults,
-    retry: false,
-  });
-
-  useEffect(() => {
-    if (userBooks && searchResults) {
-      setFullSearchResults(getFullSearchResults(userBooks, searchResults));
-    }
-  }, [userBooks, searchResults]);
+export default function SearchResults() {
+  const { searchResults, fullSearchResults } = useSearchResults();
 
   if (searchResults && !fullSearchResults)
     return (
@@ -36,7 +15,6 @@ export default function SearchResults({ searchResults }) {
       />
     );
 
-    console.log(fullSearchResults)
   return (
     <div>
       <h2 className="font-semibold text-base sm:text-lg font-montserrat tracking-wider">

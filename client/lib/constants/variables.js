@@ -1,22 +1,7 @@
 export const statuses = [
-  {
-    value: "tbr",
-    title: "Want to Read",
-    statusClass:
-      "bg-salmon/20 text-rich-salmon border-salmon/20 hover:bg-salmon/40",
-  },
-  {
-    value: "current",
-    title: "Currently Reading",
-    statusClass:
-      "bg-deep-gold/20 text-deep-gold border-deep-gold/20 hover:bg-deep-gold/30",
-  },
-  {
-    value: "read",
-    title: "Read",
-    statusClass:
-      "bg-lavendar/20 text-lavendar border-lavendar/20 hover:bg-lavendar/30",
-  },
+  { value: "tbr", title: "Want to Read" },
+  { value: "current", title: "Currently Reading" },
+  { value: "read", title: "Read" },
 ];
 
 export const bookSortOptions = [
