@@ -10,7 +10,7 @@ import BookFilterInput from "./BookFilterInput";
 
 export default function FilterDisplay({ display, setDisplay }) {
   const { statusFilter, setStatusFilter } = useBooks();
-  
+
   return (
     <div className="w-full flex items-center justify-between border rounded-lg text-sm mt-4">
       <div className="flex items-center">
@@ -22,6 +22,7 @@ export default function FilterDisplay({ display, setDisplay }) {
               className={classNames(
                 "min-w-24 text-center py-2 px-4 cursor-pointer hover:bg-secondary-baby-blue/60 !border-r",
                 tab?.className,
+                { "rounded-l-lg": tab === tableTabs[0] },
                 {
                   "bg-secondary-baby-blue/60 font-semibold":
                     tab?.type === statusFilter,

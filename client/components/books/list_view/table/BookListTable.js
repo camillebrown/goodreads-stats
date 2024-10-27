@@ -10,12 +10,11 @@ import {
 import classNames from "classnames";
 
 import { columns } from "@books/list_view/table/ColumnData";
-import SearchBar from "@layout/SearchBar";
 import { useBooks } from "@hooks/useBooks";
 
-export default function BookListTable() {
-  const { consolidatedBooks: userBooks, statusFilter } = useBooks()
-  const data = useMemo(() => userBooks || [], [userBooks]);
+export default function BookListTable({ filteredBooks }) {
+  const { statusFilter } = useBooks();
+  const data = useMemo(() => filteredBooks || [], [filteredBooks]);
   const [globalFilter, setGlobalFilter] = useState("");
 
   const customFilterFn = (row, columnIds, filterValue) => {
@@ -45,15 +44,6 @@ export default function BookListTable() {
 
   return (
     <div className="-mx-4 sm:-mx-0">
-      <div className="mt-2 flex rounded-md shadow-sm">
-        <SearchBar
-          className="rounded-lg"
-          onInputChange={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Search your books..."
-          searchTerm={globalFilter}
-          withButton={false}
-        />
-      </div>
       <table className="min-w-full divide-y divide-gray-300">
         <thead className="text-salmon">
           {table.getHeaderGroups().map((headerGroup) => (

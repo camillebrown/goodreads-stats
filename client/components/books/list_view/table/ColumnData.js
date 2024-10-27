@@ -45,7 +45,11 @@ export const columns = [
     accessorKey: "rating",
     header: "Rating",
     cell: ({ row: { original } }) => (
-      <BookRating status={original?.status} rating={original?.rating} />
+      <BookRating
+        book={original}
+        status={original?.status}
+        rating={original?.rating}
+      />
     ),
   },
   {
@@ -64,7 +68,8 @@ export const columns = [
       difference_in_days(original?.start_date, original?.end_date),
     header: "Reading Time (Days)",
     cell: ({ row: { original } }) => {
-      if (original?.status !== "read") return "N/A";
+      if (original?.status !== "read")
+        return <span className="font-medium text-gray-400">N/A</span>;
 
       return !difference_in_days(original?.start_date, original?.end_date)
         ? "Add Reading Dates Button"
