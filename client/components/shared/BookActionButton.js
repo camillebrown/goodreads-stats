@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
   faHeartCircleCheck,
@@ -8,10 +8,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { ApiContext, queryClient } from "pages/_app";
+import { ApiContext } from "pages/_app";
 import DeleteBookModal from "@components/modals/DeleteBookModal";
-import useBooks from "@hooks/useBooks";
+import { useBooks } from "@hooks/useBooks";
 import useModal from "@hooks/useModal";
+import useToast from "@hooks/useToast";
 import { createBook } from "@lib/actions/books";
 import Loading from "@shared/Loading";
 
@@ -19,17 +20,16 @@ export default function BookActionButton({ book, isUserBook }) {
   const api = useContext(ApiContext);
   const makeToast = useToast();
   const { modalActive, setModalActive, toggleModal } = useModal();
-  const { isSaving, setIsSaving } = useBooks();
+  const { isSaving, setIsSaving, refetchBooks } = useBooks();
 
   const [isHovered, setIsHovered] = useState(false);
-  
-  // TODO: Double check this is working!!
+
   const saveToBooks = async (r) => {
     setIsSaving(r.id);
     await createBook(api, r)
       .then(() => {
         makeToast("Book added to your library!", "success", "px-8");
-        queryClient.invalidateQueries({ queryKey: ["books"] });
+        refetchBooks();
         setIsSaving(false);
       })
       .catch((err) => {

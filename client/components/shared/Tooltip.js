@@ -21,7 +21,7 @@ export default function Tooltip({
         <div
           ref={setTooltipRef}
           {...getTooltipProps({
-            className: `border border-dark-gray shadow-md p-2 rounded-md z-10 block ${container_class} ${disabled ? 'hidden' : ''}`,
+            className: `border border-dark-gray shadow-md p-2 rounded-md z-10 block ${container_class} ${disabled ? "hidden" : ""}`,
           })}
         >
           {tooltip_text}

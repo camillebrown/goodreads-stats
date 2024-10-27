@@ -22,12 +22,12 @@ export default function HomeGridBookItem({ book, imgSrc }) {
         toggleModal={toggleModal}
         book={book}
       />
-      <div className="group p-3 rounded-lg">
-        <div className="relative aspect-h-1 aspect-w-1 w-full 2xl:min-h-72 overflow-hidden rounded-lg bg-transparent xl:aspect-h-8 xl:aspect-w-7">
+      <div className="group rounded-lg">
+        <div className="relative aspect-h-1 aspect-w-1 w-full 2xl:min-h-68 overflow-hidden rounded-lg bg-transparent xl:aspect-h-8 xl:aspect-w-7">
           <img
             src={imgSrc}
             alt={book?.book_title}
-            className="h-full w-full max-h-[17rem] max-w-48 object-fill object-center rounded-lg"
+            className="w-full h-60 max-w-48 object-fill object-center rounded-lg"
           />
         </div>
         <div className="transition duration-500 text-center">

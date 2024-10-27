@@ -6,16 +6,16 @@ import { useBooks } from "./useBooks";
 export const SearchResultsContext = createContext(null);
 
 export const SearchResultsProvider = ({ children }) => {
-  const { books } = useBooks();
+  const { userBooks } = useBooks();
   const [dataLoading, setDataLoading] = useState(null);
   const [searchResults, setSearchResults] = useState(null);
   const [fullSearchResults, setFullSearchResults] = useState(null);
 
   useEffect(() => {
-    if (books && searchResults) {
-      setFullSearchResults(getFullSearchResults(books, searchResults));
+    if (userBooks && searchResults) {
+      setFullSearchResults(getFullSearchResults(userBooks, searchResults));
     }
-  }, [books, searchResults]);
+  }, [userBooks, searchResults]);
 
   return (
     <SearchResultsContext.Provider
