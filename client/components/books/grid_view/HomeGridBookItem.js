@@ -1,12 +1,19 @@
 import Link from "next/link";
 import { Rating } from "react-simple-star-rating";
 
+import Loading from "@components/shared/Loading";
 import Tooltip from "@components/shared/Tooltip";
+import { useBooks } from "@hooks/useBooks";
 import useModal from "@hooks/useModal";
 import DeleteBookModal from "../../modals/DeleteBookModal";
 
 export default function HomeGridBookItem({ book, imgSrc }) {
   const { modalActive, toggleModal } = useModal();
+  const { isSaving, updateUserBook } = useBooks();
+
+  const handleSetRating = (number) => {
+    updateUserBook({ ...book, rating: number });
+  };
 
   return (
     <>
@@ -31,20 +38,25 @@ export default function HomeGridBookItem({ book, imgSrc }) {
             {book?.author}
           </h3>
           <div className="flex flex-col gap-3">
-            <Tooltip
-              tooltip_text="Ratings only allowed for read books."
-              container_class="px-4 bg-gray-100 text-sm font-medium"
-              placement="top"
-              disabled={book?.status === "read"}
-            >
-              <Rating
-                size={20}
-                fillColor="#FEAC26"
-                initialValue={book?.rating || 0}
-                className="leading-3"
-                readonly={book?.status !== "read"}
-              />
-            </Tooltip>
+            {book?._id === isSaving ? (
+              <Loading className="w-5 h-5 !text-gold py-1" />
+            ) : (
+              <Tooltip
+                tooltip_text="Ratings only allowed for read books."
+                container_class="px-4 bg-gray-100 text-sm font-medium"
+                placement="top"
+                disabled={book?.status === "read"}
+              >
+                <Rating
+                  size={20}
+                  fillColor="#FEAC26"
+                  initialValue={book?.rating || 0}
+                  className="leading-3"
+                  readonly={book?.status !== "read"}
+                  onClick={handleSetRating}
+                />
+              </Tooltip>
+            )}
             <Link
               href={`/books/${book?._id}`}
               className="text-sm font-semibold rounded-md bg-baby-blue text-white hover:bg-baby-blue/90 px-4 py-2"

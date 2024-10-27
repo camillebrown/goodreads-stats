@@ -24,7 +24,7 @@ export default function SearchBar({
         name="search"
         autoComplete="new-password"
         placeholder={placeholder}
-        value={searchTerm}
+        value={searchTerm || ""}
         onChange={onInputChange}
         onKeyPress={onKeyPress}
         className={classNames(

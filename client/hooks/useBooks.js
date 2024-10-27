@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { ApiContext, queryClient, UserContext } from "pages/_app";
-import { deleteBook, getUserBooks } from "@lib/actions/books";
+import { deleteBook, getUserBooks, updateBook } from "@lib/actions/books";
 import { bookSortOptions, tableTabs } from "@lib/constants/variables";
 import { sortDatesAsc, sortDatesDesc } from "@lib/date_formatters";
 import useToast from "./useToast";
@@ -15,6 +15,7 @@ export const BooksProvider = ({ children }) => {
   const { user } = useContext(UserContext);
   const [books, setBooks] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [globalFilter, setGlobalFilter] = useState();
   const [statusFilter, setStatusFilter] = useState(tableTabs[0].type);
   const [selectedSort, setSelectedSort] = useState(bookSortOptions[0]);
 
@@ -42,9 +43,31 @@ export const BooksProvider = ({ children }) => {
     setBooks(userBooks);
   }, [userBooks]);
 
-  function deleteUserBook(r) {
+  async function updateUserBook(r) {
+    setIsSaving(r?._id);
+    await updateBook(api, r)
+      .then((res) => {
+        makeToast("Book successfully updated", "success", "px-8");
+        refetchBooks();
+        setIsSaving(false);
+      })
+      .catch((err) => {
+        console.log(err);
+
+        let msg;
+        if (err.response.data.message) {
+          msg = err.response.data.message;
+        } else {
+          msg = "An Error Occurred: Unable to update book. Please try again.";
+        }
+        makeToast(msg, "error", "px-16");
+        setIsSaving(false);
+      });
+  }
+
+  async function deleteUserBook(r) {
     setIsSaving(r);
-    deleteBook(api, r)
+    await deleteBook(api, r)
       .then(() => {
         makeToast("Book deleted from your library", "success", "px-8");
         queryClient.invalidateQueries({ queryKey: ["books"] });
@@ -108,6 +131,9 @@ export const BooksProvider = ({ children }) => {
         isSaving,
         setIsSaving,
         deleteUserBook,
+        updateUserBook,
+        globalFilter,
+        setGlobalFilter,
         sortAndFilterBooks,
         statusFilter,
         setStatusFilter,

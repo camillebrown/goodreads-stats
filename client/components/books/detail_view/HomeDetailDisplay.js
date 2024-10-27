@@ -4,23 +4,13 @@ import Link from "next/link";
 
 import BookRating from "@components/shared/BookRating";
 import BookStatus from "@components/shared/BookStatus";
-import { useBooks } from "@hooks/useBooks";
 import { generateImageLink } from "@lib/search_functions";
 
-export default function HomeDetailDisplay() {
-  const { consolidatedBooks, statusFilter } = useBooks();
-  
-  if (!consolidatedBooks?.length)
-    return (
-      <div className="my-3">
-        No {statusFilter ? statusFilter : "saved"} books yet.
-      </div>
-    );
-
+export default function HomeDetailDisplay({ filteredBooks }) {
   return (
     <div className="mx-auto max-w-2xl lg:max-w-7xl">
       <div className="mt-2 divide-y">
-        {consolidatedBooks.map((book) => {
+        {filteredBooks?.map((book) => {
           return (
             <div key={book._id} className="flex items-center gap-6 py-6">
               <img
@@ -35,7 +25,11 @@ export default function HomeDetailDisplay() {
                     <p className="text-baby-blue">{book?.author}</p>
                   </div>
                   <div className="flex flex-col items-end gap-0.5">
-                    <BookRating status={book?.status} rating={book?.rating} />
+                    <BookRating
+                      book={book}
+                      status={book?.status}
+                      rating={book?.rating}
+                    />
                     <div className="text-sm text-tertiary-gray">
                       {!book?.avg_rating ? (
                         "No Avg Rating"
