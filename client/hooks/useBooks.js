@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { ApiContext, queryClient, UserContext } from "pages/_app";
+import { ApiContext, UserContext } from "pages/_app";
 import { deleteBook, getUserBooks, updateBook } from "@lib/actions/books";
 import { bookSortOptions, tableTabs } from "@lib/constants/variables";
 import { sortDatesAsc, sortDatesDesc } from "@lib/date_formatters";
@@ -19,12 +19,12 @@ export const BooksProvider = ({ children }) => {
   const [statusFilter, setStatusFilter] = useState(tableTabs[0].type);
   const [selectedSort, setSelectedSort] = useState(bookSortOptions[0]);
 
+  // TODO: Test userBooksError
   const {
     data: userBooks,
-    isLoading: booksLoading,
-    error: booksError,
+    isLoading: userBooksLoading,
+    error: userBooksError,
     refetch: refetchBooks,
-    isRefetching: refetchingBooks,
   } = useQuery({
     queryKey: ["books", user?._id],
     queryFn: () => getUserBooks(api, user),
@@ -70,7 +70,7 @@ export const BooksProvider = ({ children }) => {
     await deleteBook(api, r)
       .then(() => {
         makeToast("Book deleted from your library", "success", "px-8");
-        queryClient.invalidateQueries({ queryKey: ["books"] });
+        refetchBooks();
         setIsSaving(false);
       })
       .catch((err) => {
@@ -117,21 +117,15 @@ export const BooksProvider = ({ children }) => {
     }
   }
 
-  // TODO: DELETE UNUSED PARAMS && PARSE OUT SEARCH RESULT INFO FOR BROWSE
   return (
     <BooksContext.Provider
       value={{
-        books,
-        setBooks,
-        booksLoading,
-        booksError,
+        deleteUserBook,
+        updateUserBook,
         refetchBooks,
-        refetchingBooks,
         consolidatedBooks,
         isSaving,
         setIsSaving,
-        deleteUserBook,
-        updateUserBook,
         globalFilter,
         setGlobalFilter,
         sortAndFilterBooks,
@@ -139,6 +133,9 @@ export const BooksProvider = ({ children }) => {
         setStatusFilter,
         selectedSort,
         setSelectedSort,
+        userBooks,
+        userBooksLoading,
+        userBooksError,
       }}
     >
       {children}

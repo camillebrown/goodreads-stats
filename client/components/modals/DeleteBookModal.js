@@ -6,10 +6,10 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+
 import { useBooks } from "@hooks/useBooks";
 
 export default function DeleteBookModal({ book, modalActive, toggleModal }) {
-  // TODO: MOVE deleteUserBook into THIS! Remove from hook!
   const { deleteUserBook } = useBooks();
 
   return (
