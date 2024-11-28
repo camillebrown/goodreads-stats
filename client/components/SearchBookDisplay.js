@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { Rating } from "react-simple-star-rating";
 
-import BookActionButton from "../shared/BookActionButton";
+import BookActionButton from "./shared/BookActionButton";
 
 export default function SearchBookDisplay({
   author,

@@ -1,8 +1,8 @@
-import SearchBookDisplay from "@browse/SearchBookDisplay";
+import SearchBookDisplay from "@components/SearchBookDisplay";
 import { useSearchResults } from "@hooks/useSearchResults";
 import { generateImageLink } from "@lib/search_functions";
 import Loading from "@shared/Loading";
-import BookGridLayout from "../layout/BookGridLayout";
+import BookGridLayout from "./layout/BookGridLayout";
 
 export default function SearchResults() {
   const { searchResults, fullSearchResults } = useSearchResults();
