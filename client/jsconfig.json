@@ -4,7 +4,7 @@
     "paths": {
       "@components/*": ["components/*"],
       "@books/*": ["components/books/*"],
-      "@browse/*": ["components/browse/*"],
+      "@browse/*": ["components/discover/*"],
       "@layout/*": ["components/layout/*"],
       "@shared/*": ["components/shared/*"],
       "@lib/*": ["lib/*"],

@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 
 import useAuth from "@hooks/useAuth";
 import { BooksProvider } from "@hooks/useBooks";
+import { DiscoveryBooksProvider } from "@hooks/useDiscoveryBooks";
 import { SearchResultsProvider } from "@hooks/useSearchResults";
 import Navbar from "@layout/Navbar";
 import { manrope, montserrat, raleway } from "../styles/fonts.js";
@@ -34,26 +35,28 @@ export default function App({ Component, pageProps }) {
       <ApiContext.Provider value={api}>
         <UserContext.Provider value={{ user, setUser }}>
           <BooksProvider>
-            <SearchResultsProvider>
-              <main
-                className={`${manrope.variable} ${montserrat.variable} ${raleway.variable}`}
-              >
-                <Toaster
-                  position="top-center"
-                  reverseOrder={false}
-                  gutter={8}
-                  toastOptions={{ duration: 5000 }}
-                />
-                {!isBaseRoute && <Navbar />}
-                {["/login", "/signup"].includes(pathname) ? (
-                  <Component {...pageProps} />
-                ) : (
-                  <RequireAuth>
+            <DiscoveryBooksProvider>
+              <SearchResultsProvider>
+                <main
+                  className={`${manrope.variable} ${montserrat.variable} ${raleway.variable}`}
+                >
+                  <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                    gutter={8}
+                    toastOptions={{ duration: 5000 }}
+                  />
+                  {!isBaseRoute && <Navbar />}
+                  {["/login", "/signup"].includes(pathname) ? (
                     <Component {...pageProps} />
-                  </RequireAuth>
-                )}
-              </main>
-            </SearchResultsProvider>
+                  ) : (
+                    <RequireAuth>
+                      <Component {...pageProps} />
+                    </RequireAuth>
+                  )}
+                </main>
+              </SearchResultsProvider>
+            </DiscoveryBooksProvider>
           </BooksProvider>
         </UserContext.Provider>
       </ApiContext.Provider>

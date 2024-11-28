@@ -15,12 +15,13 @@ export default function SideNav() {
   const router = useRouter();
   const pathname = usePathname();
 
+  console.log(pathname)
   const browse = [
     {
       name: "Discover",
-      onClickRoute: "/browse?content=discover",
+      onClickRoute: "/discover",
       icon: GlobeAltIcon,
-      current: ["discover", "search"].includes(router?.query?.content),
+      current: pathname === '/discover',
     },
     {
       name: "Top Books",
